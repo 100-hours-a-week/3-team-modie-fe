@@ -97,6 +97,7 @@
         "changelogTitle": "# CHANGELOG"
       }
     ],
+    "semantic-release-yarn",
     "@semantic-release/github",
     [
       "@semantic-release/git",
