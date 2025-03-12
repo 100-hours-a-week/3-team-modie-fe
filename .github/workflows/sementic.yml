@@ -11,13 +11,13 @@ on:
       - dev
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   semantic-release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
