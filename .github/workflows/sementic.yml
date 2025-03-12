@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org/" # or your preferred registry
+          registry-url: "https://github.com/100-hours-a-week/3-team-modie-fe"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
