@@ -1,10 +1,9 @@
-// src/components/User.tsx
 import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "./fetch-user";
+import { fetchUser } from "../services/fetchUser";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css"; // 스타일 import 꼭 필요!
+import "react-loading-skeleton/dist/skeleton.css";
 
-export default function User() {
+export default function TestUserComponent() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["user"],
     queryFn: fetchUser,
