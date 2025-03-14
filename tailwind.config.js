@@ -1,6 +1,7 @@
 module.export = {
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    color: {
+    colors: {
       "Primary-Dark-1-90E0EF": "#90E0EF",
       "Primary-Dark-2-00B4D8": "#00B4D8",
       "Primary-Dark-3-0096C7": "#0096C7",
@@ -19,7 +20,7 @@ module.export = {
       "Gray-EE": "#eeeeee",
       "Gray-F5": "#f5f5f5",
       "Gray-FA": "#fafafa",
-      Whtie: "#ffffff",
+      White: "#ffffff",
       Black: "#000000",
       "Active-Blue-00AAD2": "#00aad2",
       "Active-Red-E63312": "#e63312",
