@@ -1,12 +1,18 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import TestMain from "./main/page/testMain";
+import Main from "./main/page/Main";
+import MeetDetail from "./meetDetail/page/MeetDetail";
+import MeetCreate from "./meetCreate(update)/page/MeetCreate";
 
 export default function Routers() {
   const router = createBrowserRouter([
     {
       path: "/",
       //   element: <Layout />,
-      children: [{ path: "/", element: <TestMain /> }],
+      children: [
+        { path: "/", element: <Main /> },
+        { path: "/:meetId", element: <MeetDetail /> },
+        { path: "/create", element: <MeetCreate /> },
+      ],
     },
     {
       path: "*",
