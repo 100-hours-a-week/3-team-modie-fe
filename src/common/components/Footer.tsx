@@ -1,6 +1,11 @@
 import SubmitBtn from "./SubmitBtn";
 import ToastMsg from "./ToastMsg";
 
+/**
+ * 전역적으로 사용되는 푸터입니다.
+ * @author 희진
+ */
+
 export default function Footer() {
   return (
     <>

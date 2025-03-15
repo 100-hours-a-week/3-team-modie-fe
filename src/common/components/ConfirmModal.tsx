@@ -2,12 +2,17 @@ import { useRef, useEffect } from "react";
 
 interface ConfirmModalProps {
   title: string;
-  description: React.ReactNode;
+  description?: React.ReactNode;
   confirmText?: string;
   cancelText?: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
+
+/**
+ * 더블체크용 모달입니다.
+ * @author 희진
+ */
 
 export default function ConfirmModal({
   title,
@@ -33,7 +38,7 @@ export default function ConfirmModal({
   }, [onCancel]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+    <div className="fixed inset-0 flex items-center justify-center z-100 bg-black/40">
       <div
         ref={modalRef}
         className="flex flex-col bg-white rounded-[12px] shadow-md py-[2rem] px-[1.6rem] w-[320px] text-left gap-[0.8rem]"

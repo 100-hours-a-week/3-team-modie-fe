@@ -1,3 +1,8 @@
+/**
+ * 모임 데이터의 타입을 정의합니다.
+ * @author 희진
+ */
+
 export interface meetType {
   success: boolean;
   data: {

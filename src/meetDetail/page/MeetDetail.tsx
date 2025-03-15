@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useMeetStore } from "../store/useMeetStore";
+import { useMeetStore } from "../hooks/useMeetStore";
 import Header from "../../common/components/Header";
 import Footer from "../../common/components/Footer";
 
@@ -10,7 +10,7 @@ export default function MeetDetail() {
 
   useEffect(() => {
     if (meetId) {
-      fetchMeet(Number(meetId)); // API 호출하여 상태 업데이트
+      fetchMeet(Number(meetId));
     }
   }, [meetId, fetchMeet]);
 

@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Main from "./main/page/Main";
 import MeetDetail from "./meetDetail/page/MeetDetail";
-import MeetCreate from "./meetCreate(update)/page/meetCreate";
+import MeetCreate from "./meetCreate(update)/page/MeetCreate";
 
 export default function Routers() {
   const router = createBrowserRouter([

@@ -1,4 +1,4 @@
-import { useMeetStatusInfo } from "../../common/store/useMeetStatusInfo";
+import { useMeetStatusInfo } from "../../common/hooks/useMeetStatusInfo";
 import { meetType } from "../../common/types/meetType";
 import cn from "../../utils/cn";
 
@@ -10,6 +10,11 @@ interface HeaderDropboxProps {
   onPay: () => void;
   onHide: () => void;
 }
+
+/**
+ * 모임 상세 페이지의 헤더 우측 아이콘에 대한 드롭다운 컴포넌트입니다.
+ * @author 희진
+ */
 
 export default function HeaderDropbox({
   meetStatus,

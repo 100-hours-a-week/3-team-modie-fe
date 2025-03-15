@@ -1,5 +1,10 @@
 import { ToastMsgProps } from "../types/submitType";
 
+/**
+ * 전역적으로 사용되는 토스트 메세지 컴포넌트 입니다.
+ * @author 희진
+ */
+
 export default function ToastMsg({ active, description }: ToastMsgProps) {
   return (
     <>

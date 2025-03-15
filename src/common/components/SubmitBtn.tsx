@@ -1,5 +1,10 @@
 import { SubmitBtnProps } from "../types/submitType";
 
+/**
+ * 전역적으로 사용되는 버튼입니다.
+ * @author 희진
+ */
+
 export default function SubmitBtn({ active, description }: SubmitBtnProps) {
   return (
     <button

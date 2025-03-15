@@ -7,6 +7,12 @@ interface MeetState {
   fetchMeet: (meetId: number) => Promise<void>;
 }
 
+/**
+ * 모임 조회시에 api 요청을 보냅니다.
+ * 현재는 더미 데이터로~ (25.03.15)
+ * @author 희진
+ */
+
 export const useMeetStore = create<MeetState>((set) => ({
   meet: null,
   fetchMeet: async (meetId) => {
@@ -27,7 +33,7 @@ export const useMeetStore = create<MeetState>((set) => ({
         updatedAt: null,
         deletedAt: null,
         completedAt: null,
-        meetRule: "member",
+        meetRule: "owner",
         members: [
           { userId: 123, name: "제이드1", payed: true },
           { userId: 234, name: "제이드2", payed: true },
