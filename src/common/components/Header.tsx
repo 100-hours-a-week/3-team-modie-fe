@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import arrowIcon from "../../assets/arrow.svg";
 import logoIcon from "../../assets/logo.svg";
@@ -16,6 +17,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
   >(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const statusIcon = useMeetStatus(meetStatus);
+  const navigate = useNavigate();
 
   // ✅ ConfirmModal 텍스트 분리
   // ✅ getConfirmModalContent 함수 수정
@@ -160,12 +162,16 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
         <div className="flex items-center gap-2">
           {isMainPage ? (
             <>
-              <img src={logoIcon} alt="logo" className="w-8 h-8" />
+              <img
+                src={logoIcon}
+                alt="logo"
+                className="w-[6.4rem] h-auto ml-4"
+              />
               <div className="text-[2rem] font-bold">{title}</div>
             </>
           ) : (
             <>
-              <img src={arrowIcon} alt="arrow" />
+              <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} />
               <div className="text-[2rem] font-bold">{title}</div>
             </>
           )}
