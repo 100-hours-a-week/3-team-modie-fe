@@ -19,9 +19,5 @@ export default function TestUserComponent() {
 
   if (error) return <div>Error!</div>;
 
-  return (
-    <div className="text-Black display font-primary">
-      User name: {data?.name}
-    </div>
-  );
+  return <div className="text-Black display">User name: {data?.name}</div>;
 }
