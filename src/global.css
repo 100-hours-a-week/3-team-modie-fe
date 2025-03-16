@@ -24,13 +24,16 @@
   --color-black: #000000;
   --color-activeBlue: #00aad2;
   --color-activeRed: #e63312;
-  --text-xs: 1.2rem;
-  --text-sm: 1.4rem;
-  --text-base: 1.6rem;
-  --text-lg: 1.8rem;
-  --text-xl: 2rem;
-  --text-2xl: 2.4rem;
-  --text-3xl: 3rem;
+  --text-Headline1: 3.2rem;
+  --text-Headline3: 2.8rem;
+  --text-Headline4: 2.4rem;
+  --text-Title: 2rem;
+  --text-Title2: 1.8rem;
+  --text-Body1: 1.6rem;
+  --text-Body2: 1.4rem;
+  --text-Body3: 1.2rem;
+  --text-Caption1: 1.2rem;
+  --text-Caption2: 1rem;
 }
 
 @layer base {
