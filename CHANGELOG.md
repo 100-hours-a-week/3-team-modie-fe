@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.1.0 (2025-03-16)
+
+* Merge pull request #2 from 100-hours-a-week/deploy/docker ([d6872d3](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d6872d3)), closes [#2](https://github.com/100-hours-a-week/3-team-modie-fe/issues/2)
+* feat: Dev 서버용 Dockerfile 및 .dockerignore 추가 ([e4a1b2f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e4a1b2f))
+* chore: api 설정 파일 추가 ([251c397](https://github.com/100-hours-a-week/3-team-modie-fe/commit/251c397))
+* chore: react-loading-skeleton 라이브러리 설치 ([d896689](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d896689))
+* chore: 폰트 설정 ([52be3c6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/52be3c6))
+* chore: 폴더 구조 세팅 ([f0cc4c8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f0cc4c8))
+
 ## 1.0.0 (2025-03-12)
 
 * feat: CI에서는 commitlint 검사 제외 ([39313c8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/39313c8))
