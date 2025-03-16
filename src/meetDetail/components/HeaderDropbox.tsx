@@ -28,6 +28,19 @@ export default function HeaderDropbox({
 
   if (!status) return null;
 
+  const renderButton = (
+    text: string,
+    onClick: () => void,
+    className?: string
+  ) => (
+    <button
+      className={cn("py-3 w-full text-center", className)}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
+
   return (
     <div
       className={cn(
@@ -37,34 +50,23 @@ export default function HeaderDropbox({
     >
       {status.isOwner && status.isBeforeMeet && (
         <>
-          <div className="py-3" onClick={onUpdate}>
-            모임 수정하기
-          </div>
-          <div
-            className="py-3 text-activeRed border-t-1 border-grayBd"
-            onClick={onDelete}
-          >
-            모임 삭제하기
-          </div>
+          {renderButton("모임 수정하기", onUpdate)}
+          {renderButton(
+            "모임 삭제하기",
+            onDelete,
+            "text-activeRed border-t-1 border-grayBd"
+          )}
         </>
       )}
 
       {status.isOwner && !status.isBeforeMeet && !status.isEnded && (
         <>
-          <div className="py-3" onClick={onPay}>
-            모임 정산하기
-          </div>
-          <div className="py-3 border-t-1 border-grayBd" onClick={onEnd}>
-            모임 종료하기
-          </div>
+          {renderButton("모임 정산하기", onPay)}
+          {renderButton("모임 종료하기", onEnd, "border-t-1 border-grayBd")}
         </>
       )}
 
-      {status.isEnded && (
-        <div className="py-3" onClick={onHide}>
-          모임 숨기기
-        </div>
-      )}
+      {status.isEnded && renderButton("모임 숨기기", onHide)}
     </div>
   );
 }
