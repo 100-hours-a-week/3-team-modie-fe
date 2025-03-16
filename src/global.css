@@ -24,6 +24,13 @@
   --color-black: #000000;
   --color-activeBlue: #00aad2;
   --color-activeRed: #e63312;
+  --text-xs: 1.2rem;
+  --text-sm: 1.4rem;
+  --text-base: 1.6rem;
+  --text-lg: 1.8rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.4rem;
+  --text-3xl: 3rem;
 }
 
 @layer base {

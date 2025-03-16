@@ -32,7 +32,7 @@ export default function HeaderDropbox({
     <div
       className={cn(
         "absolute right-4 -top-4 bg-white shadow-md rounded-[6px] border-1 border-grayBd",
-        "z-50 text-[1.4rem] w-[10.2rem] cursor-pointer text-center"
+        "z-50 text-sm w-[10.2rem] cursor-pointer text-center"
       )}
     >
       {status.isOwner && status.isBeforeMeet && (

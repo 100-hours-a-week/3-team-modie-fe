@@ -64,12 +64,12 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
                 alt="logo"
                 className="w-[6.4rem] h-auto ml-4"
               />
-              <div className="text-[2rem] font-bold">{title}</div>
+              <div className="text-xl font-bold">{title}</div>
             </>
           ) : (
             <>
               <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} />
-              <div className="text-[2rem] font-bold">{title}</div>
+              <div className="text-xl font-bold">{title}</div>
             </>
           )}
         </div>
