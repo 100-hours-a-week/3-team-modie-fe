@@ -1,6 +1,7 @@
 // import TestUserComponent from "../components/TestUserComponent";
 import Header from "../../common/components/Header";
-import Footer from "../../common/components/Footer";
+import ToastMsg from "../../common/components/ToastMsg";
+import SubmitBtn from "../../common/components/SubmitBtn";
 
 export default function Main() {
   return (
@@ -8,7 +9,14 @@ export default function Main() {
       {/* tanstack-query 테스트용도
       <TestUserComponent /> */}
       <Header isMainPage />
-      <Footer />
+
+      <div className="flex justify-center mt-auto mb-29">
+        <ToastMsg active={true} description="토스트 메세지 컴포넌트" />
+      </div>
+
+      <div className="fixed bottom-0 w-full flex justify-center pb-6">
+        <SubmitBtn active={true} description="다음" />
+      </div>
     </div>
   );
 }
