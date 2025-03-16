@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrowIcon from "../../assets/arrow.svg";
 import logoIcon from "../../assets/logo.svg";
@@ -8,7 +7,7 @@ import { useMeetStatus } from "../hooks/useMeetStatus";
 import HeaderDropbox from "../../meetDetail/components/HeaderDropbox";
 import ConfirmModal from "./ConfirmModal";
 import { useHeaderConfirmModal } from "../hooks/useHeaderContirmModal";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import { useHeaderDropbox } from "../../meetDetail/hooks/useHeaderDropbox";
 import dayjs from "dayjs";
 
 /**
@@ -19,8 +18,6 @@ import dayjs from "dayjs";
 export default function Header({ title, meetStatus, isMainPage }: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const {
     showConfirmModal,
@@ -30,24 +27,22 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
     getConfirmModalContent,
   } = useHeaderConfirmModal(meetStatus);
 
-  useOutsideClick(
-    dropdownRef,
-    () => {
-      // 모달이 열려있으면 드롭다운 닫힘 로직 막기
-      if (showConfirmModal) return;
-      setShowDropdown(false);
-    },
-    showDropdown
-  );
+  const { showDropdown, dropdownRef, toggleDropdown, closeDropdown } =
+    useHeaderDropbox(
+      Boolean(meetStatus && meetStatus.meetRule === "guest"),
+      showConfirmModal
+    );
 
   const handleStatusIconClick = () => {
     if (!meetStatus) return;
+
     const isOwner = meetStatus.meetRule === "owner";
     const isBeforeMeet = dayjs().isBefore(dayjs(meetStatus.meetDt));
+
     if (!isOwner && isBeforeMeet) {
       openConfirmModal("exit");
     } else {
-      setShowDropdown((prev) => !prev);
+      toggleDropdown();
     }
   };
 
@@ -74,7 +69,13 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
           )}
         </div>
 
-        <div className="cursor-pointer" onClick={handleStatusIconClick}>
+        <div
+          className="cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation(); // 버블링 방지
+            handleStatusIconClick();
+          }}
+        >
           {isMainPage ? <img src={settingIcon} alt="setting" /> : statusIcon}
         </div>
 
@@ -101,7 +102,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
           onConfirm={handleConfirm}
           onCancel={() => {
             closeConfirmModal();
-            setShowDropdown(false); // 모달 닫을 때 드롭다운도 닫기
+            closeDropdown(); // 모달 닫을 때 드롭다운도 닫기
           }}
         />
       )}

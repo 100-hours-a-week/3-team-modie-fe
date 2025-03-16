@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
 /**
- * 모달 외부 클릭시 모달을 닫습니다.
+ * 외부 클릭시 요소를 닫습니다.
  * @author 희진
  */
 
 export const useOutsideClick = (
-  ref: React.RefObject<HTMLElement>,
+  ref: React.RefObject<HTMLElement | null>,
   callback: () => void,
   active = true
 ) => {
@@ -17,10 +17,10 @@ export const useOutsideClick = (
       }
     };
     if (active) {
-      document.addEventListener("mousedown", handleClick);
+      document.addEventListener("click", handleClick);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("click", handleClick);
     };
   }, [ref, callback, active]);
 };
