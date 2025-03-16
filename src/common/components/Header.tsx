@@ -79,7 +79,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
           {isMainPage ? <img src={settingIcon} alt="setting" /> : statusIcon}
         </div>
 
-        {showDropdown && meetStatus?.meetRule !== "guest" && (
+        {showDropdown && meetStatus?.meetRule !== "guest" && meetStatus && (
           <div ref={dropdownRef} className="absolute right-0 top-full">
             <HeaderDropbox
               meetStatus={meetStatus}
