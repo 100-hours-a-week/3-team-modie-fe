@@ -26,14 +26,14 @@ export default function MeetDetail() {
     <div className="flex flex-col min-h-screen">
       <Header title={meet.meetIntro} meetStatus={meet} />
       <main className="flex-1 flex flex-col items-center p-4">
-        <h2 className="text-xl font-bold">{meet.meetIntro}</h2>
+        <h2 className="text-Title font-bold">{meet.meetIntro}</h2>
         <p className="text-gray-600">{meet.meetType}</p>
         <p className="text-gray-500">{meet.address}</p>
         <p className="text-gray-500">{meet.addressDetail}</p>
         <p className="text-gray-700">
           총 비용: {meet.totalCost.toLocaleString()}원
         </p>
-        <h3 className="text-lg font-semibold mt-4">멤버</h3>
+        <h3 className="text-Title2 font-semibold mt-4">멤버</h3>
         <ul className="list-disc">
           {meet.members.map((member) => (
             <li key={member.userId} className="text-gray-700">

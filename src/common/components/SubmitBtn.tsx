@@ -13,7 +13,7 @@ export default function SubmitBtn({ active, description }: SubmitBtnProps) {
       } rounded-md`}
     >
       <div
-        className={`text-center text-sm ${active ? "font-bold" : "font-normal"} text-white`}
+        className={`text-center text-Body2 ${active ? "font-bold" : "font-normal"} text-white`}
       >
         {description}
       </div>
