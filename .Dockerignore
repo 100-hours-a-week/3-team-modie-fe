@@ -1,0 +1,16 @@
+node_modules
+dist
+dev-dist
+.git
+.dockerignore
+Dockerfile
+.env
+.yarn
+.yarnrc.yml
+.vscode
+.github
+.husky
+.cache
+.idea
+logs
+*.log
