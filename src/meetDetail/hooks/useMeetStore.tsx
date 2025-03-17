@@ -29,6 +29,7 @@ export const useMeetStore = create<MeetState>((set) => ({
         address: "제주특별자치도 제주시 월성로 4길 19",
         addressDetail: "노블레스호텔 정문",
         totalCost: 10000,
+        memberLimit: 3,
         createdAt: "2025-03-10T12:00:00",
         updatedAt: null,
         deletedAt: null,
