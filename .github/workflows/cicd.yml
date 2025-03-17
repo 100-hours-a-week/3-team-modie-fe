@@ -3,7 +3,7 @@ name: CI/CD Pipeline for ECR and EC2
 on:
   push:
     branches:
-      - dev
+      - deploy/docker
 
 jobs:
   build-and-deploy:
@@ -33,7 +33,12 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         run: |
           COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
-          docker build --cache-from=type=registry,ref=$ECR_REGISTRY/$ECR_REPOSITORY:latest -t $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH .
+          # 최신 이미지 캐시 활용 및 latest 태그 추가
+          docker build --cache-from=type=registry,ref=$ECR_REGISTRY/$ECR_REPOSITORY:latest \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+
+          # 이미지 Push
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
