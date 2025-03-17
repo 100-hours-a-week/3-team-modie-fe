@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## <small>1.3.1 (2025-03-17)</small>
+
+* Merge pull request #6 from 100-hours-a-week/deploy/docker ([b433472](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b433472)), closes [#6](https://github.com/100-hours-a-week/3-team-modie-fe/issues/6)
+* fix: add aws region ([2916ccc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2916ccc))
+* fix: AWS ECR 로그인 코드 수정 ([15c56c9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/15c56c9))
+* fix: Ensure 'latest' tag is properly added and pushed to ECR ([71fed68](https://github.com/100-hours-a-week/3-team-modie-fe/commit/71fed68))
+* fix: 블루 그린 변수 수정 ([698e928](https://github.com/100-hours-a-week/3-team-modie-fe/commit/698e928))
+* fix: 이미지 주소 오타 수정 ([2294ccd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2294ccd))
+* fix: 타겟 브랜치 dev로 변경 ([7c5728f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7c5728f))
+* fix: 포트 수정 ([b1e5349](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b1e5349))
+
 ## 1.3.0 (2025-03-17)
 
 * feat: Add CI/CD pipeline for ECR and EC2 deployment ([d83cf8b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d83cf8b))
