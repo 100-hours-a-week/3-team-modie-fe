@@ -3,7 +3,7 @@ name: CI/CD Pipeline for ECR and EC2
 on:
   push:
     branches:
-      - deploy/docker
+      - dev
 
 jobs:
   build-and-deploy:
