@@ -6,6 +6,7 @@ import MeetChip from "../components/MeetChip.tsx";
 import ApiResponse from "../types/ApiResponse.tsx";
 import { useEffect, useState } from "react";
 import Meet from "../types/Meet.tsx";
+import CreateButton from "../../common/components/CreateButton.tsx";
 // import {useQuery} from "@tanstack/react-query";
 
 export default function Main() {
@@ -163,6 +164,7 @@ export default function Main() {
           />
         ))}
       </div>
+      <CreateButton />
     </div>
   );
 }
