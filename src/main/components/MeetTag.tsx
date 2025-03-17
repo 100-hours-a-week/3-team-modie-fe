@@ -1,5 +1,5 @@
 interface MeetTagProps {
-  name?: string; // 선택적 prop으로 정의 ('?'를 사용)
+  name?: string;
 }
 
 export default function MeetTag({ name }: MeetTagProps) {
