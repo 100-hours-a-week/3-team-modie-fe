@@ -10,7 +10,7 @@ export default function Main() {
       <TestUserComponent /> */}
       <Header isMainPage />
 
-      <div className="flex justify-center mt-auto mb-29">
+      <div className="fixed bottom-29 w-full flex justify-center ">
         <ToastMsg active={true} description="토스트 메세지 컴포넌트" />
       </div>
 
