@@ -1,15 +1,35 @@
+import { useNavigate } from "react-router-dom";
 import locationIcon from "../../assets/location.svg";
 import clockIcon from "../../assets/clock.svg";
 import memeberIcon from "../../assets/member.svg";
 import payedIcon from "../../assets/payed.svg";
 import MeetTag from "./MeetTag.tsx";
-import { useNavigate } from "react-router-dom";
 
 interface MeetCardProps {
   meetKey: number;
+  meetIntro: string;
+  type: string;
+  meetDt: string;
+  address: string;
+  addressDetail: string;
+  cost: boolean;
+  memberCount: number;
+  memberLimit: number;
+  ownerName: string;
 }
 
-export default function MeetCard({ meetKey }: MeetCardProps) {
+export default function MeetCard({
+  meetKey,
+  meetIntro,
+  type,
+  meetDt,
+  address,
+  addressDetail,
+  cost,
+  memberCount,
+  memberLimit,
+  ownerName,
+}: MeetCardProps) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -18,25 +38,40 @@ export default function MeetCard({ meetKey }: MeetCardProps) {
     }
   };
 
+  // 날짜 포맷팅
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear().toString().slice(2);
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${year}.${month}.${day} (${dayOfWeek}) ${hours}:${minutes}`;
+  };
+
   return (
     <div
+      className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-[#BDBDBD] bg-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
       onClick={handleCardClick}
-      className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-[#BDBDBD] bg-white shadow-lg"
     >
-      <div className="flex w-full h-fit  items-center justify-between">
+      <div className="flex w-full h-fit items-center justify-between">
         <div className="flex h-fit gap-2">
-          <MeetTag name="택시팟" />
+          <MeetTag name={type} />
           <MeetTag name="모집중" />
         </div>
-        <img
-          src={payedIcon}
-          className="w-[2.4rem] h-[2.4rem] justify-center align-middle gap-[1rem]"
-          alt="정산 여부 아이콘"
-        />
+        {cost && (
+          <img
+            src={payedIcon}
+            className="w-[2.4rem] h-[2.4rem] justify-center align-middle gap-[1rem]"
+            alt="정산 여부 아이콘"
+          />
+        )}
       </div>
 
       <div className="text-gray42 text-Body1 font-bold truncate w-full text--">
-        방장의 코멘트 한줄 한줄
+        {meetIntro}
       </div>
 
       <div className="flex h-fit items-center gap-2 self-stretch">
@@ -46,7 +81,7 @@ export default function MeetCard({ meetKey }: MeetCardProps) {
           alt="위치 아이콘"
         />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          문 앞 (제주 제주시 월성로 4길)
+          {addressDetail} ({address})
         </div>
       </div>
 
@@ -57,7 +92,7 @@ export default function MeetCard({ meetKey }: MeetCardProps) {
           alt="시간아이콘"
         />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          23.07.07 (일) 13:00
+          {formatDate(meetDt)}
         </div>
       </div>
 
@@ -68,15 +103,14 @@ export default function MeetCard({ meetKey }: MeetCardProps) {
           alt="맴버 아이콘"
         />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          2/3 명
+          {memberCount}/{memberLimit} 명
         </div>
       </div>
 
       <hr />
 
       <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-        {" "}
-        김박박즐
+        {ownerName}
       </div>
     </div>
   );
