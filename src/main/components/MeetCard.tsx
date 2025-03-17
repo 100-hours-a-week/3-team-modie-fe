@@ -66,7 +66,7 @@ export default function MeetCard({
 
   return (
     <div
-      className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-[#BDBDBD] bg-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
+      className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-grayBd bg-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
       onClick={handleCardClick}
     >
       <div className="flex w-full h-fit items-center justify-between">
