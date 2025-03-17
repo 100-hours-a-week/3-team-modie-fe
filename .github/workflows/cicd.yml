@@ -75,14 +75,14 @@ jobs:
             
             # 기존 컨테이너 확인 및 포트 설정
             PORT=4173
-            OTHER_PORT=4175
+            OTHER_PORT=4174
             if docker ps | grep -q "0.0.0.0:4173"; then
-              PORT=4173
-              OTHER_PORT=4174
-              BG_MODE=blue
-            else
               PORT=4174
               OTHER_PORT=4173
+              BG_MODE=blue
+            else
+              PORT=4173
+              OTHER_PORT=4174
               BG_MODE=green
             fi
             
