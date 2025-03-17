@@ -51,6 +51,19 @@ export default function MeetCard({
     return `${year}.${month}.${day} (${dayOfWeek}) ${hours}:${minutes}`;
   };
 
+  // 모집 중 태그 표시 여부 확인
+  const isRecruitingActive = () => {
+    // 인원이 가득 찼는지 확인
+    const isFull = memberCount >= memberLimit;
+
+    // 모임 날짜가 지났는지 확인
+    const meetDate = new Date(meetDt);
+    const currentDate = new Date();
+    const isPast = meetDate < currentDate;
+
+    return !isFull && !isPast;
+  };
+
   return (
     <div
       className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-[#BDBDBD] bg-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
@@ -59,7 +72,7 @@ export default function MeetCard({
       <div className="flex w-full h-fit items-center justify-between">
         <div className="flex h-fit gap-2">
           <MeetTag name={type} />
-          <MeetTag name="모집중" />
+          {isRecruitingActive() && <MeetTag name="모집중" />}
         </div>
         {cost && (
           <img
