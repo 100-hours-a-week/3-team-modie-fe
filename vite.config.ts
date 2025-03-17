@@ -5,6 +5,16 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  preview: {
+    host: process.env.VITE_HOST || "0.0.0.0", // 컨테이너 외부 접속 허용
+    port: 4173, // Vite 프리뷰 서버 포트
+    strictPort: true, // 포트 충돌 시 에러 발생하도록 설정
+    allowedHosts: [
+      process.env.VITE_HOST || "dev.modie.site",
+      "localhost",
+      "0.0.0.0",
+    ], // 동적으로 환경 변수 적용
+  },
   plugins: [
     react(),
     VitePWA({
