@@ -54,7 +54,9 @@ export default function MeetDetail() {
     <div className="flex flex-col min-h-screen">
       <Header title={meet.meetType} meetStatus={meet} />
 
-      <main className="flex-1 flex flex-col items-center px-5 py-6 pt-[14px] ">
+      <main className="flex-1 flex flex-col items-center px-5 py-6 pt-[10px]">
+        <hr />
+
         <div className="text-left w-full pt-6 pb-5">
           <div className="text-Body1 font-bold break-words w-full max-w-full leading-snug">
             {meet.meetIntro}
@@ -154,7 +156,15 @@ export default function MeetDetail() {
                   {member.name}
                 </span>
 
-                {meet.meetRule === "owner" && <Toggle initial={member.payed} />}
+                {meet.meetRule === "owner" && (
+                  <Toggle
+                    initial={member.payed}
+                    onChange={(checked) => {
+                      // 서버로 PATCH 등 전송
+                      console.log("정산 상태 변경됨:", checked);
+                    }}
+                  />
+                )}
 
                 {meet.meetRule === "member" && member.payed && (
                   <span className="text-Body2 font-semibold text-primary">
