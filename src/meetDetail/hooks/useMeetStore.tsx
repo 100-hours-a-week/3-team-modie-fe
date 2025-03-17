@@ -23,8 +23,7 @@ export const useMeetStore = create<MeetState>((set) => ({
       const dummyData: meetType["data"] = {
         meetId,
         ownerName: "허지노",
-        meetIntro:
-          "제주 해안 드라이브 같이 갈 사람 구해요! 오션뷰 카페도 들릴 예정이에요.",
+        meetIntro: "제주 해안 드라이브 같이 갈 사람 구해요! 맛집도 가용",
         meetType: "여행",
         meetDt: "2025-03-16T12:00:00",
         address: "제주특별자치도 제주시 월성로 4길 19",
