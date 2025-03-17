@@ -50,7 +50,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
 
   return (
     <>
-      <header className="relative flex justify-between items-center pr-4 py-3 border-b">
+      <header className="relative flex justify-between items-center pr-4 py-3">
         <div className="flex items-center gap-2">
           {isMainPage ? (
             <>

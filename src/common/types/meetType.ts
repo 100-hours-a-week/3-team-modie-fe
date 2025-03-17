@@ -14,6 +14,7 @@ export interface meetType {
     address: string;
     addressDetail: string;
     totalCost: number;
+    memberLimit: number;
     createdAt: string;
     updatedAt: string | null;
     deletedAt: string | null;
