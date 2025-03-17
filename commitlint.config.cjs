@@ -26,6 +26,7 @@ module.exports = {
         "style",
         "test",
         "deploy",
+        "design",
       ],
     ],
     "type-case": [2, "always", "lower-case"],
