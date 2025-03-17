@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.3.0 (2025-03-17)
+
+* feat: Add CI/CD pipeline for ECR and EC2 deployment ([d83cf8b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d83cf8b))
+* feat: COMMIT_HASH 오류 대비 예외처리 ([6d8b54e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6d8b54e))
+* feat: Configure Vite preview server in Dockerfile ([24b8728](https://github.com/100-hours-a-week/3-team-modie-fe/commit/24b8728))
+* feat: Configure Vite preview server settings ([d78f737](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d78f737))
+* feat: dockerfile, cicd.yml 설정 ([0c32539](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0c32539))
+
 ## 1.2.0 (2025-03-17)
 
 * feat: Header UI 구현 ([7dfd6e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7dfd6e6))
