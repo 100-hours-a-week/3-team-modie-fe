@@ -3,10 +3,26 @@ import clockIcon from "../../assets/clock.svg";
 import memeberIcon from "../../assets/member.svg";
 import payedIcon from "../../assets/payed.svg";
 import MeetTag from "./MeetTag.tsx";
+import { useNavigate } from "react-router-dom";
 
-export default function MeetCard() {
+interface MeetCardProps {
+  meetKey: number;
+}
+
+export default function MeetCard({ meetKey }: MeetCardProps) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (meetKey) {
+      navigate(`/${meetKey}`);
+    }
+  };
+
   return (
-    <div className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-[#BDBDBD] bg-white shadow-lg">
+    <div
+      onClick={handleCardClick}
+      className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-[#BDBDBD] bg-white shadow-lg"
+    >
       <div className="flex w-full h-fit  items-center justify-between">
         <div className="flex h-fit gap-2">
           <MeetTag name="택시팟" />
