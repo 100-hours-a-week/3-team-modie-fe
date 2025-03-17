@@ -67,7 +67,7 @@ jobs:
             echo "🚀 사용할 Docker 태그: $COMMIT_HASH"   
 
             # aws 로그인
-            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY/$ECR_REPOSITORY
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY/$ECR_REPOSITORY
             docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH
 
             # Nginx 설정 파일 경로
