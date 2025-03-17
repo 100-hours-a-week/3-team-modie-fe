@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 1.2.0 (2025-03-17)
+
+* feat: Header UI 구현 ([7dfd6e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7dfd6e6))
+* feat: Header 컴포넌트 내부 커스텀 훅 로직 분리 ([df58463](https://github.com/100-hours-a-week/3-team-modie-fe/commit/df58463))
+* feat: 로고 사이즈 조정 ([decde5d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/decde5d))
+* feat: 컴펌 모달 타입 상수로 정의, 유틸 정의 ([66df024](https://github.com/100-hours-a-week/3-team-modie-fe/commit/66df024))
+* feat: 푸터 컴포넌트 UI 구현 ([8467a2d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8467a2d))
+* feat: 헤더 등 공통 컴포넌트 UI 구현 ([b58aaff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b58aaff))
+* design: 토스트 메세지 fixed 처리 ([6f3abc0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6f3abc0))
+* Merge branch 'dev' into feature/header-footer-components ([ed3ba23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ed3ba23))
+* Merge branch 'dev' into feature/header-footer-components ([7c30cf8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7c30cf8))
+* refactor: HeaderDropbox 내부 버튼 함수 처리 ([c0a1020](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c0a1020))
+* refactor: 드롭다운 외부 클릭시 click으로 감지, 헤더용 커스텀 훅 분리 ([15d36aa](https://github.com/100-hours-a-week/3-team-modie-fe/commit/15d36aa))
+* refactor: 푸터 컴포넌트 제거 및 ToastMsg, SubmitBtn 재배치 ([56eedfc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/56eedfc))
+* fix: 폰트 크기 재설정 ([7e5f0b2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7e5f0b2))
+* style: 텍스트 스타일 정의 ([2da3b62](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2da3b62))
+* style: 텍스트 스타일 피그마 기반으로 재정의 ([4bcf583](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4bcf583))
+
 ## 1.1.0 (2025-03-16)
 
 * Merge pull request #2 from 100-hours-a-week/deploy/docker ([d6872d3](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d6872d3)), closes [#2](https://github.com/100-hours-a-week/3-team-modie-fe/issues/2)
