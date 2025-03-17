@@ -54,7 +54,7 @@ jobs:
               echo "❌ COMMIT_HASH가 설정되지 않았습니다. 최신 태그를 가져옵니다."
               
               # AWS ECR에서 최신 태그 가져오기
-              COMMIT_HASH=$(aws ecr describe-images --repository-name modie/modie-be \
+              COMMIT_HASH=$(aws ecr describe-images --repository-name modie/modie-fe \
                 --region ap-northeast-2 --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]' --output text)
       
               # 값이 없으면 오류 처리
