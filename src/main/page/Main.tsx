@@ -116,8 +116,6 @@ export default function Main() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* tanstack-query 테스트용도
-      <TestUserComponent /> */}
       <div className="sticky top-0 z-10 bg-white">
         <Header isMainPage />
 
@@ -136,7 +134,7 @@ export default function Main() {
         </div>
 
         {/* 칩 */}
-        <div className="flex px-[2rem] py-[1.2rem] gap-4 w-full h-fit">
+        <div className="flex flex-nowrap overflow-x-auto scrollbar-hide px-[2rem] py-[1.2rem] gap-4 w-full h-fit">
           {chipCategories.map((category) => (
             <MeetChip
               key={category}
