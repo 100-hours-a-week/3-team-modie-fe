@@ -136,7 +136,7 @@ export default function Main() {
         </div>
 
         {/* 칩 */}
-        <div className="flex px-[2rem] py-[1.2rem] gap-4 w-full h-fit justify-between">
+        <div className="flex px-[2rem] py-[1.2rem] gap-4 w-full h-fit">
           {chipCategories.map((category) => (
             <MeetChip
               key={category}
