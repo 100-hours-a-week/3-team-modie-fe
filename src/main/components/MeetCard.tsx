@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import locationIcon from "../../assets/location.svg";
 import clockIcon from "../../assets/clock.svg";
 import memeberIcon from "../../assets/member.svg";
@@ -6,7 +5,8 @@ import payedIcon from "../../assets/payed.svg";
 import MeetTag from "./MeetTag.tsx";
 import cn from "../../utils/cn.ts";
 import { meetItem } from "../types/meetItem.ts";
-import { formatDate } from "../../utils/formatDate.ts"; // meetItem 타입 import
+import { formatDate } from "../../utils/formatDate.ts";
+import { useMeetCard } from "../hooks/useMeetCardData.tsx"; // meetItem 타입 import
 
 export default function MeetCard({
   meetId,
@@ -20,27 +20,12 @@ export default function MeetCard({
   memberLimit,
   ownerName,
 }: meetItem) {
-  const navigate = useNavigate();
-
-  const handleCardClick = () => {
-    if (meetId) {
-      // meetKey → id
-      navigate(`/${meetId}`);
-    }
-  };
-
-  // 모집 중 태그 표시 여부 확인
-  const isRecruitingActive = () => {
-    // 인원이 가득 찼는지 확인
-    const isFull = memberCount >= memberLimit;
-
-    // 모임 날짜가 지났는지 확인
-    const meetDate = new Date(meetAt); // meetDt → meetAt
-    const currentDate = new Date();
-    const isPast = meetDate < currentDate;
-
-    return !isFull && !isPast;
-  };
+  const { handleCardClick, isRecruitingActive } = useMeetCard({
+    meetId,
+    meetAt,
+    memberCount,
+    memberLimit,
+  });
 
   return (
     <div
