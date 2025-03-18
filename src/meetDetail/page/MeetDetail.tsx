@@ -69,7 +69,15 @@ export default function MeetDetail() {
         <div className="flex justify-center w-full py-6 px-4">
           <button
             className="border-1 border-[#828282] w-full rounded-lg py-3 text-Body2"
-            onClick={() => navigate("/chat/:meetId")}
+            onClick={() =>
+              navigate("/chat/:meetId", {
+                state: {
+                  id: meet.meetId,
+                  type: meet.meetType,
+                  isEnd: meet.completedAt,
+                },
+              })
+            }
           >
             채팅방 입장하기
           </button>
@@ -182,7 +190,7 @@ export default function MeetDetail() {
       </div>
 
       {isSubmitVisible && (
-        <div className="fixed bottom-0 w-full flex justify-center pb-6">
+        <div className="fixed bottom-0 w-full px-7 flex justify-center pb-6">
           <SubmitBtn active={submitActive} description={submitDescription} />
         </div>
       )}
