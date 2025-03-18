@@ -9,7 +9,7 @@ import CategoryBox from "../components/CategoryBox";
 import { useMeetCreate1 } from "../hooks/useMeetCreate1";
 import ProgressBar from "../../common/components/ProgressBar";
 
-export default function MeetCreate() {
+export default function CreateMeetType() {
   const {
     intro,
     setIntro,
@@ -49,7 +49,7 @@ export default function MeetCreate() {
 
         {/* 모임 카테고리 */}
         <div className="mb-15">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-7 px-16">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-7 px-16 justify-items-center items-center">
             <CategoryBox
               icon={moveIcon}
               label="이동"
