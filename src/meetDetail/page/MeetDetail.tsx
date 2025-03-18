@@ -70,7 +70,7 @@ export default function MeetDetail() {
           <button
             className="border-1 border-[#828282] w-full rounded-lg py-3 text-Body2"
             onClick={() =>
-              navigate("/chat/:meetId", {
+              navigate(`/chat/${meet.meetId}`, {
                 state: {
                   id: meet.meetId,
                   type: meet.meetType,

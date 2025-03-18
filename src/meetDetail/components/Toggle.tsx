@@ -17,7 +17,7 @@ const Toggle = ({ initial = false, onChange, delay }: ToggleProps) => {
   return (
     <div
       className={`relative w-[59px] h-[17px] rounded-full cursor-pointer px-2 flex items-center transition-colors duration-300 ${
-        checked ? "bg-[#00BCD4]" : "bg-grayBd border-1 border-gray9e"
+        checked ? "bg-primaryDark2" : "bg-grayBd border-1 border-gray9e"
       }`}
       style={{
         boxShadow: "inset 0px 6px 8px 3px rgba(0, 0, 0, 0.1)",

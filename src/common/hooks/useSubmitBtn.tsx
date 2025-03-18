@@ -1,7 +1,7 @@
 import { meetType } from "../types/meetType";
 
 /**
- * 제출 버튼에 대한 상태 변환을 관리합니다.
+ * 제출 버튼에 대한 상태 변환을 관리합니다. (조건 매핑 방식)
  * @author 희진
  */
 
@@ -10,19 +10,34 @@ export const useSubmitButton = (meet: meetType["data"] | null) => {
   const isDeleted = meet?.deletedAt !== null;
   const isFull = meet?.members.length === meet?.memberLimit;
 
-  let active = true;
-  let description = meet?.meetRule === "guest" ? "모임 참여하기" : "다음";
+  const statusMap = {
+    completed: {
+      active: false,
+      description: "종료됨",
+    },
+    deleted: {
+      active: false,
+      description: "삭제됨",
+    },
+    full: {
+      active: false,
+      description: "인원 초과",
+    },
+    default: {
+      active: true,
+      description: meet?.meetRule === "guest" ? "모임 참여하기" : "다음",
+    },
+  };
 
-  if (isCompleted) {
-    active = false;
-    description = "종료됨";
-  } else if (isDeleted) {
-    active = false;
-    description = "삭제됨";
-  } else if (isFull) {
-    active = false;
-    description = "인원 초과";
-  }
+  const status = isCompleted
+    ? "completed"
+    : isDeleted
+      ? "deleted"
+      : isFull
+        ? "full"
+        : "default";
+
+  const { active, description } = statusMap[status];
 
   const isVisible = meet?.meetRule === "guest";
 
