@@ -5,7 +5,8 @@ import memeberIcon from "../../assets/member.svg";
 import payedIcon from "../../assets/payed.svg";
 import MeetTag from "./MeetTag.tsx";
 import cn from "../../utils/cn.ts";
-import { meetItem } from "../types/meetItem.ts"; // meetItem 타입 import
+import { meetItem } from "../types/meetItem.ts";
+import { formatDate } from "../../utils/formatDate.ts"; // meetItem 타입 import
 
 export default function MeetCard({
   meetId,
@@ -26,19 +27,6 @@ export default function MeetCard({
       // meetKey → id
       navigate(`/${meetId}`);
     }
-  };
-
-  // 날짜 포맷팅
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear().toString().slice(2);
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    return `${year}.${month}.${day} (${dayOfWeek}) ${hours}:${minutes}`;
   };
 
   // 모집 중 태그 표시 여부 확인
