@@ -34,7 +34,7 @@ export const useMeetStore = create<MeetState>((set) => ({
         updatedAt: "2025-03-10T12:00:01",
         deletedAt: null,
         completedAt: null,
-        meetRule: "owner",
+        meetRule: "guest",
         members: [
           {
             userId: 123,
