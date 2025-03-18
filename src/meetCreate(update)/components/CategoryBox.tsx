@@ -22,7 +22,7 @@ const CategoryBox = ({
     <button
       onClick={() => onClick(label)}
       className={cn(
-        "flex flex-col gap-2 justify-center items-center h-[96px] rounded-3xl border",
+        "min-w-[100px] w-[120px] h-[100px] flex flex-col gap-2 justify-center items-center  rounded-3xl border",
         "text-Body2 text-gray42 font-bold transition-all duration-200",
         isActive ? "border-3 border-primaryDark3" : "border-1 border-gray75"
       )}
