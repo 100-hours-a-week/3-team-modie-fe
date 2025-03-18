@@ -1,6 +1,6 @@
 import { meetItem } from "./meetItem.ts";
 
-export default interface ApiResponse {
+export default interface meetResponse {
   success: boolean;
   data: {
     page: number;

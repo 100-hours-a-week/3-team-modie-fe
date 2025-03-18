@@ -12,7 +12,7 @@ interface MeetCardHook {
   isRecruitingActive: () => boolean;
 }
 
-export const useMeetCard = ({
+export const useMeetCardData = ({
   meetId,
   meetAt,
   memberCount,
