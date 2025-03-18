@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMeetCreateValidation } from "./useMeetCreateValidation";
 import { useToast } from "../../common/hooks/useToastMsg";
@@ -9,6 +10,7 @@ import { useToast } from "../../common/hooks/useToastMsg";
  */
 
 export const useMeetCreate1 = () => {
+  const navigate = useNavigate();
   const [intro, setIntro] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [customType, setCustomType] = useState("");
@@ -37,7 +39,7 @@ export const useMeetCreate1 = () => {
       }
       return;
     }
-    console.log("다음 단계 진행!");
+    navigate("/createMeetPlace");
   };
 
   return {

@@ -6,7 +6,7 @@ import foodIcon from "../../assets/food.svg";
 import workoutIcon from "../../assets/workout.svg";
 import etcIcon from "../../assets/etc.svg";
 import CategoryBox from "../components/CategoryBox";
-import { useMeetCreate1 } from "../hooks/useMeetCreate1";
+import { useMeetCreate1 } from "../hooks/useCreateMeetType";
 import ProgressBar from "../../common/components/ProgressBar";
 
 export default function CreateMeetType() {
