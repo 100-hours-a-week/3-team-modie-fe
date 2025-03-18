@@ -62,7 +62,7 @@ export default function MeetCard({
       )}
       onClick={handleCardClick}
     >
-      <div className="flex w-full h-fit items-center justify-between">
+      <div className="flex w-full h-fit min-h-[2.4rem] items-center justify-between">
         <div className="flex h-fit gap-2">
           <MeetTag name={meetType} />
           {isRecruitingActive() && <MeetTag name="모집중" />}
