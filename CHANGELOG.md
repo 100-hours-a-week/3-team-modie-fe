@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 1.5.0 (2025-03-18)
+
+* feat: 20자 이상 모임명 ellipse 처리 ([8b0b46d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8b0b46d))
+* feat: navigate param 전달 ([8ff6ce8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ff6ce8))
+* feat: 날짜 변환 유틸 함수 구현 ([8cbe244](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8cbe244))
+* feat: 모임 상세 페이지 UI 개선 ([ac16821](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ac16821))
+* feat: 모임 상세 페이지 UI 구현 ([30c8eca](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30c8eca))
+* feat: 모임 상세 페이지 UI 구현 ([a4858cc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a4858cc))
+* feat: 토글 컴포넌트 UI 구현 및 디바운싱 적용 ([9a05d23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9a05d23))
+* feat: 토스트 메세지 커스텀 훅 추가 ([fbcb26b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/fbcb26b))
+* feat: 화면 하단 버튼 커스텀 훅 추가 ([7759545](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7759545))
+* Merge branch 'dev' into feature/meetDetail ([bc05ad6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bc05ad6))
+* Merge branch 'feature/meetDetailTemp' into feautre/meetDetail ([03a436b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/03a436b))
+* Merge branch 'feature/meetDetailTemp' into feautre/meetDetail ([410a30f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/410a30f))
+* fix: pr 코멘트 반영 ([654afde](https://github.com/100-hours-a-week/3-team-modie-fe/commit/654afde))
+* design: SubmitBtn width full 처리 ([435bd55](https://github.com/100-hours-a-week/3-team-modie-fe/commit/435bd55))
+* chore: 더미데이터 수정 ([27994f6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/27994f6))
+* refactor: 모임 상세 페이지 리팩토링 ([1203522](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1203522))
+* style: color 변수명 정리 ([f887b80](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f887b80))
+
 ## 1.4.0 (2025-03-18)
 
 * feat: ApiResponse 생성 및 응답형식 통일 ([06e1b23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/06e1b23))
