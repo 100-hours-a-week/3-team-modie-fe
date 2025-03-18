@@ -70,7 +70,7 @@ export default function ChatInput({
               disabled={isDisabled}
               rows={1}
               onFocus={onFocusInput}
-              className={`w-full resize-none outline-none bg-white min-h-[4rem] max-h-[16rem] overflow-y-auto pl-3 py-3 pr-6 rounded-md ${
+              className={`w-full resize-none outline-none bg-white min-h-[4rem] max-h-[16rem] overflow-y-auto pl-3 pt-3 pb-5 pr-6 rounded-md ${
                 isDisabled ? "text-gray-400 bg-gray-100 cursor-not-allowed" : ""
               }`}
               //   IOS 자동 zoom-in 방지
