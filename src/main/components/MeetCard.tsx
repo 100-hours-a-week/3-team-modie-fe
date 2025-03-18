@@ -4,37 +4,27 @@ import clockIcon from "../../assets/clock.svg";
 import memeberIcon from "../../assets/member.svg";
 import payedIcon from "../../assets/payed.svg";
 import MeetTag from "./MeetTag.tsx";
-
-interface MeetCardProps {
-  meetKey: number;
-  meetIntro: string;
-  type: string;
-  meetDt: string;
-  address: string;
-  addressDetail: string;
-  cost: boolean;
-  memberCount: number;
-  memberLimit: number;
-  ownerName: string;
-}
+import cn from "../../utils/cn.ts";
+import { meetItem } from "../types/meetItem.ts"; // meetItem 타입 import
 
 export default function MeetCard({
-  meetKey,
+  meetId,
   meetIntro,
-  type,
-  meetDt,
+  meetType,
+  meetAt,
   address,
   addressDetail,
   cost,
   memberCount,
   memberLimit,
   ownerName,
-}: MeetCardProps) {
+}: meetItem) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    if (meetKey) {
-      navigate(`/${meetKey}`);
+    if (meetId) {
+      // meetKey → id
+      navigate(`/${meetId}`);
     }
   };
 
@@ -57,7 +47,7 @@ export default function MeetCard({
     const isFull = memberCount >= memberLimit;
 
     // 모임 날짜가 지났는지 확인
-    const meetDate = new Date(meetDt);
+    const meetDate = new Date(meetAt); // meetDt → meetAt
     const currentDate = new Date();
     const isPast = meetDate < currentDate;
 
@@ -66,12 +56,15 @@ export default function MeetCard({
 
   return (
     <div
-      className="flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2 rounded-[1rem] border border-grayBd bg-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
+      className={cn(
+        "flex w-full p-4 px-[1rem] flex-col justify-center items-start gap-2",
+        "rounded-[1rem] border border-grayBd bg-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow"
+      )}
       onClick={handleCardClick}
     >
       <div className="flex w-full h-fit items-center justify-between">
         <div className="flex h-fit gap-2">
-          <MeetTag name={type} />
+          <MeetTag name={meetType} />
           {isRecruitingActive() && <MeetTag name="모집중" />}
         </div>
         {cost && (
@@ -84,7 +77,7 @@ export default function MeetCard({
       </div>
 
       <div className="text-gray42 text-Body1 font-bold truncate w-full text--">
-        {meetIntro}
+        {meetIntro} {/* meetIntro → intro */}
       </div>
 
       <div className="flex h-fit items-center gap-2 self-stretch">
@@ -105,7 +98,7 @@ export default function MeetCard({
           alt="시간아이콘"
         />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          {formatDate(meetDt)}
+          {formatDate(meetAt)} {/* meetDt → meetAt */}
         </div>
       </div>
 

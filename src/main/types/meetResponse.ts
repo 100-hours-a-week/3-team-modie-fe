@@ -1,4 +1,4 @@
-import Meet from "./Meet.tsx";
+import { meetItem } from "./meetItem.ts";
 
 export default interface ApiResponse {
   success: boolean;
@@ -6,6 +6,6 @@ export default interface ApiResponse {
     page: number;
     size: number;
     totalElements: number;
-    meets: Meet[];
+    meets: meetItem[];
   };
 }
