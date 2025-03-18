@@ -28,17 +28,26 @@ export const useMeetCreate1 = () => {
     if (label !== "기타") setCustomType("");
   };
 
+  const errorMessages: Record<string, string> = {
+    intro: "모임 소개글을 작성해주세요",
+    category: "유형을 선택해주세요",
+    customType: "모임 유형을 작성해주세요",
+  };
+
   const handleSubmit = () => {
-    if (!isValid) {
-      if (!intro.trim()) {
-        showToast("모임 소개글을 작성해주세요");
-      } else if (!selectedCategory) {
-        showToast("유형을 선택해주세요");
-      } else if (selectedCategory === "기타" && !customType.trim()) {
-        showToast("모임 유형을 작성해주세요");
-      }
+    const validationChecks: [boolean, keyof typeof errorMessages][] = [
+      [!intro.trim(), "intro"],
+      [!selectedCategory, "category"],
+      [selectedCategory === "기타" && !customType.trim(), "customType"],
+    ];
+
+    const invalid = validationChecks.find(([condition]) => condition);
+    if (invalid) {
+      const [, key] = invalid;
+      showToast(errorMessages[key]);
       return;
     }
+
     navigate("/createMeetPlace");
   };
 
