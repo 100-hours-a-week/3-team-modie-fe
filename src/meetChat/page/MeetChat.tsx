@@ -11,7 +11,7 @@ export default function MeetChat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { messages, fetchMessages } = useChatStore();
   const location = useLocation();
-  const { id, type } = location.state || {};
+  const { id, type, isEnd } = location.state || {};
 
   // 처음 렌더링 시 fetchMessages 호출
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function MeetChat() {
       </main>
 
       <ChatInput
-        isDisabled={false}
+        isDisabled={!!isEnd}
         onSend={(msg) => {
           // TODO: 채팅 보내는 api 연동
           console.log("보낸 메시지:", msg);
