@@ -4,24 +4,21 @@
  */
 
 export interface meetType {
-  success: boolean;
-  data: {
-    meetId: number;
-    ownerName: string;
-    meetIntro: string;
-    meetType: string;
-    meetDt: string;
-    address: string;
-    addressDetail: string;
-    totalCost: number;
-    memberLimit: number;
-    createdAt: string;
-    updatedAt: string | null;
-    deletedAt: string | null;
-    completedAt: string | null;
-    meetRule: string;
-    members: meetMembers[];
-  };
+  meetId: number;
+  ownerName: string;
+  meetIntro: string;
+  meetType: string;
+  meetAt: string;
+  address: string;
+  addressDetail: string;
+  totalCost: number;
+  memberLimit: number;
+  createdAt: string;
+  updatedAt: string | null;
+  deletedAt: string | null;
+  completedAt: string | null;
+  meetRule: string;
+  members: meetMembers[];
 }
 
 export interface meetMembers {

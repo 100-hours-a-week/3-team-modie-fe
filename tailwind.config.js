@@ -30,5 +30,5 @@ module.exports = {
       pretendard: ["Pretendard", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

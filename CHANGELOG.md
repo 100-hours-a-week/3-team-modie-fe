@@ -1,5 +1,57 @@
 # CHANGELOG
 
+## 1.4.0 (2025-03-18)
+
+* feat: ApiResponse 생성 및 응답형식 통일 ([06e1b23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/06e1b23))
+* feat: chip 구현 ([f9d51e0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f9d51e0))
+* feat: key 추가 및 navigation 추가 ([7a0da39](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7a0da39))
+* feat: scroll-hide 플러그인 추가 ([8ae49ef](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ae49ef))
+* feat: tab 클릭 이벤트 ui 구현 ([261c0f6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/261c0f6))
+* feat: 게시글 목록 tag 구현 ([ba55fd8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ba55fd8))
+* feat: 게시글 목록 더미데이터 적용 ([b117931](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b117931))
+* feat: 게시글 목록 페이지 구현 ([1216796](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1216796))
+* feat: 게시글 생성 버튼 구현 ([2671ece](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2671ece))
+* feat: 구분선(hr) global css 생성 및 컬러스타일 규칙 수정 ([4a2a4c1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4a2a4c1))
+* feat: 메인 페이지 UI 구현 ([11853bf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/11853bf))
+* feat: 모임 목록 컴포넌트 구현 ([23eb35d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/23eb35d))
+* feat: 모집중 태그 조건 적용 ([98696eb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/98696eb))
+* feat: 시간, 장소, 인원, 정산여부 아이콘 추가 ([92c1e86](https://github.com/100-hours-a-week/3-team-modie-fe/commit/92c1e86))
+* fix: ApiResponse 카멜케이스로 변경 ([7609771](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7609771))
+* fix: CreateButton.tsx 위치 변경 ([d523b5a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d523b5a))
+* fix: formatdate utils 함수로 변경 ([61f28c2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/61f28c2))
+* fix: img 태그 alt 추가 ([576e1e7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/576e1e7))
+* fix: main page chip style ([79b4265](https://github.com/100-hours-a-week/3-team-modie-fe/commit/79b4265))
+* fix: Main.tsx 로직을 hooks로 분리 ([b9c1803](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b9c1803))
+* fix: meetcard 색상 하드코딩 수정 ([38e4c73](https://github.com/100-hours-a-week/3-team-modie-fe/commit/38e4c73))
+* fix: MeetCard.tsx 로직을 hooks로 분리 ([79792a0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/79792a0))
+* fix: MeetChip 최소 너비 추가 ([9b2974e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9b2974e))
+* fix: MeetTag border 1 -> 0.5 ([12c82bd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/12c82bd))
+* fix: 응답 형식 다른 모임 API와 통일 및 더미데이터 수정 ([cda0c24](https://github.com/100-hours-a-week/3-team-modie-fe/commit/cda0c24))
+* fix: 의미 없는 주석 제거 ([990b234](https://github.com/100-hours-a-week/3-team-modie-fe/commit/990b234))
+* fix: 정산 아이콘이 있을 때와 없을 때 높이가 다른 버그 수정 ([01e0073](https://github.com/100-hours-a-week/3-team-modie-fe/commit/01e0073))
+* fix: 주석 제거 ([dc996b8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dc996b8))
+* fix: 컬러스타일 규칙 수정 ([a3787b6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a3787b6))
+* fix: 파일명, 함수명 다른 코드 수정 ([25edcd3](https://github.com/100-hours-a-week/3-team-modie-fe/commit/25edcd3))
+
+## <small>1.3.1 (2025-03-17)</small>
+
+* Merge pull request #6 from 100-hours-a-week/deploy/docker ([b433472](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b433472)), closes [#6](https://github.com/100-hours-a-week/3-team-modie-fe/issues/6)
+* fix: add aws region ([2916ccc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2916ccc))
+* fix: AWS ECR 로그인 코드 수정 ([15c56c9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/15c56c9))
+* fix: Ensure 'latest' tag is properly added and pushed to ECR ([71fed68](https://github.com/100-hours-a-week/3-team-modie-fe/commit/71fed68))
+* fix: 블루 그린 변수 수정 ([698e928](https://github.com/100-hours-a-week/3-team-modie-fe/commit/698e928))
+* fix: 이미지 주소 오타 수정 ([2294ccd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2294ccd))
+* fix: 타겟 브랜치 dev로 변경 ([7c5728f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7c5728f))
+* fix: 포트 수정 ([b1e5349](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b1e5349))
+
+## 1.3.0 (2025-03-17)
+
+* feat: Add CI/CD pipeline for ECR and EC2 deployment ([d83cf8b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d83cf8b))
+* feat: COMMIT_HASH 오류 대비 예외처리 ([6d8b54e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6d8b54e))
+* feat: Configure Vite preview server in Dockerfile ([24b8728](https://github.com/100-hours-a-week/3-team-modie-fe/commit/24b8728))
+* feat: Configure Vite preview server settings ([d78f737](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d78f737))
+* feat: dockerfile, cicd.yml 설정 ([0c32539](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0c32539))
+
 ## 1.2.0 (2025-03-17)
 
 * feat: Header UI 구현 ([7dfd6e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7dfd6e6))

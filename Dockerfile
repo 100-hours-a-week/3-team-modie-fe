@@ -19,16 +19,20 @@ FROM node:20-alpine AS run
 # 🔹 6. 작업 디렉토리 설정
 WORKDIR /app
 
-# 🔹 7. 빌드된 정적 파일만 복사 (불필요한 파일 제거)
+# 🔹 7. 빌드된 정적 파일 및 설정 복사
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/package.json /app/package.json
 COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/vite.config.ts /app/vite.config.ts
 
-# 🔹 8. Vite 프리뷰 서버 실행을 위한 의존성 설치
+# 🔹 8. Vite 프리뷰 서버 실행을 위한 환경 변수 적용
+ENV VITE_HOST=dev.modie.site
+
+# 🔹 9. Vite 프리뷰 서버 실행을 위한 의존성 설치
 RUN yarn global add vite
 
-# 🔹 9. 4173 포트 노출 (Vite 기본 프리뷰 포트)
+# 🔹 10. 4173 포트 노출 (Vite 기본 프리뷰 포트)
 EXPOSE 4173
 
-# 🔹 10. 실행 (Vite 프리뷰 서버 사용)
-CMD ["vite", "preview", "--port", "4173", "--host"]
+# 🔹 11. 실행 (Vite 프리뷰 서버 사용)
+CMD ["vite", "preview", "--port", "4173", "--host", "0.0.0.0"]
