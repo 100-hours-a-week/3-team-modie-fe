@@ -6,11 +6,11 @@
   --color-primaryDark1: #90e0ef;
   --color-primaryDark2: #00b4d8;
   --color-primaryDark3: #0096c7;
-  --color-gray2: #e0e0e0;
-  --color-gray3: #c8c8c8;
-  --color-gray4: #a0a0a0;
-  --color-gray5: #787878;
-  --color-gray6: #404040;
+  --color-grayE0: #e0e0e0;
+  --color-grayC8: #c8c8c8;
+  --color-grayA0: #a0a0a0;
+  --color-gray78: #787878;
+  --color-gray40: #404040;
   --color-gray21: #212121;
   --color-gray42: #424242;
   --color-gray61: #616161;
@@ -40,5 +40,11 @@
   html {
     font-size: 62.5%;
     font-family: var(--font-primary);
+  }
+
+  hr {
+    width: 100%;
+    color: var(--color-grayE0);
+    align-self: stretch;
   }
 }
