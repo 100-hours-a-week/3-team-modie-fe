@@ -1,4 +1,4 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import Header from "../../common/components/Header";
 import ProgressBar from "../../common/components/ProgressBar";
 import KakaoMap from "../../meetDetail/components/KakaoMap";
@@ -6,13 +6,14 @@ import { useMeetStore } from "../../meetDetail/hooks/useMeetStore";
 import CategoryBox from "../components/CategoryBox";
 import moveIcon from "../../assets/move.svg";
 import { formatDate } from "../../utils/formatDate";
+import MemberIcon from "../../assets/member.svg?react";
 
 export default function CreateMeetLast() {
   const { meet, fetchMeet } = useMeetStore();
 
-  // useEffect(() => {
-  fetchMeet(Number(1));
-  // }, [fetchMeet]);
+  useEffect(() => {
+    fetchMeet(1); // 필요한 meetId 값 넣으세요
+  }, [fetchMeet]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -40,7 +41,10 @@ export default function CreateMeetLast() {
             <div className="text-Body1 text-gray42">
               {formatDate(meet?.meetAt ?? null)}
             </div>
-            <div className="text-Body1 font-bold mb-2"></div>
+            <div className="text-Body1 font-bold mb-2">
+              <MemberIcon className="text-black" />
+              <div className="text-Body3 text-gray75">{meet?.memberLimit}</div>
+            </div>
           </div>
         </div>
 
