@@ -62,7 +62,7 @@ export default function MeetCost() {
         </div>
 
         {/* 정산 금액 입력 필드 */}
-        <div className="w-full max-w-[33.5rem] flex flex-col justify-center items-start gap-[1.2rem]">
+        <div className="w-full max-w-[30rem] flex flex-col justify-center items-start gap-[1.2rem]">
           <MeetInputField
             label=""
             value={formattedCost}
