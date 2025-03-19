@@ -15,6 +15,7 @@ import Toggle from "../components/Toggle";
 import { formatDate } from "../../utils/formatDate";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
+import { meetMembers } from "../../common/types/meetType.ts";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -155,7 +156,7 @@ export default function MeetDetail() {
         >
           <div className="text-Body1 font-bold mb-2">모임 멤버</div>
           <ul className="list-disc">
-            {meet.members.map((member) => (
+            {meet.members.map((member: meetMembers) => (
               <li
                 key={member.userId}
                 className="flex justify-between items-center w-full text-Body2 text-gray75 pt-4"
