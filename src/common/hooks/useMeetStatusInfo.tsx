@@ -7,12 +7,12 @@ import { meetType } from "../types/meetType";
  * @author 희진
  */
 
-export function useMeetStatusInfo(meetStatus?: meetType["data"]) {
+export function useMeetStatusInfo(meetStatus?: meetType) {
   return useMemo(() => {
     if (!meetStatus) return null;
 
     const currentTime = dayjs();
-    const meetTime = dayjs(meetStatus.meetDt);
+    const meetTime = dayjs(meetStatus.meetAt);
     const isBeforeMeet = currentTime.isBefore(meetTime);
     const isEnded = !!meetStatus.completedAt;
     const isOwner = meetStatus.meetRule === "owner";

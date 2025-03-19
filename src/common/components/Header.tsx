@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import arrowIcon from "../../assets/arrow.svg";
+import ArrowIcon from "../../assets/arrow.svg?react";
 import logoIcon from "../../assets/logo.svg";
 import settingIcon from "../../assets/setting.svg";
 import { headerType } from "../types/headerType";
@@ -37,7 +37,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
     if (!meetStatus) return;
 
     const isOwner = meetStatus.meetRule === "owner";
-    const isBeforeMeet = dayjs().isBefore(dayjs(meetStatus.meetDt));
+    const isBeforeMeet = dayjs().isBefore(dayjs(meetStatus.meetAt));
 
     if (!isOwner && isBeforeMeet) {
       openConfirmModal("exit");
@@ -65,7 +65,8 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
             </>
           ) : (
             <>
-              <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} />
+              {/* <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} /> */}
+              <ArrowIcon onClick={() => navigate(-1)} />
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>

@@ -13,7 +13,7 @@ export default function Routers() {
         { path: "/", element: <Main /> },
         { path: "/:meetId", element: <MeetDetail /> },
         { path: "/create", element: <MeetCreate /> },
-        { path: "/chat/:meetId", element: <MeetChat /> },
+        { path: "/:meetId/chat", element: <MeetChat /> },
       ],
     },
     {
