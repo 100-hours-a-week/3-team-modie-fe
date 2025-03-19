@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Main from "./main/page/Main";
 import MeetDetail from "./meetDetail/page/MeetDetail";
 import CreateMeetType from "./meetCreate(update)/page/CreateMeetType";
+import CreateMeetPlace from "./meetCreate(update)/page/CreateMeetPlace";
 
 export default function Routers() {
   const router = createBrowserRouter([
@@ -12,6 +13,7 @@ export default function Routers() {
         { path: "/", element: <Main /> },
         { path: "/:meetId", element: <MeetDetail /> },
         { path: "/create", element: <CreateMeetType /> },
+        { path: "/createMeetPlace", element: <CreateMeetPlace /> },
       ],
     },
     {
