@@ -92,8 +92,8 @@ export default function MeetDetail() {
             title="시   간"
             content={
               meet.updatedAt
-                ? `${formatDate(meet.meetDt)} (수정됨)`
-                : formatDate(meet.meetDt)
+                ? `${formatDate(meet.meetAt)} (수정됨)`
+                : formatDate(meet.meetAt)
             }
           />
           <InfoItem

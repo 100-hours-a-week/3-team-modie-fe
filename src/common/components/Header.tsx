@@ -37,7 +37,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
     if (!meetStatus) return;
 
     const isOwner = meetStatus.meetRule === "owner";
-    const isBeforeMeet = dayjs().isBefore(dayjs(meetStatus.meetDt));
+    const isBeforeMeet = dayjs().isBefore(dayjs(meetStatus.meetAt));
 
     if (!isOwner && isBeforeMeet) {
       openConfirmModal("exit");

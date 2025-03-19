@@ -71,7 +71,7 @@ export default function MeetCard({
           alt="시간아이콘"
         />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          {formatDate(meetAt)} {/* meetDt → meetAt */}
+          {formatDate(meetAt)} {/* meetAt → meetAt */}
         </div>
       </div>
 

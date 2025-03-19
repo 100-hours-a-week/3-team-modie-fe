@@ -1,6 +1,6 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "../styles/calendar.css";
+import "../styles/datepicker.css";
 
 interface DatePickerProps {
   value: Date | null;
