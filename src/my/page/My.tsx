@@ -41,7 +41,7 @@ export default function My() {
   return (
     <>
       <div className={cn("flex flex-col min-h-screen bg-grayEe pb-[2.4rem]")}>
-        <Header />
+        <Header title="마이페이지" />
 
         <div className="flex flex-col h-full bg-grayEe items-center ">
           {/* 사용자 정보 */}
@@ -82,11 +82,12 @@ export default function My() {
                 계좌번호
               </p>
               <button
-                className="flex items-center font-pretendard text-grayC8 text-[1.4rem]"
+                className="flex items-center text-[1.4rem]"
                 onClick={handleEditToggle}
+                style={{ color: "#c8c8c8" }}
               >
                 {isEditing ? "수정완료" : "수정하기"}
-                <span className="ml-1">{isEditing ? null : ">"}</span>
+                <span className="ml-1">{">"}</span>
               </button>
             </div>
 
@@ -177,7 +178,7 @@ const EditingForm = ({
       value={bankName}
       onChange={(e) => setBankName(e.target.value)}
       ref={bankInputRef}
-      className="w-full text-[1.6rem] text-gray40 font-pretendard mb-[0.8rem] focus:outline-none"
+      className={`w-full text-[1.6rem] text-gray75 font-pretendard mb-[0.8rem] focus:outline-none ${!bankName ? "placeholder:text-grayC8" : ""}`}
     />
     <input
       type="text"
@@ -185,27 +186,28 @@ const EditingForm = ({
       value={accountNumber}
       onChange={(e) => setAccountNumber(e.target.value)}
       ref={accountInputRef}
-      className="w-full text-[1.6rem] text-gray40 font-pretendard focus:outline-none"
+      className={`w-full text-[1.6rem] text-gray75 font-pretendard focus:outline-none ${!accountNumber ? "placeholder:text-grayC8" : ""}`}
     />
   </div>
 );
-
 const AccountDisplay = ({ bankName, accountNumber }: AccountDisplayProps) => (
-  <>
-    {bankName && accountNumber ? (
-      <div className="pt-[0.4rem]">
-        <p className="text-[1.6rem] text-gray40 mb-[0.8rem]">{bankName}</p>
-        <p className="text-[1.6rem] text-gray40">{accountNumber}</p>
-      </div>
+  <div className="pt-[0.4rem]">
+    {/* 은행명 표시 - 값이 있으면 보여주고, 없으면 안내 메시지 */}
+    {bankName ? (
+      <p className="text-[1.6rem] text-gray40 mb-[0.8rem]">{bankName}</p>
     ) : (
-      <div className="py-[1rem] flex flex-col gap-[1.2rem]">
-        <p className="text-[1.6rem] text-grayBd">
-          은행을 입력해 주세요. ex) 신한은행
-        </p>
-        <p className="text-[1.6rem] text-grayBd">계좌를 입력해 주세요.</p>
-      </div>
+      <p className="text-[1.6rem] text-grayBd mb-[0.8rem]">
+        은행을 입력해 주세요. ex) 신한은행
+      </p>
     )}
-  </>
+
+    {/* 계좌번호 표시 - 값이 있으면 보여주고, 없으면 안내 메시지 */}
+    {accountNumber ? (
+      <p className="text-[1.6rem] text-gray40">{accountNumber}</p>
+    ) : (
+      <p className="text-[1.6rem] text-grayBd">계좌를 입력해 주세요.</p>
+    )}
+  </div>
 );
 
 const FooterButtons = ({
