@@ -53,6 +53,7 @@ export default function MeetDetail() {
       .catch(() => showToast("복사에 실패했습니다."));
   };
 
+  // 참여
   const handleJoinMeet = async () => {
     const token = localStorage.getItem("accessToken");
     if (!token) {

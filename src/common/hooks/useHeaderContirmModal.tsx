@@ -1,7 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { meetType } from "../types/meetType";
 import { MODAL_TYPES, ModalType } from "../types/modalType";
 import { getModalText } from "../../utils/getModalText";
+import { deleteMeetService } from "../../meetDetail/services/deleteMeetService";
+import { completeMeetService } from "../../meetDetail/services/completeMeetService";
+import { exitMeetService } from "../../meetDetail/services/exitMeetService";
 
 /**
  * 옵션 클릭에 대한 모달 내부 텍스트를 조정합니다.
@@ -9,6 +13,7 @@ import { getModalText } from "../../utils/getModalText";
  */
 
 export const useHeaderConfirmModal = (meetStatus?: meetType) => {
+  const navigate = useNavigate();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmType, setConfirmType] = useState<ModalType | null>(null);
 
@@ -21,19 +26,31 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
     setShowConfirmModal(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    const meetId = meetStatus?.meetId;
+    const token = localStorage.getItem("accessToken");
+
+    if (!meetId || !token) {
+      alert("모임 정보 또는 토큰이 없습니다.");
+      return;
+    }
+
     switch (confirmType) {
       case MODAL_TYPES.DELETE:
-        console.log("모임 삭제 API 실행");
+        await deleteMeetService(meetId, token);
+        alert("모임이 삭제되었습니다.");
+        navigate("/");
         break;
       case MODAL_TYPES.END:
-        console.log("모임 종료 API 실행");
+        await completeMeetService(meetId, token);
+        alert("모임이 종료되었습니다.");
         break;
       case MODAL_TYPES.HIDE:
         console.log("모임 숨기기 API 실행");
         break;
       case MODAL_TYPES.EXIT:
-        console.log("모임 나가기 API 실행");
+        await exitMeetService(meetId, token);
+        alert("모임에서 나갔습니다.");
         break;
     }
     closeConfirmModal();
