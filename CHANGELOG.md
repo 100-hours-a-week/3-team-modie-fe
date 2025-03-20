@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.6.0 (2025-03-20)
+
+* Merge pull request #19 from 100-hours-a-week/feat/CICD ([a14ad9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a14ad9e)), closes [#19](https://github.com/100-hours-a-week/3-team-modie-fe/issues/19)
+* fix: 브런치타겟 변경 dev -> main ([3ccefa6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3ccefa6))
+* feat: EC2 배포에서 S3 배포로 변경 ([90e4eb5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/90e4eb5))
+* feat: GitHub Actions 프로덕션 배포 최적화 ([7a11b1c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7a11b1c))
+* feat: yarn, node 버전 명시 ([d733954](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d733954))
+* feat: 프로덕션 환경 S3 배포 및 CloudFront 캐시 무효화 추가 ([e2bfa9f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e2bfa9f))
+* feat: 환경 변수 정리 및 안정성 개선 ([90fe054](https://github.com/100-hours-a-week/3-team-modie-fe/commit/90fe054))
+
 ## 1.5.0 (2025-03-18)
 
 * feat: 20자 이상 모임명 ellipse 처리 ([8b0b46d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8b0b46d))
