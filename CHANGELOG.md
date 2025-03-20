@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.7.0 (2025-03-20)
+
+* feat : 모임 종료 화면 UI 구현 ([c29bdcf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c29bdcf))
+* feat: 모임 종료 화면 구현 ([90641c0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/90641c0))
+
 ## 1.6.0 (2025-03-20)
 
 * Merge pull request #19 from 100-hours-a-week/feat/CICD ([a14ad9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a14ad9e)), closes [#19](https://github.com/100-hours-a-week/3-team-modie-fe/issues/19)
