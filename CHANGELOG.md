@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 1.8.0 (2025-03-20)
+
+* feat: dev 브런치 병항 ([8023bb5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8023bb5))
+* feat: 로그인 페이지 UI 구현 및 API 연결 완료 ([de13009](https://github.com/100-hours-a-week/3-team-modie-fe/commit/de13009))
+* feat: 로그인 페이지 화면 구현 ([4bd8416](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4bd8416))
+* feat: 카카오 로그인 구현 ([3af83af](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3af83af))
+* feat: 카카오 로그인 구현 ([795663d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/795663d))
+* Merge branch 'dev' into feature/loginpage ([ead5184](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ead5184))
+* Merge remote-tracking branch 'origin/dev' into feature/loginpage ([11f03c5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/11f03c5))
+* fix: dev 병합 ([ebf11bb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ebf11bb))
+* fix: map 로드되기 전 호출하는 문제 수정 ([c2e7f60](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c2e7f60))
+* fix: sw.js ([30e26ab](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30e26ab))
+* fix: sw.js ([6ee18b1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ee18b1))
+
 ## 1.7.0 (2025-03-20)
 
 * feat : 모임 종료 화면 UI 구현 ([c29bdcf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c29bdcf))
