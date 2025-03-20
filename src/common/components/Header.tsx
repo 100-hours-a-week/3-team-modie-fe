@@ -90,7 +90,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
               onDelete={() => openConfirmModal("delete")}
               onEnd={() => openConfirmModal("end")}
               onUpdate={() => console.log("수정 페이지 이동")}
-              onPay={() => console.log("정산 페이지 이동")}
+              onPay={() => navigate("/paying")}
               onHide={() => openConfirmModal("hide")}
             />
           </div>
