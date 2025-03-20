@@ -16,7 +16,7 @@ export default function DatePicker({
   maxDate,
 }: DatePickerProps) {
   return (
-    <div className="w-full">
+    <div className="w-full flex justify-center items-center">
       <Calendar
         onChange={(date: Date) => onChange(date)}
         value={value}

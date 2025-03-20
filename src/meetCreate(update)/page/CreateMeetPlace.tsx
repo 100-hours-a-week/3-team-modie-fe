@@ -35,7 +35,11 @@ export default function CreateMeetPlace() {
       <Header title="출발 장소 선택" />
       <ProgressBar width={50} />
 
-      {center && (
+      {!center ? (
+        <div className="flex items-center justify-center h-[552px] bg-white/60">
+          <div className="text-gray9e text-Body1">지도를 불러오는 중...</div>
+        </div>
+      ) : (
         <Map
           center={center}
           style={{ width: "100%", height: "552px" }}
