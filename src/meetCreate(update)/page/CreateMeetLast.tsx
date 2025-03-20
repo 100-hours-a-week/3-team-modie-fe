@@ -6,10 +6,13 @@ import CategoryBox from "../components/CategoryBox";
 import moveIcon from "../../assets/move.svg";
 import MemberIcon from "../../assets/member.svg?react";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import SubmitBtn from "../../common/components/SubmitBtn";
+import { useCreateMeetSubmit } from "../hooks/useCreateMeetSubmit";
 
 export default function CreateMeetLast() {
   const { meet } = useMeetStore();
   const { meetInfo } = useCreateMeetStore();
+  const { handleSubmit } = useCreateMeetSubmit();
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -77,6 +80,12 @@ export default function CreateMeetLast() {
           )}
         </div>
       </main>
+      <div
+        className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+        onClick={handleSubmit}
+      >
+        <SubmitBtn active={true} description="생성하기" />
+      </div>
     </div>
   );
 }
