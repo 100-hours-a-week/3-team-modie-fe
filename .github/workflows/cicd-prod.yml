@@ -3,7 +3,7 @@ name: Deploy Vite to S3 (Dev)
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   deploy:
