@@ -1,17 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { createMeetService } from "../services/createMeetService";
+import { useToast } from "../../common/hooks/useToastMsg";
 
 export const useCreateMeetSubmit = () => {
   const navigate = useNavigate();
   const { meetInfo } = useCreateMeetStore();
+  const { showToast, isToastVisible, toastMessage } = useToast();
 
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("accessToken");
       if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
+        showToast("로그인이 필요합니다.");
       }
 
       const {
@@ -20,13 +21,19 @@ export const useCreateMeetSubmit = () => {
         customType,
         date,
         time,
+        hasCost,
         cost,
         memberCount,
         address,
         addressDetail,
       } = meetInfo;
 
-      const meetType = category === "직접입력" ? customType : category;
+      // 비용이 없으면 cost를 0으로 설정
+      const finalCost = hasCost ? cost : 0;
+
+      // category가 "기타"일 경우 customType을 meetType으로 사용
+      const meetType = category === "기타" ? customType : category;
+
       const meetAt = `${date.replace(/\./g, "-")}T${time.hour.padStart(2, "0")}:${time.minute.padStart(2, "0")}:00`;
 
       const requestData = {
@@ -36,20 +43,21 @@ export const useCreateMeetSubmit = () => {
         addressDescription: addressDetail,
         meetAt,
         memberLimit: memberCount,
-        totalCost: cost,
+        totalCost: finalCost,
       };
 
-      const res = await createMeetService(requestData, token);
+      if (token) {
+        const res = await createMeetService(requestData, token);
 
-      if (res.data?.id) {
-        alert("모임 생성 성공!");
-        navigate(`/meet/${res.data.id}`);
+        if (res.data?.id) {
+          navigate(`/${res.data.id}`);
+        }
       }
     } catch (err) {
-      console.error("모임 생성 실패", err);
-      alert("모임 생성 중 오류가 발생했어요.");
+      console.error("모임 생성 실패:", err);
+      showToast("모임 생성 중 오류가 발생했어요.");
     }
   };
 
-  return { handleSubmit };
+  return { handleSubmit, isToastVisible, toastMessage };
 };

@@ -8,11 +8,12 @@ import MemberIcon from "../../assets/member.svg?react";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import SubmitBtn from "../../common/components/SubmitBtn";
 import { useCreateMeetSubmit } from "../hooks/useCreateMeetSubmit";
+import ToastMsg from "../../common/components/ToastMsg";
 
 export default function CreateMeetLast() {
   const { meet } = useMeetStore();
   const { meetInfo } = useCreateMeetStore();
-  const { handleSubmit } = useCreateMeetSubmit();
+  const { handleSubmit, isToastVisible, toastMessage } = useCreateMeetSubmit();
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -80,6 +81,11 @@ export default function CreateMeetLast() {
           )}
         </div>
       </main>
+
+      <div className="fixed bottom-29 w-full flex justify-center">
+        <ToastMsg active={isToastVisible} description={toastMessage} />
+      </div>
+
       <div
         className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
         onClick={handleSubmit}
