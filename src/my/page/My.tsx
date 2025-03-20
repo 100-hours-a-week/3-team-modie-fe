@@ -212,7 +212,7 @@ const EditingForm = ({
           value={bankName}
           onChange={handleBankNameChange}
           ref={bankInputRef}
-          className={`w-full text-Body1 text-gray75 font-pretendard focus:outline-none ${!bankName ? "placeholder:text-grayC8" : ""}`}
+          className={`w-full text-Body1 text-gray75 font-pretendard focus:outline-none cursor-pointer ${!bankName ? "placeholder:text-grayC8" : ""}`}
           maxLength={10}
         />
       </div>
@@ -224,7 +224,7 @@ const EditingForm = ({
           value={accountNumber}
           onChange={handleAccountNumberChange}
           ref={accountInputRef}
-          className={`w-full text-[1.6rem] text-gray75 font-pretendard focus:outline-none ${!accountNumber ? "placeholder:text-grayC8" : ""}`}
+          className={`w-full text-[1.6rem] text-gray75 font-pretendard focus:outline-none cursor-pointer ${!accountNumber ? "placeholder:text-grayC8" : ""}`}
           maxLength={20}
         />
       </div>
