@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import sendIcon from "../../assets/send.svg";
+import cn from "../../utils/cn";
 
 interface ChatInputProps {
   isDisabled: boolean;
@@ -18,14 +19,12 @@ export default function ChatInput({
   onFocusInput,
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
-  const [textCount, setTextCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     if (value.length <= 200) {
       setMessage(value);
-      setTextCount(value.length);
     }
   };
 
@@ -33,27 +32,26 @@ export default function ChatInput({
     if (!message.trim()) return;
     onSend(message.trim());
     setMessage("");
-    setTextCount(0);
   };
 
   // 4줄 미만일 때 입력칸 height 늘이고
   // 4줄 이상일 때 스크롤 처리
   useEffect(() => {
     const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = "auto";
+    if (!textarea) return;
 
-      const lineHeight = 24;
-      const maxLines = 4;
-      const maxHeight = lineHeight * maxLines;
+    textarea.style.height = "auto";
 
-      if (textarea.scrollHeight > maxHeight) {
-        textarea.style.height = `${maxHeight}px`;
-        textarea.style.overflowY = "auto";
-      } else {
-        textarea.style.height = `${textarea.scrollHeight}px`;
-        textarea.style.overflowY = "hidden";
-      }
+    const lineHeight = 24;
+    const maxLines = 4;
+    const maxHeight = lineHeight * maxLines;
+
+    if (textarea.scrollHeight > maxHeight) {
+      textarea.style.height = `${maxHeight}px`;
+      textarea.style.overflowY = "auto";
+    } else {
+      textarea.style.height = `${textarea.scrollHeight}px`;
+      textarea.style.overflowY = "hidden";
     }
   }, [message]);
 
@@ -70,9 +68,14 @@ export default function ChatInput({
               disabled={isDisabled}
               rows={1}
               onFocus={onFocusInput}
-              className={`w-full resize-none outline-none bg-white min-h-[4rem] max-h-[16rem] overflow-y-auto pl-3 pt-3 pb-5 pr-6 rounded-md ${
-                isDisabled ? "text-gray-400 bg-gray-100 cursor-not-allowed" : ""
-              }`}
+              className={cn(
+                "w-full resize-none outline-none bg-white min-h-[4rem] max-h-[16rem]",
+                `overflow-y-auto pl-3 pt-3 pb-5 pr-6 rounded-md ${
+                  isDisabled
+                    ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                    : ""
+                }`
+              )}
               //   IOS 자동 zoom-in 방지
               style={{
                 fontSize: "16px",
@@ -84,7 +87,7 @@ export default function ChatInput({
             {/* 글자 수 표시 */}
             {!isDisabled && (
               <div className="absolute bottom-3 right-2 text-Caption2 text-grayBd">
-                {textCount}/200
+                {message.length}/200
               </div>
             )}
           </div>

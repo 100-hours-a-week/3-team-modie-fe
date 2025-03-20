@@ -12,25 +12,46 @@ export default function MeetChat() {
   const { messages, fetchMessages } = useChatStore();
   const location = useLocation();
   const { id, type, isEnd } = location.state || {};
+  const CHAT_INPUT_HEIGHT = "10rem";
 
-  // 처음 렌더링 시 fetchMessages 호출
   useEffect(() => {
-    fetchMessages(id); // 예시 meetId = 1
+    fetchMessages(id);
   }, [id, fetchMessages]);
 
-  // 마지막 메시지로 스크롤
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
+  // ✅ 스크롤 함수 분리
+  const scrollToBottom = () => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSendMessage = async (msg: string) => {
+    // 🎯 여기서 서버 전송 성공했다고 "가정"
+    // 예: await sendMessageToServer(msg);
+
+    // 가짜 전송 성공 처리
+    const fakeMessage = {
+      nickname: "나",
+      isMe: true,
+      isOwner: true,
+      content: msg,
+      dateTime: new Date().toISOString(), // 실제 포맷과 맞추기
+    };
+
+    // 상태에 메시지 추가
+    // useChatStore.getState().addMessage(fakeMessage);
+    console.log(fakeMessage);
+
+    // 전송 성공 시에만 스크롤
+    scrollToBottom();
+  };
 
   return (
     <div className="flex flex-col h-screen">
-      {/* TODO: 모임 유형으로 변경해야 함 */}
       <Header title={type || "아직!"} />
 
-      <main className="flex-1 overflow-y-auto px-5 pb-[16.3rem] mt-3">
+      <main
+        className="flex-1 overflow-y-auto px-5 mt-3"
+        style={{ paddingBottom: CHAT_INPUT_HEIGHT }}
+      >
         {messages.map((msg, index) => {
           const prev = messages[index - 1];
           const { currentDate, showDate, showNickname } = getChatMessageMeta(
@@ -62,13 +83,8 @@ export default function MeetChat() {
 
       <ChatInput
         isDisabled={!!isEnd}
-        onSend={(msg) => {
-          // TODO: 채팅 보내는 api 연동
-          console.log("보낸 메시지:", msg);
-        }}
-        onFocusInput={() => {
-          scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-        }}
+        onSend={handleSendMessage}
+        onFocusInput={scrollToBottom}
       />
     </div>
   );
