@@ -16,6 +16,7 @@ import { formatDate } from "../../utils/formatDate";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
 import { useFetchMeet } from "../hooks/useMeetStore";
+import { joinMeetService } from "../services/joinMeetService";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -50,6 +51,25 @@ export default function MeetDetail() {
       .writeText(window.location.href)
       .then(() => showToast("URL이 클립보드에 복사되었습니다!"))
       .catch(() => showToast("복사에 실패했습니다."));
+  };
+
+  const handleJoinMeet = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      showToast("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      const res = await joinMeetService(Number(meetId), token);
+      if (res.status == 200) {
+        showToast("모임에 참여했어요!");
+        // 필요 시 navigate나 fetchMeet 다시 호출
+        fetchMeet(Number(meetId));
+      }
+    } catch {
+      showToast("참여에 실패했어요");
+    }
   };
 
   return (
@@ -192,7 +212,12 @@ export default function MeetDetail() {
       </div>
 
       {isSubmitVisible && (
-        <div className="fixed bottom-0 w-full px-7 flex justify-center pb-6">
+        <div
+          className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+          onClick={
+            submitDescription === "모임 참여하기" ? handleJoinMeet : undefined
+          }
+        >
           <SubmitBtn active={submitActive} description={submitDescription} />
         </div>
       )}
