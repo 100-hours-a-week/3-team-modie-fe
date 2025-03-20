@@ -62,10 +62,21 @@ export default function My() {
               className={cn(
                 styles.text.title2,
                 styles.color.black,
-                "text-center"
+                "text-left break-words max-w-full px-4"
               )}
+              style={{
+                maxWidth: "20rem",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+              }}
             >
-              헤이주르륵
+              {/* 닉네임 최대 20자 제한 적용 */}
+              {(() => {
+                const nickname = "헤이주르륵헤이주르륵헤이주르륵헤이주르륵";
+                return nickname.length > 20
+                  ? `${nickname.substring(0, 20)}...`
+                  : nickname;
+              })()}
             </p>
           </div>
 
@@ -82,7 +93,7 @@ export default function My() {
                 계좌번호
               </p>
               <button
-                className="flex items-center text-[1.4rem]"
+                className="flex items-center text-[1.4rem] cursor-pointer"
                 onClick={handleEditToggle}
                 style={{ color: "#c8c8c8" }}
               >
@@ -135,7 +146,7 @@ export default function My() {
 // 하위 컴포넌트 타입 정의
 interface EditingFormProps {
   bankName: string;
-  accountNumber: string;
+  accountNumber: number;
   setBankName: (value: string) => void;
   setAccountNumber: (value: string) => void;
   bankInputRef: React.RefObject<HTMLInputElement | null>;
@@ -170,26 +181,57 @@ const EditingForm = ({
   setAccountNumber,
   bankInputRef,
   accountInputRef,
-}: EditingFormProps) => (
-  <div className="pt-[0.4rem]">
-    <input
-      type="text"
-      placeholder="은행을 입력해 주세요. ex) 신한은행"
-      value={bankName}
-      onChange={(e) => setBankName(e.target.value)}
-      ref={bankInputRef}
-      className={`w-full text-[1.6rem] text-gray75 font-pretendard mb-[0.8rem] focus:outline-none ${!bankName ? "placeholder:text-grayC8" : ""}`}
-    />
-    <input
-      type="text"
-      placeholder="계좌를 입력해 주세요."
-      value={accountNumber}
-      onChange={(e) => setAccountNumber(e.target.value)}
-      ref={accountInputRef}
-      className={`w-full text-[1.6rem] text-gray75 font-pretendard focus:outline-none ${!accountNumber ? "placeholder:text-grayC8" : ""}`}
-    />
-  </div>
-);
+}: EditingFormProps) => {
+  // 은행명 입력 핸들러 - 10자 제한
+  const handleBankNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length <= 10) {
+      setBankName(value);
+    }
+  };
+
+  // 계좌번호 입력 핸들러 - 20자 제한 및 숫자만 허용
+  const handleAccountNumberChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = e.target.value;
+    // 숫자만 허용하는 정규식 적용
+    const numericValue = value.replace(/[^0-9]/g, "");
+
+    if (numericValue.length <= 20) {
+      setAccountNumber(numericValue);
+    }
+  };
+
+  return (
+    <div className="pt-[0.4rem]">
+      <div className="relative mb-[0.8rem]">
+        <input
+          type="text"
+          placeholder="은행을 입력해 주세요. ex) 신한은행"
+          value={bankName}
+          onChange={handleBankNameChange}
+          ref={bankInputRef}
+          className={`w-full text-Body1 text-gray75 font-pretendard focus:outline-none ${!bankName ? "placeholder:text-grayC8" : ""}`}
+          maxLength={10}
+        />
+      </div>
+
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="계좌를 입력해 주세요."
+          value={accountNumber}
+          onChange={handleAccountNumberChange}
+          ref={accountInputRef}
+          className={`w-full text-[1.6rem] text-gray75 font-pretendard focus:outline-none ${!accountNumber ? "placeholder:text-grayC8" : ""}`}
+          maxLength={20}
+        />
+      </div>
+    </div>
+  );
+};
+
 const AccountDisplay = ({ bankName, accountNumber }: AccountDisplayProps) => (
   <div className="pt-[0.4rem]">
     {/* 은행명 표시 - 값이 있으면 보여주고, 없으면 안내 메시지 */}
@@ -216,13 +258,13 @@ const FooterButtons = ({
   styles,
 }: FooterButtonsProps) => (
   <div className="fixed bottom-7 flex w-full h-fit justify-center gap-[0.8rem]">
-    <button onClick={openLogoutModal}>
+    <button onClick={openLogoutModal} className="cursor-pointer">
       <p className={cn(styles.text.body2, styles.color.gray78)}>로그아웃</p>
     </button>
 
     <p className={cn(styles.text.body2, styles.color.gray78)}>|</p>
 
-    <button onClick={goToTerms}>
+    <button onClick={goToTerms} className="cursor-pointer">
       <p className={cn(styles.text.body2, styles.color.gray78)}>이용약관</p>
     </button>
   </div>
