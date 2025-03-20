@@ -144,10 +144,11 @@ export const useMeetCreateOther = () => {
       cost: hasCost ? Number(cost.replace(/,/g, "")) : 0,
     });
 
-    navigate("/createMeetLast");
+    navigate("/meet/create/last");
   };
 
   return {
+    // Datepicker 관련
     dateInput,
     setDateInput,
     dateError,
@@ -156,11 +157,15 @@ export const useMeetCreateOther = () => {
     selectedDate,
     handleDateInputChange,
     handleCalendarDateChange,
+
+    // Timepicker 관련
     time,
     showTimePicker,
     setShowTimePicker,
     handleTimePickerOpen,
     handleTimeSave,
+
+    // 모임 관련
     memberCount,
     handleMemberChange,
     memberError,

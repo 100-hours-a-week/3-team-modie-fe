@@ -10,7 +10,7 @@ import { useCreateMeetStore } from "../store/useCreateMeetStore";
  * @author 희진
  */
 
-export const useMeetCreate1 = () => {
+export const useCreateMeetType = () => {
   const { meetInfo, setMeetInfo } = useCreateMeetStore();
   const navigate = useNavigate();
   const [intro, setIntro] = useState(meetInfo.intro || "");
@@ -59,7 +59,7 @@ export const useMeetCreate1 = () => {
       customType: selectedCategory === "기타" ? customType : "",
     });
 
-    navigate("/createMeetPlace");
+    navigate("/meet/create/place");
   };
 
   return {

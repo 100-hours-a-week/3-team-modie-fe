@@ -10,15 +10,27 @@ export default function Routers() {
   const router = createBrowserRouter([
     {
       path: "/",
-      //   element: <Layout />,
-      children: [
-        { path: "/", element: <Main /> },
-        { path: "/:meetId", element: <MeetDetail /> },
-        { path: "/create", element: <CreateMeetType /> },
-        { path: "/createMeetPlace", element: <CreateMeetPlace /> },
-        { path: "/createMeetOther", element: <CreateMeetOther /> },
-        { path: "/createMeetLast", element: <CreateMeetLast /> },
-      ],
+      element: <Main />,
+    },
+    {
+      path: "/:meetId",
+      element: <MeetDetail />,
+    },
+    {
+      path: "/meet/create/type",
+      element: <CreateMeetType />,
+    },
+    {
+      path: "/meet/create/place",
+      element: <CreateMeetPlace />,
+    },
+    {
+      path: "/meet/create/other",
+      element: <CreateMeetOther />,
+    },
+    {
+      path: "/meet/create/last",
+      element: <CreateMeetLast />,
     },
     {
       path: "*",

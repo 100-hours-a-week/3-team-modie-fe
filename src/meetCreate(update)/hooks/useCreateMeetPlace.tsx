@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 
+interface position {
+  lat: number;
+  lng: number;
+}
 /**
  * 모임 생성 페이지 2단계 커스텀 훅
  * 모임 장소, 장소 설명을 관리합니다.
@@ -11,10 +15,8 @@ import { useCreateMeetStore } from "../store/useCreateMeetStore";
 
 export const useCreateMeetPlace = () => {
   const navigate = useNavigate();
-  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
-    null
-  );
-  const [position, setPosition] = useState<{ lat: number; lng: number }>();
+  const [center, setCenter] = useState<position | null>(null);
+  const [position, setPosition] = useState<position>();
   const [description, setDescription] = useState("");
 
   const isFormValid = !!position && description.trim().length > 0;
@@ -69,7 +71,7 @@ export const useCreateMeetPlace = () => {
       });
     }
 
-    navigate("/createMeetOther");
+    navigate("/meet/create/other");
   };
 
   return {

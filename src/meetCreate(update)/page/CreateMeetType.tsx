@@ -6,8 +6,15 @@ import foodIcon from "../../assets/food.svg";
 import workoutIcon from "../../assets/workout.svg";
 import etcIcon from "../../assets/etc.svg";
 import CategoryBox from "../components/CategoryBox";
-import { useMeetCreate1 } from "../hooks/useCreateMeetType";
+import { useCreateMeetType } from "../hooks/useCreateMeetType";
 import ProgressBar from "../../common/components/ProgressBar";
+
+const CATEGORIES = [
+  { id: "이동", icon: moveIcon, label: "이동" },
+  { id: "음식", icon: foodIcon, label: "음식" },
+  { id: "운동", icon: workoutIcon, label: "운동" },
+  { id: "기타", icon: etcIcon, label: "기타" },
+];
 
 export default function CreateMeetType() {
   const {
@@ -21,12 +28,11 @@ export default function CreateMeetType() {
     handleSubmit,
     toastMessage,
     isToastVisible,
-  } = useMeetCreate1();
+  } = useCreateMeetType();
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Header title="모임 유형 선택" />
-
       <ProgressBar width={25} />
 
       <div className="flex-1 px-6 pb-[12rem] mt-5">
@@ -50,33 +56,19 @@ export default function CreateMeetType() {
         {/* 모임 카테고리 */}
         <div className="mb-15">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-7 px-16 justify-items-center items-center">
-            <CategoryBox
-              icon={moveIcon}
-              label="이동"
-              isActive={selectedCategory === "이동"}
-              onClick={handleCategoryClick}
-            />
-            <CategoryBox
-              icon={foodIcon}
-              label="음식"
-              isActive={selectedCategory === "음식"}
-              onClick={handleCategoryClick}
-            />
-            <CategoryBox
-              icon={workoutIcon}
-              label="운동"
-              isActive={selectedCategory === "운동"}
-              onClick={handleCategoryClick}
-            />
-            <CategoryBox
-              icon={etcIcon}
-              label="기타"
-              isActive={selectedCategory === "기타"}
-              onClick={handleCategoryClick}
-            />
+            {CATEGORIES.map(({ id, icon, label }) => (
+              <CategoryBox
+                key={id}
+                icon={icon}
+                label={label}
+                isActive={selectedCategory === label}
+                onClick={handleCategoryClick}
+              />
+            ))}
           </div>
         </div>
 
+        {/* 기타 선택 시 직접 입력 */}
         {selectedCategory === "기타" && (
           <div className="mt-6">
             <div className="text-Body1 font-semibold mb-5">직접 입력하기</div>

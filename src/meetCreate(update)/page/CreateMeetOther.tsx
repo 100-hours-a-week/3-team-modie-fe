@@ -12,6 +12,7 @@ import { useMeetCreateOther } from "../hooks/useCreateMeetOther";
 
 export default function CreateMeetOther() {
   const {
+    // DatePicker 관련
     dateInput,
     dateError,
     showCalendar,
@@ -19,11 +20,15 @@ export default function CreateMeetOther() {
     selectedDate,
     handleDateInputChange,
     handleCalendarDateChange,
+
+    // TimePicker 관련
     time,
     showTimePicker,
     setShowTimePicker,
     handleTimePickerOpen,
     handleTimeSave,
+
+    // 모임 관련
     memberCount,
     handleMemberChange,
     memberError,

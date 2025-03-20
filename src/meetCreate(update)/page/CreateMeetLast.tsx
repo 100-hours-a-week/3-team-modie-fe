@@ -1,7 +1,6 @@
 import Header from "../../common/components/Header";
 import ProgressBar from "../../common/components/ProgressBar";
 import KakaoMap from "../../meetDetail/components/KakaoMap";
-import { useMeetStore } from "../../meetDetail/hooks/useMeetStore";
 import CategoryBox from "../components/CategoryBox";
 import moveIcon from "../../assets/move.svg";
 import MemberIcon from "../../assets/member.svg?react";
@@ -11,7 +10,6 @@ import { useCreateMeetSubmit } from "../hooks/useCreateMeetSubmit";
 import ToastMsg from "../../common/components/ToastMsg";
 
 export default function CreateMeetLast() {
-  const { meet } = useMeetStore();
   const { meetInfo } = useCreateMeetStore();
   const { handleSubmit, isToastVisible, toastMessage } = useCreateMeetSubmit();
 
@@ -29,7 +27,8 @@ export default function CreateMeetLast() {
           <CategoryBox
             icon={moveIcon}
             label={meetInfo?.category || "이동"}
-            onClick={(label) => console.log(`Category clicked: ${label}`)} // TODO: 추후 옵셔널 체이닝 처리하기
+            width="w-[120px]"
+            height="h-[100px]"
           />
 
           <div className="flex flex-col items-start text-left gap-1">
@@ -50,7 +49,7 @@ export default function CreateMeetLast() {
 
         <div className="w-full mb-11">
           <div className="text-Body1 font-bold mb-2">모임 장소</div>
-          {meet?.address && <KakaoMap address={meet?.address} />}
+          {meetInfo?.address && <KakaoMap address={meetInfo?.address} />}
           <div className="mt-4 text-Body2 text-gray42 font-bold break-words whitespace-pre-wrap w-full">
             {meetInfo?.address}
           </div>
