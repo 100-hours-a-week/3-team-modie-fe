@@ -54,7 +54,7 @@ export default function MeetDetail() {
     <div className="flex flex-col min-h-screen">
       <Header title={meet.meetType} meetStatus={meet} />
 
-      <main className="flex-1 flex flex-col items-center px-5 py-6 pt-[10px]">
+      <main className="flex-1 flex flex-col items-center px-5 pb-6 ">
         <hr />
 
         <div className="text-left w-full pt-6 pb-5">
