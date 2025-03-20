@@ -9,9 +9,9 @@ interface ProgressBarProps {
 
 export default function ProgressBar({ width }: ProgressBarProps) {
   return (
-    <div className="w-full bg-gray-200 h-1.5 dark:bg-grayEe mt-1">
+    <div className="w-full bg-grayEe h-1.5 mt-1">
       <div
-        className="h-1.5 dark:bg-primaryDark2"
+        className="h-1.5 bg-primaryDark2"
         style={{ width: `${width}%` }}
       ></div>
     </div>

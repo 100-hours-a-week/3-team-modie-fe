@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
+import { useCreateMeetStore } from "../store/useCreateMeetStore";
 
 interface MarkerInfoWindowProps {
   lat: number | undefined;
@@ -13,8 +14,14 @@ interface MarkerInfoWindowProps {
 
 export default function MarkerInfoWindow({ lat, lng }: MarkerInfoWindowProps) {
   const [address, setAddress] = useState("");
+  const { meetInfo, setMeetInfo } = useCreateMeetStore();
 
   useEffect(() => {
+    if (meetInfo.address) {
+      setAddress(meetInfo.address);
+      return;
+    }
+
     if (!lat || !lng || !window.kakao?.maps?.services) return;
 
     const geocoder = new window.kakao.maps.services.Geocoder();
@@ -25,11 +32,17 @@ export default function MarkerInfoWindow({ lat, lng }: MarkerInfoWindowProps) {
         const roadAddr = result[0].road_address?.address_name;
         const jibunAddr = result[0].address?.address_name;
         setAddress(roadAddr || jibunAddr || "주소 정보를 찾을 수 없습니다");
+
+        if (roadAddr || jibunAddr) {
+          setMeetInfo({
+            address: roadAddr || jibunAddr,
+          });
+        }
       } else {
         setAddress("주소 정보를 찾을 수 없습니다");
       }
     });
-  }, [lat, lng]);
+  }, [lat, lng, meetInfo.address, setMeetInfo]);
 
   return (
     <>

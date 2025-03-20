@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMeetCreateValidation } from "./useMeetCreateValidation";
 import { useToast } from "../../common/hooks/useToastMsg";
+import { useCreateMeetStore } from "../store/useCreateMeetStore";
 
 /**
  * 모임 생성 페이지 1단계 커스텀 훅
@@ -10,10 +11,13 @@ import { useToast } from "../../common/hooks/useToastMsg";
  */
 
 export const useMeetCreate1 = () => {
+  const { meetInfo, setMeetInfo } = useCreateMeetStore();
   const navigate = useNavigate();
-  const [intro, setIntro] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [customType, setCustomType] = useState("");
+  const [intro, setIntro] = useState(meetInfo.intro || "");
+  const [selectedCategory, setSelectedCategory] = useState(
+    meetInfo.category || ""
+  );
+  const [customType, setCustomType] = useState(meetInfo.customType || "");
 
   const { toastMessage, isToastVisible, showToast } = useToast();
 
@@ -47,6 +51,13 @@ export const useMeetCreate1 = () => {
       showToast(errorMessages[key]);
       return;
     }
+
+    // 저장 시 zustand store에 저장
+    setMeetInfo({
+      intro,
+      category: selectedCategory,
+      customType: selectedCategory === "기타" ? customType : "",
+    });
 
     navigate("/createMeetPlace");
   };

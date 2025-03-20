@@ -6,6 +6,8 @@ import ToastMsg from "../../common/components/ToastMsg";
 import MarkerInfoWindow from "../components/MarkerInfoWindow";
 import markerIcon from "../../assets/marker.svg";
 import { useCreateMeetPlace } from "../hooks/useCreateMeetPlace";
+import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import { useEffect } from "react";
 
 export default function CreateMeetPlace() {
   const {
@@ -19,6 +21,14 @@ export default function CreateMeetPlace() {
     toastMessage,
     isToastVisible,
   } = useCreateMeetPlace();
+
+  const { meetInfo, setMeetInfo } = useCreateMeetStore();
+
+  useEffect(() => {
+    if (meetInfo.addressDetail) {
+      setDescription(meetInfo.addressDetail);
+    }
+  }, [setDescription, meetInfo.addressDetail]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -54,6 +64,9 @@ export default function CreateMeetPlace() {
           onChange={(e) => {
             if (e.target.value.length <= 20) {
               setDescription(e.target.value);
+              setMeetInfo({
+                addressDetail: e.target.value,
+              });
             }
           }}
           placeholder="장소에 대한 간단한 설명을 적어주세요."
