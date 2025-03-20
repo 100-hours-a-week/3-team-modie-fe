@@ -1,139 +1,227 @@
-import { useState, useRef, useEffect } from "react";
 import logo from "../../assets/logo.svg";
 import cn from "../../utils/cn.ts";
+import Header from "../../common/components/Header.tsx";
+import ConfirmModal from "../../common/components/ConfirmModal";
+import { useMyPage } from "../hooks/useMyPage.tsx";
 
-export default function My() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [bankName, setBankName] = useState("국민은행");
-  const [accountNumber, setAccountNumber] = useState("1234567890");
-  const bankInputRef = useRef(null);
-  const accountInputRef = useRef<HTMLInputElement>(null);
-
-  // 수정 모드로 변경될 때 계좌번호 입력 필드로 포커스
-  useEffect(() => {
-    if (isEditing && accountInputRef.current) {
-      accountInputRef.current.focus();
-    }
-  }, [isEditing]);
-
-  const textStyles = {
+// 스타일 정의
+const styles = {
+  text: {
     title2: "font-pretendard font-normal text-Title2",
     body1: "font-pretendard font-normal text-Body1",
     body2: "font-pretendard font-normal text-Body2",
     body3: "font-pretendard font-normal text-Body3",
-  };
-
-  const colorStyles = {
+  },
+  color: {
     black: "text-black",
     gray40: "text-gray40",
     gray78: "text-gray78",
     lightGray: "text-grayC8",
-  };
+  },
+};
 
-  const handleEditToggle = () => {
-    if (isEditing) {
-      // Save logic would go here
-    }
-    setIsEditing(!isEditing);
-  };
+export default function My() {
+  const {
+    isEditing,
+    bankName,
+    accountNumber,
+    showConfirmModal,
+    confirmContent,
+    bankInputRef,
+    accountInputRef,
+    handleEditToggle,
+    setBankName,
+    setAccountNumber,
+    openLogoutModal,
+    closeConfirmModal,
+    handleConfirm,
+    goToTerms,
+  } = useMyPage();
 
   return (
-    <div
-      className={cn(
-        "flex flex-col w-screen h-screen bg-grayEe",
-        "justify-center items-center pb-[2.4rem]"
-      )}
-    >
-      <header className="my-page-header"></header>
+    <>
+      <div className={cn("flex flex-col min-h-screen bg-grayEe pb-[2.4rem]")}>
+        <Header />
 
-      {/* 사용자 정보 */}
-      <div
-        className={cn(
-          "flex flex-col justify-center items-center",
-          "gap-[1.2rem] self-stretch pt-[1.6rem] pb-[2rem]"
-        )}
-      >
-        <div className="bg-[#D6D6D6] rounded-full w-[8rem] h-[8rem]">
-          <img
-            className="rounded-full object-cover w-full h-full"
-            src={logo}
-            alt="프로필 이미지"
+        <div className="flex flex-col h-full bg-grayEe items-center ">
+          {/* 사용자 정보 */}
+          <div
+            className={cn(
+              "flex flex-col justify-center items-center",
+              "gap-[1.2rem] self-stretch pt-[1.6rem] pb-[2rem]"
+            )}
+          >
+            <div className="bg-[#D6D6D6] rounded-full w-[8rem] h-[8rem]">
+              <img
+                className="rounded-full object-cover w-full h-full"
+                src={logo}
+                alt="프로필 이미지"
+              />
+            </div>
+            <p
+              className={cn(
+                styles.text.title2,
+                styles.color.black,
+                "text-center"
+              )}
+            >
+              헤이주르륵
+            </p>
+          </div>
+
+          {/* 계좌 정보 카드 */}
+          <div
+            className={cn(
+              "rounded-[1.2rem] bg-white flex flex-col",
+              "w-[calc(100%-4rem)] max-w-[40rem] h-fit",
+              "px-[2.4rem] py-[2rem] mx-[2rem]"
+            )}
+          >
+            <div className="flex w-full justify-between items-center mb-[1.6rem]">
+              <p className="font-pretendard text-[1.8rem] text-gray40">
+                계좌번호
+              </p>
+              <button
+                className="flex items-center font-pretendard text-grayC8 text-[1.4rem]"
+                onClick={handleEditToggle}
+              >
+                {isEditing ? "수정완료" : "수정하기"}
+                <span className="ml-1">{isEditing ? null : ">"}</span>
+              </button>
+            </div>
+
+            {isEditing ? (
+              <EditingForm
+                bankName={bankName}
+                accountNumber={accountNumber}
+                setBankName={setBankName}
+                setAccountNumber={setAccountNumber}
+                bankInputRef={bankInputRef}
+                accountInputRef={accountInputRef}
+              />
+            ) : (
+              <AccountDisplay
+                bankName={bankName}
+                accountNumber={accountNumber}
+              />
+            )}
+          </div>
+
+          {/* 하단 버튼 */}
+          <FooterButtons
+            openLogoutModal={openLogoutModal}
+            goToTerms={goToTerms}
+            styles={styles}
           />
         </div>
-        <p className={cn(textStyles.title2, colorStyles.black, "text-center")}>
-          헤이주르륵
-        </p>
-      </div>
 
-      <div
-        className={cn(
-          "rounded-[1.2rem] bg-white flex flex-col",
-          "w-[calc(100%-4rem)] max-w-[40rem] h-fit",
-          "px-[2.4rem] py-[2rem] mx-[2rem]"
-        )}
-      >
-        {/* 계좌 번호 */}
-        <div className="flex w-full justify-between items-center mb-[1.6rem]">
-          <p className="font-pretendard text-[1.8rem] text-gray40">계좌번호</p>
-          <button
-            className="flex items-center font-pretendard text-grayC8 text-[1.4rem]"
-            onClick={handleEditToggle}
-          >
-            {isEditing ? "수정완료" : "수정하기"}
-            <span className="ml-1">{isEditing ? null : ">"}</span>
-          </button>
-        </div>
-
-        {isEditing ? (
-          <div className="pt-[0.4rem]">
-            <input
-              type="text"
-              placeholder="은행을 입력해 주세요. ex) 신한은행"
-              value={bankName}
-              onChange={(e) => setBankName(e.target.value)}
-              ref={bankInputRef}
-              className="w-full text-[1.6rem] text-gray40 font-pretendard mb-[0.8rem] focus:outline-none"
-            />
-            <input
-              type="text"
-              placeholder="계좌를 입력해 주세요."
-              value={accountNumber}
-              onChange={(e) => setAccountNumber(e.target.value)}
-              ref={accountInputRef}
-              className="w-full text-[1.6rem] text-gray40 font-pretendard focus:outline-none"
-            />
-          </div>
-        ) : (
-          <>
-            {bankName && accountNumber ? (
-              <div className="pt-[0.4rem]">
-                <p className="text-[1.6rem] text-gray40 mb-[0.8rem]">
-                  {bankName}
-                </p>
-                <p className="text-[1.6rem] text-gray40">{accountNumber}</p>
-              </div>
-            ) : (
-              <div className="py-[1rem] flex flex-col gap-[1.2rem]">
-                <p className="text-[1.6rem] text-grayBd">
-                  은행을 입력해 주세요. ex) 신한은행
-                </p>
-                <p className="text-[1.6rem] text-grayBd">
-                  계좌를 입력해 주세요.
-                </p>
-              </div>
-            )}
-          </>
+        {/* 로그아웃 확인 모달 */}
+        {showConfirmModal && confirmContent && (
+          <ConfirmModal
+            title={confirmContent.title}
+            description={confirmContent.description}
+            confirmText={confirmContent.confirmText}
+            cancelText="취소"
+            onConfirm={handleConfirm}
+            onCancel={closeConfirmModal}
+          />
         )}
       </div>
-
-      <div className="flex-grow"></div>
-
-      {/* 하단 버튼 */}
-      <div className="flex w-full h-fit justify-center gap-[0.8rem]">
-        <p className={cn(textStyles.body2, colorStyles.gray78)}>로그아웃</p>
-        <p className={cn(textStyles.body2, colorStyles.gray78)}>|</p>
-        <p className={cn(textStyles.body2, colorStyles.gray78)}>이용약관</p>
-      </div>
-    </div>
+    </>
   );
 }
+
+// 하위 컴포넌트 타입 정의
+interface EditingFormProps {
+  bankName: string;
+  accountNumber: string;
+  setBankName: (value: string) => void;
+  setAccountNumber: (value: string) => void;
+  bankInputRef: React.RefObject<HTMLInputElement | null>;
+  accountInputRef: React.RefObject<HTMLInputElement | null>;
+}
+
+interface AccountDisplayProps {
+  bankName: string;
+  accountNumber: string;
+}
+
+interface FooterButtonsProps {
+  openLogoutModal: () => void;
+  goToTerms: () => void;
+  styles: {
+    text: {
+      body2: string;
+      [key: string]: string;
+    };
+    color: {
+      gray78: string;
+      [key: string]: string;
+    };
+  };
+}
+
+// 하위 컴포넌트들
+const EditingForm = ({
+  bankName,
+  accountNumber,
+  setBankName,
+  setAccountNumber,
+  bankInputRef,
+  accountInputRef,
+}: EditingFormProps) => (
+  <div className="pt-[0.4rem]">
+    <input
+      type="text"
+      placeholder="은행을 입력해 주세요. ex) 신한은행"
+      value={bankName}
+      onChange={(e) => setBankName(e.target.value)}
+      ref={bankInputRef}
+      className="w-full text-[1.6rem] text-gray40 font-pretendard mb-[0.8rem] focus:outline-none"
+    />
+    <input
+      type="text"
+      placeholder="계좌를 입력해 주세요."
+      value={accountNumber}
+      onChange={(e) => setAccountNumber(e.target.value)}
+      ref={accountInputRef}
+      className="w-full text-[1.6rem] text-gray40 font-pretendard focus:outline-none"
+    />
+  </div>
+);
+
+const AccountDisplay = ({ bankName, accountNumber }: AccountDisplayProps) => (
+  <>
+    {bankName && accountNumber ? (
+      <div className="pt-[0.4rem]">
+        <p className="text-[1.6rem] text-gray40 mb-[0.8rem]">{bankName}</p>
+        <p className="text-[1.6rem] text-gray40">{accountNumber}</p>
+      </div>
+    ) : (
+      <div className="py-[1rem] flex flex-col gap-[1.2rem]">
+        <p className="text-[1.6rem] text-grayBd">
+          은행을 입력해 주세요. ex) 신한은행
+        </p>
+        <p className="text-[1.6rem] text-grayBd">계좌를 입력해 주세요.</p>
+      </div>
+    )}
+  </>
+);
+
+const FooterButtons = ({
+  openLogoutModal,
+  goToTerms,
+  styles,
+}: FooterButtonsProps) => (
+  <div className="fixed bottom-7 flex w-full h-fit justify-center gap-[0.8rem]">
+    <button onClick={openLogoutModal}>
+      <p className={cn(styles.text.body2, styles.color.gray78)}>로그아웃</p>
+    </button>
+
+    <p className={cn(styles.text.body2, styles.color.gray78)}>|</p>
+
+    <button onClick={goToTerms}>
+      <p className={cn(styles.text.body2, styles.color.gray78)}>이용약관</p>
+    </button>
+  </div>
+);
