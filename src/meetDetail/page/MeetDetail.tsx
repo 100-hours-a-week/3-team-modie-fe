@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMeetStore } from "../hooks/useMeetStore";
+import { useMeetStore } from "../store/getMeetStore";
 import Header from "../../common/components/Header";
 import ToastMsg from "../../common/components/ToastMsg";
 import SubmitBtn from "../../common/components/SubmitBtn";
@@ -15,10 +15,12 @@ import Toggle from "../components/Toggle";
 import { formatDate } from "../../utils/formatDate";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
+import { useFetchMeet } from "../hooks/useMeetStore";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
-  const { meet, fetchMeet } = useMeetStore();
+  const { meet } = useMeetStore();
+  const { fetchMeet } = useFetchMeet();
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
@@ -33,12 +35,12 @@ export default function MeetDetail() {
     if (meetId) {
       fetchMeet(Number(meetId));
     }
-  }, [meetId, fetchMeet]);
+  }, [meetId]);
 
   if (!meet) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>로딩 중...</p>
+        <p>Loading</p>
       </div>
     );
   }
@@ -92,8 +94,8 @@ export default function MeetDetail() {
             title="시   간"
             content={
               meet.updatedAt
-                ? `${formatDate(meet.meetDt)} (수정됨)`
-                : formatDate(meet.meetDt)
+                ? `${formatDate(meet.meetAt)} (수정됨)`
+                : formatDate(meet.meetAt)
             }
           />
           <InfoItem
