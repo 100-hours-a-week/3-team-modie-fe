@@ -36,7 +36,7 @@ export const useFetchMeet = () => {
         updatedAt: "2025-03-10T12:00:01",
         deletedAt: null,
         completedAt: null,
-        meetRule: "guest",
+        meetRule: "owner",
         members: [
           {
             userId: 123,

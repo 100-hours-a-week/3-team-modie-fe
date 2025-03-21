@@ -17,6 +17,7 @@ import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
 import { useFetchMeet } from "../hooks/useMeetStore";
 import { joinMeetService } from "../services/joinMeetService";
+import { updatePaymentService } from "../services/updatePaymentService";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -190,9 +191,20 @@ export default function MeetDetail() {
                 {meet.meetRule === "owner" && (
                   <Toggle
                     initial={member.payed}
-                    onChange={(checked) => {
-                      // 서버로 PATCH 등 전송
-                      console.log("정산 상태 변경됨:", checked);
+                    onChange={async () => {
+                      const token = localStorage.getItem("accessToken");
+                      if (!token) {
+                        showToast("로그인이 필요합니다.");
+                        return false;
+                      }
+
+                      try {
+                        await updatePaymentService(meet.meetId, token);
+                        return true;
+                      } catch {
+                        showToast("정산 상태 변경 실패");
+                        return false;
+                      }
                     }}
                   />
                 )}

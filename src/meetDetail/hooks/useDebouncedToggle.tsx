@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const useDebouncedToggle = (
   initial: boolean = false,
-  onChange?: (checked: boolean) => void,
+  onChange?: (checked: boolean) => boolean | Promise<boolean>,
   delay: number = 700
 ) => {
   const [checked, setChecked] = useState(initial);
@@ -15,14 +15,17 @@ export const useDebouncedToggle = (
 
   const toggle = () => {
     const newChecked = !checked;
-    setChecked(newChecked); // 즉시 UI 반영
 
     if (debounceTimer.current) {
       clearTimeout(debounceTimer.current);
     }
 
-    debounceTimer.current = setTimeout(() => {
-      onChange?.(newChecked);
+    debounceTimer.current = setTimeout(async () => {
+      const shouldUpdate = await onChange?.(newChecked);
+
+      if (shouldUpdate) {
+        setChecked(newChecked);
+      }
     }, delay);
   };
 
