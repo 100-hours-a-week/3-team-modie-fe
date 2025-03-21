@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 1.9.0 (2025-03-21)
+
+* feat: Merge branch 'dev' into feature/meetChat ([4f56d32](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4f56d32))
+* feat: 모임 상태에 따라서 채팅방 인풋창 disabled 처리 ([9f1c400](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9f1c400))
+* feat: 채팅방 UI 구현 ([7be9562](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7be9562))
+* feat: 채팅방 UI 구현 ([f6fc244](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f6fc244))
+* Merge branch 'dev' into feature/meetChat ([ab38d4b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ab38d4b))
+* fix: 코드 리뷰 반영 ([f49bd9a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f49bd9a))
+* design: svg 색 변경, 변경된 모임 타입 적용 ([3a3d7f7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3a3d7f7))
+* design: 채팅방 인풋창 내 pb 늘리기 ([45959e1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/45959e1))
+* chore: tailwind-scrollbar-hide 삭제 ([7640324](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7640324))
+
 ## 1.8.0 (2025-03-20)
 
 * feat: dev 브런치 병항 ([8023bb5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8023bb5))
