@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 1.8.0 (2025-03-20)
+
+* feat: dev 브런치 병항 ([8023bb5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8023bb5))
+* feat: 로그인 페이지 UI 구현 및 API 연결 완료 ([de13009](https://github.com/100-hours-a-week/3-team-modie-fe/commit/de13009))
+* feat: 로그인 페이지 화면 구현 ([4bd8416](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4bd8416))
+* feat: 카카오 로그인 구현 ([3af83af](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3af83af))
+* feat: 카카오 로그인 구현 ([795663d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/795663d))
+* Merge branch 'dev' into feature/loginpage ([ead5184](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ead5184))
+* Merge remote-tracking branch 'origin/dev' into feature/loginpage ([11f03c5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/11f03c5))
+* fix: dev 병합 ([ebf11bb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ebf11bb))
+* fix: map 로드되기 전 호출하는 문제 수정 ([c2e7f60](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c2e7f60))
+* fix: sw.js ([30e26ab](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30e26ab))
+* fix: sw.js ([6ee18b1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ee18b1))
+
+## 1.7.0 (2025-03-20)
+
+* feat : 모임 종료 화면 UI 구현 ([c29bdcf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c29bdcf))
+* feat: 모임 종료 화면 구현 ([90641c0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/90641c0))
+
+## 1.6.0 (2025-03-20)
+
+* Merge pull request #19 from 100-hours-a-week/feat/CICD ([a14ad9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a14ad9e)), closes [#19](https://github.com/100-hours-a-week/3-team-modie-fe/issues/19)
+* fix: 브런치타겟 변경 dev -> main ([3ccefa6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3ccefa6))
+* feat: EC2 배포에서 S3 배포로 변경 ([90e4eb5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/90e4eb5))
+* feat: GitHub Actions 프로덕션 배포 최적화 ([7a11b1c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7a11b1c))
+* feat: yarn, node 버전 명시 ([d733954](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d733954))
+* feat: 프로덕션 환경 S3 배포 및 CloudFront 캐시 무효화 추가 ([e2bfa9f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e2bfa9f))
+* feat: 환경 변수 정리 및 안정성 개선 ([90fe054](https://github.com/100-hours-a-week/3-team-modie-fe/commit/90fe054))
+
 ## 1.5.0 (2025-03-18)
 
 * feat: 20자 이상 모임명 ellipse 처리 ([8b0b46d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8b0b46d))
