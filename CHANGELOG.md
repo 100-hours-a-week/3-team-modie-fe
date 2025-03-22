@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.12.0 (2025-03-22)
+
+* feat: meetCost ([468b35c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/468b35c))
+* feat: 모임 정산 페이지 UI 구현 ([a4b8676](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a4b8676))
+* feat: 헤더 모임 정산하기 메뉴와 정산하기 페이지 연결 ([29d0cde](https://github.com/100-hours-a-week/3-team-modie-fe/commit/29d0cde))
+* Merge branch 'dev' into feature/meetCost ([d1318e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d1318e6))
+* fix: header style ([95529f2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/95529f2))
+* fix: title 추가 및 정산 금액 검증 추가 ([9e6c2e9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9e6c2e9))
+* fix: width 일부 수정 ([418e7ec](https://github.com/100-hours-a-week/3-team-modie-fe/commit/418e7ec))
+
 ## 1.11.0 (2025-03-22)
 
 * feat: mypage ([504dd40](https://github.com/100-hours-a-week/3-team-modie-fe/commit/504dd40))
