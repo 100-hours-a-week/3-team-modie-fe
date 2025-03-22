@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 1.11.0 (2025-03-22)
+
+* feat: mypage ([504dd40](https://github.com/100-hours-a-week/3-team-modie-fe/commit/504dd40))
+* feat: 로그아웃 버튼 구현 및 이용약관 페이지 구현 ([dd06fc1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd06fc1))
+* feat: 마이페이지 UI 구현 ([ccdde9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ccdde9e))
+* feat: 이용약관 페이지 구현 ([2f5a94f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2f5a94f))
+* Merge branch 'dev' into feature/mypage ([0d1775d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0d1775d))
+* fix: cursor-pointer 속성 추가 ([c150033](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c150033))
+* fix: UI 보완 ([09b6972](https://github.com/100-hours-a-week/3-team-modie-fe/commit/09b6972))
+* fix: 계좌 입력 영역 스타일 수정 ([32d93f7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/32d93f7))
+* fix: 닉네임 요구사항 반영 ([ca07d97](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ca07d97))
+* fix: 이용약관 내용 수정 ([7597de6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7597de6))
+
 ## 1.10.0 (2025-03-22)
 
 * feat: DatePicker 컴포넌트 제작 ([ea98f21](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ea98f21))
