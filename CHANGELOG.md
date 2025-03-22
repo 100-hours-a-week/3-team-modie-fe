@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 1.10.0 (2025-03-22)
+
+* feat: DatePicker 컴포넌트 제작 ([ea98f21](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ea98f21))
+* feat: meetCreate ([3f12fc7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3f12fc7))
+* feat: Merge branch 'dev' into feature/meetCreate ([5e11a69](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5e11a69))
+* feat: TimePicker 컴포넌트 제작 ([fe66226](https://github.com/100-hours-a-week/3-team-modie-fe/commit/fe66226))
+* feat: 모임 생성 1단계 UI 구현 #11 ([6b43f30](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6b43f30)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* feat: 모임 생성 2단계 UI 구현 #11 ([dc963c4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dc963c4)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* feat: 모임 생성 3, 4단계 UI 구현 #11 ([e042b7e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e042b7e)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* feat: 모임 생성 4단계 데이터 정리 ([adcbd14](https://github.com/100-hours-a-week/3-team-modie-fe/commit/adcbd14))
+* feat: 모임 생성 api 구조 잡기 ([2ebfaa2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2ebfaa2))
+* feat: 모임 생성 UI 구현 ([e391d40](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e391d40))
+* feat: 모임 생성 예외 처리, 토스트 메세지 띄우기 ([b5876c0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b5876c0))
+* feat: 유효성 검사 완료 후 /createMeetPlace로 이동 ([f0710b4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f0710b4))
+* Merge branch 'dev' into feature/meetCreate ([66876f7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/66876f7))
+* fix: 코드 리뷰 반영 ([eff9775](https://github.com/100-hours-a-week/3-team-modie-fe/commit/eff9775))
+* design: CategoryBox min width 설정 #11 ([8bf0efc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8bf0efc)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* design: 모임생성 UI 개선 ([dd38177](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd38177))
+* design: 헤더 height 52px로 변경 ([adb89ef](https://github.com/100-hours-a-week/3-team-modie-fe/commit/adb89ef))
+* refactor: 객체 매핑 방식 적용 ([d400e6b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d400e6b))
+* chore: 기존 코드 사용 ([197414c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/197414c))
+* chore: 파일명 변경 MeetCreate.tsx to CreateMeetType.tsx ([b5224c1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b5224c1))
+
 ## 1.9.0 (2025-03-21)
 
 * feat: Merge branch 'dev' into feature/meetChat ([4f56d32](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4f56d32))
