@@ -5,7 +5,6 @@ import CreateMeetType from "./meetCreate(update)/page/CreateMeetType";
 import CreateMeetPlace from "./meetCreate(update)/page/CreateMeetPlace";
 import CreateMeetOther from "./meetCreate(update)/page/CreateMeetOther";
 import CreateMeetLast from "./meetCreate(update)/page/CreateMeetLast";
-import MeetCreate from "./meetCreate(update)/page/MeetCreate";
 import MeetPayiing from "./meetPayiing/page/MeetPayiing.tsx";
 import My from "./my/page/My.tsx";
 import Terms from "./my/page/Terms.tsx";
@@ -40,41 +39,41 @@ export default function Routers() {
       path: "/meet/create/last",
       element: <CreateMeetLast />,
     },
-    { 
-      path: "/", 
-      element: <Main /> 
+    {
+      path: "/",
+      element: <Main />,
     },
-    { 
-      path: "/login", 
-      element: <Login /> 
+    {
+      path: "/login",
+      element: <Login />,
     },
-    { 
-      path: "/auth/kakao/callback", 
-      element: <LoginRedirect /> 
+    {
+      path: "/auth/kakao/callback",
+      element: <LoginRedirect />,
     },
-    { 
-      path: "/:meetId", 
-      element: <MeetDetail /> 
+    {
+      path: "/:meetId",
+      element: <MeetDetail />,
     },
-    { 
-      path: "/:meetId/chat", 
-      element: <MeetChat /> 
+    {
+      path: "/:meetId/chat",
+      element: <MeetChat />,
     },
-    { 
-      path: "/end", 
-      element: <MeetDone /> 
+    {
+      path: "/end",
+      element: <MeetDone />,
     },
-    { 
-      path: "/my", 
-      element: <My /> 
+    {
+      path: "/my",
+      element: <My />,
     },
-    { 
-      path: "/term", 
-      element: <Terms /> 
+    {
+      path: "/term",
+      element: <Terms />,
     },
-    { 
-      path: "/paying", 
-      element: <MeetPayiing /> 
+    {
+      path: "/paying",
+      element: <MeetPayiing />,
     },
     {
       path: "*",

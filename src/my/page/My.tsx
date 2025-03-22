@@ -146,7 +146,7 @@ export default function My() {
 // 하위 컴포넌트 타입 정의
 interface EditingFormProps {
   bankName: string;
-  accountNumber: number;
+  accountNumber: string;
   setBankName: (value: string) => void;
   setAccountNumber: (value: string) => void;
   bankInputRef: React.RefObject<HTMLInputElement | null>;

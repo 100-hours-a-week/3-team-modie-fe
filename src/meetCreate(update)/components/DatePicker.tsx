@@ -18,7 +18,11 @@ export default function DatePicker({
   return (
     <div className="w-full flex justify-center items-center">
       <Calendar
-        onChange={(date: Date) => onChange(date)}
+        onChange={(value) => {
+          if (value instanceof Date) {
+            onChange(value);
+          }
+        }}
         value={value}
         minDate={minDate}
         maxDate={maxDate}

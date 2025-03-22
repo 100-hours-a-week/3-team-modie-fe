@@ -105,7 +105,7 @@ export default function MeetDetail() {
           <InfoItem
             icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
-            content={`${meet.members.length} / ${meet.memberLimit}`}
+            content={`${meet.members?.length} / ${meet.memberLimit}`}
           />
         </div>
 
@@ -156,7 +156,7 @@ export default function MeetDetail() {
         >
           <div className="text-Body1 font-bold mb-2">모임 멤버</div>
           <ul className="list-disc">
-            {meet.members.map((member: meetMembers) => (
+            {meet.members?.map((member: meetMembers) => (
               <li
                 key={member.userId}
                 className="flex justify-between items-center w-full text-Body2 text-gray75 pt-4"

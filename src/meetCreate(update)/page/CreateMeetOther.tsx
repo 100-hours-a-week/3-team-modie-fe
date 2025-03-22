@@ -103,7 +103,7 @@ export default function CreateMeetOther() {
           value={memberCount}
           onChange={(e) => handleMemberChange(e)}
           placeholder="1~30"
-          type="number"
+          type="text" // ✅ text로 변경
           suffix="명"
           error={!!memberError}
           helperText={memberError}

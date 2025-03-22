@@ -87,19 +87,13 @@ export default function MeetPayiing() {
 
         {/* 정산 금액 입력 필드 */}
         <div className="w-full max-w-[30rem] flex flex-col justify-center items-start gap-[1.2rem]">
-          {/*  */}
           {/*
               MEMO MeetInputField에 적용된 mb-6을 재정의하기 위한 스타일
                    모임 생성 페이지에서 가져온 MeetInputTag에 설정된 mb-6 스타일로 인해 발생하는 여백을 지우기 위함
                    MeetInputField 업데이트 후 style jsx 코드 지울 예정
             */}
-          <style jsx>{`
-            .input-container > div.mb-6 {
-              margin-bottom: 3px !important;
-            }
-          `}</style>
 
-          <div className="w-full flex flex-col input-container">
+          <div className="w-full flex flex-col [&>div.mb-6]:mb-[3px]">
             <MeetInputField
               label=""
               value={formattedCost}

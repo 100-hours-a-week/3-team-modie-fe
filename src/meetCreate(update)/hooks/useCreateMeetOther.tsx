@@ -25,7 +25,7 @@ export const useMeetCreateOther = () => {
   const [memberError, setMemberError] = useState("");
   const [hasCost, setHasCost] = useState(false);
   const [cost, setCost] = useState("");
-  const [costError, setCostError] = useState("");
+  const [costError, setCostError] = useState<string | undefined>(undefined);
 
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -70,20 +70,21 @@ export const useMeetCreateOther = () => {
     return true;
   };
 
-  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, "");
+  const handleDateInputChange = (value: string) => {
+    let val = value.replace(/\D/g, "");
 
-    if (value.length <= 4) {
-      // 그냥 아무 포맷도 하지 않고 그대로 사용
-    } else if (value.length <= 6) {
-      value = `${value.slice(0, 4)}.${value.slice(4)}`;
+    if (val.length <= 4) {
+      // 그대로
+    } else if (val.length <= 6) {
+      val = `${val.slice(0, 4)}.${val.slice(4)}`;
     } else {
-      value = `${value.slice(0, 4)}.${value.slice(4, 6)}.${value.slice(6)}`;
+      val = `${val.slice(0, 4)}.${val.slice(4, 6)}.${val.slice(6)}`;
     }
 
-    setDateInput(value);
-    if (validateDate(value)) {
-      setSelectedDate(dayjs(value, "YYYY.MM.DD").toDate());
+    setDateInput(val);
+
+    if (validateDate(val)) {
+      setSelectedDate(dayjs(val, "YYYY.MM.DD").toDate());
     } else {
       setSelectedDate(null);
     }
@@ -124,7 +125,7 @@ export const useMeetCreateOther = () => {
   };
 
   const isFormValid = () => {
-    return (
+    return Boolean(
       dateInput && time.hour && time.minute && memberCount && (!hasCost || cost)
     );
   };
