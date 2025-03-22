@@ -8,7 +8,7 @@ import { getModalText } from "../../utils/getModalText";
  * @author 희진
  */
 
-export const useHeaderConfirmModal = (meetStatus?: meetType["data"]) => {
+export const useHeaderConfirmModal = (meetStatus?: meetType) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmType, setConfirmType] = useState<ModalType | null>(null);
 

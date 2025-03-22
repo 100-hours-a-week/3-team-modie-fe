@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 interface MeetCardProps {
-  meetId: number;
+  meetId: number | undefined;
   meetAt: string;
   memberCount: number;
   memberLimit: number;
