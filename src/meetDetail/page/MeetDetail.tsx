@@ -4,9 +4,9 @@ import { useMeetStore } from "../hooks/useMeetStore";
 import Header from "../../common/components/Header";
 import ToastMsg from "../../common/components/ToastMsg";
 import SubmitBtn from "../../common/components/SubmitBtn";
-import clockIcon from "../../assets/clock.svg";
-import costIcon from "../../assets/cost.svg";
-import memberIcon from "../../assets/member.svg";
+import ClockIcon from "../../assets/clock.svg?react";
+import CostIcon from "../../assets/cost.svg?react";
+import MemberIcon from "../../assets/member.svg?react";
 import copyIcon from "../../assets/copy.svg";
 import InfoItem from "../components/InfoItem";
 import KakaoMap from "../components/KakaoMap";
@@ -15,6 +15,7 @@ import Toggle from "../components/Toggle";
 import { formatDate } from "../../utils/formatDate";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
+import { meetMembers } from "../../common/types/meetType";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -70,7 +71,7 @@ export default function MeetDetail() {
           <button
             className="border-1 border-[#828282] w-full rounded-lg py-3 text-Body2"
             onClick={() =>
-              navigate(`/chat/${meet.meetId}`, {
+              navigate(`/${meet.meetId}/chat`, {
                 state: {
                   id: meet.meetId,
                   type: meet.meetType,
@@ -88,7 +89,7 @@ export default function MeetDetail() {
         <div className="w-full py-6">
           <div className="text-Body1 font-bold mb-2">상세설명</div>
           <InfoItem
-            icon={clockIcon}
+            icon={<ClockIcon className="text-primaryDark3" />}
             title="시   간"
             content={
               meet.updatedAt
@@ -97,12 +98,12 @@ export default function MeetDetail() {
             }
           />
           <InfoItem
-            icon={costIcon}
+            icon={<CostIcon className="text-primaryDark3" />}
             title="비용이 발생해요 !"
             content={`예상 비용 ${meet.totalCost.toLocaleString()}원`}
           />
           <InfoItem
-            icon={memberIcon}
+            icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
             content={`${meet.members.length} / ${meet.memberLimit}`}
           />
@@ -155,7 +156,7 @@ export default function MeetDetail() {
         >
           <div className="text-Body1 font-bold mb-2">모임 멤버</div>
           <ul className="list-disc">
-            {meet.members.map((member) => (
+            {meet.members.map((member: meetMembers) => (
               <li
                 key={member.userId}
                 className="flex justify-between items-center w-full text-Body2 text-gray75 pt-4"
