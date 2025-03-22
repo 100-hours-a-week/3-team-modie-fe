@@ -46,7 +46,7 @@ export default function MeetCard({
       </div>
 
       <div className="text-gray42 text-Body1 font-bold truncate w-full text--">
-        {meetIntro} {/* meetIntro → intro */}
+        {meetIntro}
       </div>
 
       <div className="flex h-fit items-center gap-2 self-stretch">
@@ -59,7 +59,7 @@ export default function MeetCard({
       <div className="flex h-fit items-center gap-2 self-stretch">
         <ClockIcon className="w-[2.4rem] h-[2.4rem] text-gray75" />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          {formatDate(meetAt)} {/* meetAt → meetAt */}
+          {formatDate(meetAt)}
         </div>
       </div>
 
