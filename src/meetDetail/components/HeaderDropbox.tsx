@@ -3,7 +3,7 @@ import { meetType } from "../../common/types/meetType";
 import cn from "../../utils/cn";
 
 interface HeaderDropboxProps {
-  meetStatus: meetType["data"];
+  meetStatus: meetType;
   onDelete: () => void;
   onEnd: () => void;
   onUpdate: () => void;

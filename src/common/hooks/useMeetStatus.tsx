@@ -8,7 +8,7 @@ import { meetType } from "../types/meetType";
  * @author 희진
  */
 
-export function useMeetStatus(meetStatus?: meetType["data"]) {
+export function useMeetStatus(meetStatus?: meetType) {
   const status = useMeetStatusInfo(meetStatus);
   if (!status) return null;
   if (!status.isOwner && !status.isMember) return null;
