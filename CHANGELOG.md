@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.12.1 (2025-03-22)</small>
+
+* fix: 빌드 오류 픽스 ([932874d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/932874d))
+
 ## 1.12.0 (2025-03-22)
 
 * feat: meetCost ([468b35c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/468b35c))
