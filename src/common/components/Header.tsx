@@ -80,7 +80,13 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
             handleStatusIconClick();
           }}
         >
-          {isMainPage ? <img src={settingIcon} alt="setting" /> : statusIcon}
+          {isMainPage ? (
+            <button onClick={() => navigate("/my")}>
+              <img src={settingIcon} alt="setting" className="cursor-pointer" />
+            </button>
+          ) : (
+            statusIcon
+          )}
         </div>
 
         {showDropdown && meetStatus?.meetRule !== "guest" && meetStatus && (

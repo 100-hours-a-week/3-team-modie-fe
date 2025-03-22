@@ -6,6 +6,8 @@ import CreateMeetPlace from "./meetCreate(update)/page/CreateMeetPlace";
 import CreateMeetOther from "./meetCreate(update)/page/CreateMeetOther";
 import CreateMeetLast from "./meetCreate(update)/page/CreateMeetLast";
 import MeetCreate from "./meetCreate(update)/page/MeetCreate";
+import My from "./my/page/My.tsx";
+import Terms from "./my/page/Terms.tsx";
 import MeetChat from "./meetChat/page/MeetChat";
 import Login from "./login/page/Login.tsx";
 import LoginRedirect from "./login/page/LoginRedirect.tsx";
@@ -60,6 +62,14 @@ export default function Routers() {
     { 
       path: "/end", 
       element: <MeetDone /> 
+    },
+    { 
+      path: "/my", 
+      element: <My /> 
+    },
+    { 
+      path: "/term", 
+      element: <Terms /> 
     },
     {
       path: "*",
