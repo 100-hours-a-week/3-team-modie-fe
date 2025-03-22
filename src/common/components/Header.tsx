@@ -81,7 +81,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
         >
           {isMainPage ? (
             <button onClick={() => navigate("/my")}>
-              <img src={settingIcon} alt="setting" />
+              <img src={settingIcon} alt="setting" className="cursor-pointer" />
             </button>
           ) : (
             statusIcon

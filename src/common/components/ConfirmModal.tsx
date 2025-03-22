@@ -30,11 +30,14 @@ export default function ConfirmModal({
         <div className="flex justify-between gap-[1.2rem] ml-[15rem]">
           <button
             onClick={onConfirm}
-            className="flex-1 text-activeRed  text-Body2 font-bold"
+            className="flex-1 text-activeRed  text-Body2 font-bold cursor-pointer"
           >
             {confirmText}
           </button>
-          <button onClick={onCancel} className="flex-1 text-Body2">
+          <button
+            onClick={onCancel}
+            className="flex-1 text-Body2 cursor-pointer"
+          >
             {cancelText}
           </button>
         </div>

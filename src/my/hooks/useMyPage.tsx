@@ -13,7 +13,9 @@ export const useMyPage = () => {
 
   // 계좌 관련 상태
   const [isEditing, setIsEditing] = useState(false);
-  const [bankName, setBankName] = useState("국민은행");
+  const [bankName, setBankName] = useState(
+    "국민은행아아아아아아아아아아아아아아아아"
+  );
   const [accountNumber, setAccountNumber] = useState("1234567890");
 
   // 참조
