@@ -23,19 +23,25 @@ export const useMeetData = (): UseMeetDataReturn => {
     const fetchMeets = async () => {
       try {
         const res = await getMeetsService({
-          category: selectedChip,
+          category: selectedChip == "기타" ? "전체" : selectedChip,
           completed: activeTab === "종료",
           page: 1, // TODO: 추후 무한스크롤 구현하면서 변경하기
         });
 
-        if (res.status == 200) {
+        if (res.data.meets) {
           let filteredMeets = res.data.meets;
 
-          // 카테고리 필터링 (selectedChip이 전체가 아닌 경우)
           if (selectedChip !== "전체") {
-            filteredMeets = filteredMeets.filter(
-              (meet) => meet.meetType === selectedChip
-            );
+            if (selectedChip === "기타") {
+              const basicCategories = ["음식", "운동", "이동"];
+              filteredMeets = filteredMeets.filter(
+                (meet) => !basicCategories.includes(meet.meetType)
+              );
+            } else {
+              filteredMeets = filteredMeets.filter(
+                (meet) => meet.meetType === selectedChip
+              );
+            }
           }
 
           // 종료된 모임 필터링
