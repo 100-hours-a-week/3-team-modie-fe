@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.15.2 (2025-03-23)</small>
+
+* fix: 테스트 컴포넌트 제거 ([361e7ea](https://github.com/100-hours-a-week/3-team-modie-fe/commit/361e7ea))
+
 ## <small>1.15.1 (2025-03-23)</small>
 
 * fix: 깃헙 액션 에러 픽스 ([fdc20c0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/fdc20c0))
