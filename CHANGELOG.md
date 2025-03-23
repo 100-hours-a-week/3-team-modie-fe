@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.13.0 (2025-03-23)
+
+* feat: AWS credentials configuration 추가 ([1646c9f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1646c9f))
+* feat: Merge pull request #25 from 100-hours-a-week/feat/CICD ([dd926a4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd926a4)), closes [#25](https://github.com/100-hours-a-week/3-team-modie-fe/issues/25)
+* fix: 시크릿 변수 명 수정 ([d5b2101](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d5b2101))
+
 ## <small>1.12.1 (2025-03-22)</small>
 
 * fix: 빌드 오류 픽스 ([932874d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/932874d))
