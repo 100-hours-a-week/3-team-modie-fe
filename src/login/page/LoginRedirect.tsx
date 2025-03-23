@@ -13,7 +13,7 @@ export default function KakaoCallback() {
         .get(`http://localhost:8080/auth/kakao/login?code=${code}`) // ✅ GET 요청으로 변경
         .then((res) => {
           console.log("로그인 성공", res.data);
-          // 예: JWT 저장, 사용자 상태 업데이트 등 후
+          localStorage.setItem("accessToken", res.data.data);
           navigate("/"); // 로그인 후 메인 페이지로 이동
         })
         .catch((err) => console.error("로그인 실패", err));
