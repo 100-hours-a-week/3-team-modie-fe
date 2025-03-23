@@ -2,7 +2,7 @@ import { useDebouncedToggle } from "../hooks/useDebouncedToggle";
 
 interface ToggleProps {
   initial?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange?: (checked: boolean) => boolean | Promise<boolean>;
   delay?: number;
 }
 
@@ -11,12 +11,16 @@ interface ToggleProps {
  * @author 희진
  */
 
-const Toggle = ({ initial = false, onChange, delay }: ToggleProps) => {
+const Toggle = ({
+  initial = false,
+  onChange = () => true,
+  delay,
+}: ToggleProps) => {
   const { checked, toggle } = useDebouncedToggle(initial, onChange, delay);
 
   return (
     <div
-      className={`relative w-[59px] h-[17px] rounded-full cursor-pointer px-2 flex items-center transition-colors duration-300 ${
+      className={`relative w-[59px] h-[17px] rounded-full cursor-pointer px-2 flex items-center transition-colors duration-300 curosr-pointer z-100 ${
         checked ? "bg-primaryDark2" : "bg-grayBd border-1 border-gray9e"
       }`}
       style={{

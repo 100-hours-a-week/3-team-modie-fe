@@ -23,6 +23,6 @@ export interface meetType {
 
 export interface meetMembers {
   userId: number;
-  name: string;
+  userName: string;
   payed: boolean;
 }

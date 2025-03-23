@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMeetStore } from "../hooks/useMeetStore";
+import { useMeetStore } from "../store/getMeetStore";
 import Header from "../../common/components/Header";
 import ToastMsg from "../../common/components/ToastMsg";
 import SubmitBtn from "../../common/components/SubmitBtn";
@@ -15,11 +15,15 @@ import Toggle from "../components/Toggle";
 import { formatDate } from "../../utils/formatDate";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
+import { useFetchMeet } from "../hooks/useMeetStore";
+import { joinMeetService } from "../services/joinMeetService";
+import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
-  const { meet, fetchMeet } = useMeetStore();
+  const { meet } = useMeetStore();
+  const { fetchMeet } = useFetchMeet();
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
@@ -34,12 +38,12 @@ export default function MeetDetail() {
     if (meetId) {
       fetchMeet(Number(meetId));
     }
-  }, [meetId, fetchMeet]);
+  }, [meetId]);
 
   if (!meet) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>로딩 중...</p>
+        <p>Loading</p>
       </div>
     );
   }
@@ -49,6 +53,26 @@ export default function MeetDetail() {
       .writeText(window.location.href)
       .then(() => showToast("URL이 클립보드에 복사되었습니다!"))
       .catch(() => showToast("복사에 실패했습니다."));
+  };
+
+  // 참여
+  const handleJoinMeet = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      showToast("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      const res = await joinMeetService(Number(meetId), token);
+      if (res.status == 200) {
+        showToast("모임에 참여했어요!");
+        // 필요 시 navigate나 fetchMeet 다시 호출
+        fetchMeet(Number(meetId));
+      }
+    } catch {
+      showToast("참여에 실패했어요");
+    }
   };
 
   return (
@@ -95,6 +119,8 @@ export default function MeetDetail() {
               meet.updatedAt
                 ? `${formatDate(meet.meetAt)} (수정됨)`
                 : formatDate(meet.meetAt)
+                  ? `${formatDate(meet.meetAt)} (수정됨)`
+                  : formatDate(meet.meetAt)
             }
           />
           <InfoItem
@@ -162,15 +188,30 @@ export default function MeetDetail() {
                 className="flex justify-between items-center w-full text-Body2 text-gray75 pt-4"
               >
                 <span className="break-words whitespace-pre-wrap max-w-[60%]">
-                  {member.name}
+                  {member.userName}
                 </span>
 
                 {meet.meetRule === "owner" && (
                   <Toggle
                     initial={member.payed}
-                    onChange={(checked) => {
-                      // 서버로 PATCH 등 전송
-                      console.log("정산 상태 변경됨:", checked);
+                    onChange={async () => {
+                      const token = localStorage.getItem("accessToken");
+                      if (!token) {
+                        showToast("로그인이 필요합니다.");
+                        return false;
+                      }
+
+                      try {
+                        await updatePaymentService(
+                          meet.meetId,
+                          token,
+                          member.userId
+                        );
+                        return true;
+                      } catch {
+                        showToast("정산 상태 변경 실패");
+                        return false;
+                      }
                     }}
                   />
                 )}
@@ -191,7 +232,12 @@ export default function MeetDetail() {
       </div>
 
       {isSubmitVisible && (
-        <div className="fixed bottom-0 w-full px-7 flex justify-center pb-6">
+        <div
+          className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+          onClick={
+            submitDescription === "모임 참여하기" ? handleJoinMeet : undefined
+          }
+        >
           <SubmitBtn active={submitActive} description={submitDescription} />
         </div>
       )}
