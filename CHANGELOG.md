@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 1.14.0 (2025-03-23)
+
+* feat: Merge pull request #24 from 100-hours-a-week/feature/main-api ([f80d16b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f80d16b)), closes [#24](https://github.com/100-hours-a-week/3-team-modie-fe/issues/24)
+* feat: Merge pull request #26 from 100-hours-a-week/feature/meetDetail-api ([601c2e1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/601c2e1)), closes [#26](https://github.com/100-hours-a-week/3-team-modie-fe/issues/26)
+* feat: navigate 추가 ([ce2cc5d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ce2cc5d))
+* feat: 모임 목록 조회 api 구조 잡기 ([ea73c11](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ea73c11))
+* feat: 모임 목록 조회 api 연동 ([b243f73](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b243f73))
+* feat: 모임 상세 내역 조회 api 연동 ([463bc36](https://github.com/100-hours-a-week/3-team-modie-fe/commit/463bc36))
+* feat: 모임 조회 api 구조 잡기 ([d568286](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d568286))
+* feat: 모임 종료, 삭제, 나가기 api 구조 잡기 ([197faf4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/197faf4))
+* feat: 모임 참여하기 api 구조 잡기 ([e3e7a1e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e3e7a1e))
+* feat: 정산 내역 업데이트 api 구조 잡기 ([905b65c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/905b65c))
+* fix: api 연동 에러 픽스 ([9cf04b6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9cf04b6))
+* chore: Merge branch 'dev' into feature/meetDetail-api ([e1e8b51](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e1e8b51))
+
 ## 1.13.0 (2025-03-23)
 
 * feat: AWS credentials configuration 추가 ([1646c9f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1646c9f))
