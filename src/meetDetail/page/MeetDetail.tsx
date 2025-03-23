@@ -203,7 +203,7 @@ export default function MeetDetail() {
 
                       try {
                         await updatePaymentService(
-                          meet.meetId,
+                          meet.meetId ?? 0,
                           token,
                           member.userId
                         );
