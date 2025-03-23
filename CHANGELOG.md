@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.15.3 (2025-03-23)</small>
+
+* fix: 사용하지 않는 테스트 코드 제거 ([79767f5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/79767f5))
+
 ## <small>1.15.2 (2025-03-23)</small>
 
 * fix: 테스트 컴포넌트 제거 ([361e7ea](https://github.com/100-hours-a-week/3-team-modie-fe/commit/361e7ea))
