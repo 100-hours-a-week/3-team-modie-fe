@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.15.0 (2025-03-23)
+
+* feat: Merge pull request #27 from 100-hours-a-week/feature/loginpage ([93f1fee](https://github.com/100-hours-a-week/3-team-modie-fe/commit/93f1fee)), closes [#27](https://github.com/100-hours-a-week/3-team-modie-fe/issues/27)
+* feat: 로컬 스토리지에 토큰 저장 ([699b715](https://github.com/100-hours-a-week/3-team-modie-fe/commit/699b715))
+* Merge branch 'dev' into feature/loginpage ([28f39c5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/28f39c5))
+
 ## 1.14.0 (2025-03-23)
 
 * feat: Merge pull request #24 from 100-hours-a-week/feature/main-api ([f80d16b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f80d16b)), closes [#24](https://github.com/100-hours-a-week/3-team-modie-fe/issues/24)
