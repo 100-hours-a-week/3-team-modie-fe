@@ -44,6 +44,7 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
       case MODAL_TYPES.END:
         await completeMeetService(meetId, token);
         alert("모임이 종료되었습니다.");
+        navigate("/end");
         break;
       case MODAL_TYPES.HIDE:
         console.log("모임 숨기기 API 실행");
@@ -51,6 +52,7 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
       case MODAL_TYPES.EXIT:
         await exitMeetService(meetId, token);
         alert("모임에서 나갔습니다.");
+        navigate("/");
         break;
     }
     closeConfirmModal();
