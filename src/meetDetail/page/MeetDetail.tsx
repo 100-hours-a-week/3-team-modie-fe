@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useMeetStore } from "../hooks/useMeetStore";
+import { useMeetStore } from "../store/getMeetStore";
 import Header from "../../common/components/Header";
 import ToastMsg from "../../common/components/ToastMsg";
 import SubmitBtn from "../../common/components/SubmitBtn";
-import clockIcon from "../../assets/clock.svg";
-import costIcon from "../../assets/cost.svg";
-import memberIcon from "../../assets/member.svg";
+import ClockIcon from "../../assets/clock.svg?react";
+import CostIcon from "../../assets/cost.svg?react";
+import MemberIcon from "../../assets/member.svg?react";
 import copyIcon from "../../assets/copy.svg";
 import InfoItem from "../components/InfoItem";
 import KakaoMap from "../components/KakaoMap";
@@ -15,11 +15,15 @@ import Toggle from "../components/Toggle";
 import { formatDate } from "../../utils/formatDate";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
-import { meetMembers } from "../../common/types/meetType.ts";
+import { useFetchMeet } from "../hooks/useMeetStore";
+import { joinMeetService } from "../services/joinMeetService";
+import { updatePaymentService } from "../services/updatePaymentService";
+import { meetMembers } from "../../common/types/meetType";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
-  const { meet, fetchMeet } = useMeetStore();
+  const { meet } = useMeetStore();
+  const { fetchMeet } = useFetchMeet();
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
@@ -34,12 +38,12 @@ export default function MeetDetail() {
     if (meetId) {
       fetchMeet(Number(meetId));
     }
-  }, [meetId, fetchMeet]);
+  }, [meetId]);
 
   if (!meet) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>로딩 중...</p>
+        <p>Loading</p>
       </div>
     );
   }
@@ -51,11 +55,31 @@ export default function MeetDetail() {
       .catch(() => showToast("복사에 실패했습니다."));
   };
 
+  // 참여
+  const handleJoinMeet = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      showToast("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      const res = await joinMeetService(Number(meetId), token);
+      if (res.status == 200) {
+        showToast("모임에 참여했어요!");
+        // 필요 시 navigate나 fetchMeet 다시 호출
+        fetchMeet(Number(meetId));
+      }
+    } catch {
+      showToast("참여에 실패했어요");
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header title={meet.meetType} meetStatus={meet} />
 
-      <main className="flex-1 flex flex-col items-center px-5 py-6 pt-[10px]">
+      <main className="flex-1 flex flex-col items-center px-5 pb-6 ">
         <hr />
 
         <div className="text-left w-full pt-6 pb-5">
@@ -71,7 +95,7 @@ export default function MeetDetail() {
           <button
             className="border-1 border-[#828282] w-full rounded-lg py-3 text-Body2"
             onClick={() =>
-              navigate(`/chat/${meet.meetId}`, {
+              navigate(`/${meet.meetId}/chat`, {
                 state: {
                   id: meet.meetId,
                   type: meet.meetType,
@@ -89,23 +113,25 @@ export default function MeetDetail() {
         <div className="w-full py-6">
           <div className="text-Body1 font-bold mb-2">상세설명</div>
           <InfoItem
-            icon={clockIcon}
+            icon={<ClockIcon className="text-primaryDark3" />}
             title="시   간"
             content={
               meet.updatedAt
-                ? `${formatDate(meet.meetDt)} (수정됨)`
-                : formatDate(meet.meetDt)
+                ? `${formatDate(meet.meetAt)} (수정됨)`
+                : formatDate(meet.meetAt)
+                  ? `${formatDate(meet.meetAt)} (수정됨)`
+                  : formatDate(meet.meetAt)
             }
           />
           <InfoItem
-            icon={costIcon}
+            icon={<CostIcon className="text-primaryDark3" />}
             title="비용이 발생해요 !"
             content={`예상 비용 ${meet.totalCost.toLocaleString()}원`}
           />
           <InfoItem
-            icon={memberIcon}
+            icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
-            content={`${meet.members.length} / ${meet.memberLimit}`}
+            content={`${meet.members?.length} / ${meet.memberLimit}`}
           />
         </div>
 
@@ -156,21 +182,36 @@ export default function MeetDetail() {
         >
           <div className="text-Body1 font-bold mb-2">모임 멤버</div>
           <ul className="list-disc">
-            {meet.members.map((member: meetMembers) => (
+            {meet.members?.map((member: meetMembers) => (
               <li
                 key={member.userId}
                 className="flex justify-between items-center w-full text-Body2 text-gray75 pt-4"
               >
                 <span className="break-words whitespace-pre-wrap max-w-[60%]">
-                  {member.name}
+                  {member.userName}
                 </span>
 
                 {meet.meetRule === "owner" && (
                   <Toggle
                     initial={member.payed}
-                    onChange={(checked) => {
-                      // 서버로 PATCH 등 전송
-                      console.log("정산 상태 변경됨:", checked);
+                    onChange={async () => {
+                      const token = localStorage.getItem("accessToken");
+                      if (!token) {
+                        showToast("로그인이 필요합니다.");
+                        return false;
+                      }
+
+                      try {
+                        await updatePaymentService(
+                          meet.meetId,
+                          token,
+                          member.userId
+                        );
+                        return true;
+                      } catch {
+                        showToast("정산 상태 변경 실패");
+                        return false;
+                      }
                     }}
                   />
                 )}
@@ -191,7 +232,12 @@ export default function MeetDetail() {
       </div>
 
       {isSubmitVisible && (
-        <div className="fixed bottom-0 w-full px-7 flex justify-center pb-6">
+        <div
+          className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+          onClick={
+            submitDescription === "모임 참여하기" ? handleJoinMeet : undefined
+          }
+        >
           <SubmitBtn active={submitActive} description={submitDescription} />
         </div>
       )}

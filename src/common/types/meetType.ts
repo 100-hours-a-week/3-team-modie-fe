@@ -4,8 +4,8 @@
  */
 
 export interface meetType {
-  meetId: number;
-  ownerName: string;
+  meetId?: number;
+  ownerName?: string;
   meetIntro: string;
   meetType: string;
   meetAt: string;
@@ -13,16 +13,16 @@ export interface meetType {
   addressDetail: string;
   totalCost: number;
   memberLimit: number;
-  createdAt: string;
-  updatedAt: string | null;
-  deletedAt: string | null;
-  completedAt: string | null;
-  meetRule: string;
-  members: meetMembers[];
+  createdAt?: string;
+  updatedAt?: string | null;
+  deletedAt?: string | null;
+  completedAt?: string | null;
+  meetRule?: string;
+  members?: meetMembers[];
 }
 
 export interface meetMembers {
   userId: number;
-  name: string;
+  userName: string;
   payed: boolean;
 }

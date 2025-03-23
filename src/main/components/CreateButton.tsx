@@ -5,7 +5,7 @@ export default function CreateButton() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/create"); // CreateMeetType 페이지로 이동
+    navigate("/meet/create/type");
   };
 
   return (

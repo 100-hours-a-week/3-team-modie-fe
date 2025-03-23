@@ -1,5 +1,102 @@
 # CHANGELOG
 
+## 1.14.0 (2025-03-23)
+
+* feat: Merge pull request #24 from 100-hours-a-week/feature/main-api ([f80d16b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f80d16b)), closes [#24](https://github.com/100-hours-a-week/3-team-modie-fe/issues/24)
+* feat: Merge pull request #26 from 100-hours-a-week/feature/meetDetail-api ([601c2e1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/601c2e1)), closes [#26](https://github.com/100-hours-a-week/3-team-modie-fe/issues/26)
+* feat: navigate 추가 ([ce2cc5d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ce2cc5d))
+* feat: 모임 목록 조회 api 구조 잡기 ([ea73c11](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ea73c11))
+* feat: 모임 목록 조회 api 연동 ([b243f73](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b243f73))
+* feat: 모임 상세 내역 조회 api 연동 ([463bc36](https://github.com/100-hours-a-week/3-team-modie-fe/commit/463bc36))
+* feat: 모임 조회 api 구조 잡기 ([d568286](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d568286))
+* feat: 모임 종료, 삭제, 나가기 api 구조 잡기 ([197faf4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/197faf4))
+* feat: 모임 참여하기 api 구조 잡기 ([e3e7a1e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e3e7a1e))
+* feat: 정산 내역 업데이트 api 구조 잡기 ([905b65c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/905b65c))
+* fix: api 연동 에러 픽스 ([9cf04b6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9cf04b6))
+* chore: Merge branch 'dev' into feature/meetDetail-api ([e1e8b51](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e1e8b51))
+
+## 1.13.0 (2025-03-23)
+
+* feat: AWS credentials configuration 추가 ([1646c9f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1646c9f))
+* feat: Merge pull request #25 from 100-hours-a-week/feat/CICD ([dd926a4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd926a4)), closes [#25](https://github.com/100-hours-a-week/3-team-modie-fe/issues/25)
+* fix: 시크릿 변수 명 수정 ([d5b2101](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d5b2101))
+
+## <small>1.12.1 (2025-03-22)</small>
+
+* fix: 빌드 오류 픽스 ([932874d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/932874d))
+
+## 1.12.0 (2025-03-22)
+
+* feat: meetCost ([468b35c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/468b35c))
+* feat: 모임 정산 페이지 UI 구현 ([a4b8676](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a4b8676))
+* feat: 헤더 모임 정산하기 메뉴와 정산하기 페이지 연결 ([29d0cde](https://github.com/100-hours-a-week/3-team-modie-fe/commit/29d0cde))
+* Merge branch 'dev' into feature/meetCost ([d1318e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d1318e6))
+* fix: header style ([95529f2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/95529f2))
+* fix: title 추가 및 정산 금액 검증 추가 ([9e6c2e9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9e6c2e9))
+* fix: width 일부 수정 ([418e7ec](https://github.com/100-hours-a-week/3-team-modie-fe/commit/418e7ec))
+
+## 1.11.0 (2025-03-22)
+
+* feat: mypage ([504dd40](https://github.com/100-hours-a-week/3-team-modie-fe/commit/504dd40))
+* feat: 로그아웃 버튼 구현 및 이용약관 페이지 구현 ([dd06fc1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd06fc1))
+* feat: 마이페이지 UI 구현 ([ccdde9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ccdde9e))
+* feat: 이용약관 페이지 구현 ([2f5a94f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2f5a94f))
+* Merge branch 'dev' into feature/mypage ([0d1775d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0d1775d))
+* fix: cursor-pointer 속성 추가 ([c150033](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c150033))
+* fix: UI 보완 ([09b6972](https://github.com/100-hours-a-week/3-team-modie-fe/commit/09b6972))
+* fix: 계좌 입력 영역 스타일 수정 ([32d93f7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/32d93f7))
+* fix: 닉네임 요구사항 반영 ([ca07d97](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ca07d97))
+* fix: 이용약관 내용 수정 ([7597de6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7597de6))
+
+## 1.10.0 (2025-03-22)
+
+* feat: DatePicker 컴포넌트 제작 ([ea98f21](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ea98f21))
+* feat: meetCreate ([3f12fc7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3f12fc7))
+* feat: Merge branch 'dev' into feature/meetCreate ([5e11a69](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5e11a69))
+* feat: TimePicker 컴포넌트 제작 ([fe66226](https://github.com/100-hours-a-week/3-team-modie-fe/commit/fe66226))
+* feat: 모임 생성 1단계 UI 구현 #11 ([6b43f30](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6b43f30)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* feat: 모임 생성 2단계 UI 구현 #11 ([dc963c4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dc963c4)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* feat: 모임 생성 3, 4단계 UI 구현 #11 ([e042b7e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e042b7e)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* feat: 모임 생성 4단계 데이터 정리 ([adcbd14](https://github.com/100-hours-a-week/3-team-modie-fe/commit/adcbd14))
+* feat: 모임 생성 api 구조 잡기 ([2ebfaa2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2ebfaa2))
+* feat: 모임 생성 UI 구현 ([e391d40](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e391d40))
+* feat: 모임 생성 예외 처리, 토스트 메세지 띄우기 ([b5876c0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b5876c0))
+* feat: 유효성 검사 완료 후 /createMeetPlace로 이동 ([f0710b4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f0710b4))
+* Merge branch 'dev' into feature/meetCreate ([66876f7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/66876f7))
+* fix: 코드 리뷰 반영 ([eff9775](https://github.com/100-hours-a-week/3-team-modie-fe/commit/eff9775))
+* design: CategoryBox min width 설정 #11 ([8bf0efc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8bf0efc)), closes [#11](https://github.com/100-hours-a-week/3-team-modie-fe/issues/11)
+* design: 모임생성 UI 개선 ([dd38177](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd38177))
+* design: 헤더 height 52px로 변경 ([adb89ef](https://github.com/100-hours-a-week/3-team-modie-fe/commit/adb89ef))
+* refactor: 객체 매핑 방식 적용 ([d400e6b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d400e6b))
+* chore: 기존 코드 사용 ([197414c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/197414c))
+* chore: 파일명 변경 MeetCreate.tsx to CreateMeetType.tsx ([b5224c1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b5224c1))
+
+## 1.9.0 (2025-03-21)
+
+* feat: Merge branch 'dev' into feature/meetChat ([4f56d32](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4f56d32))
+* feat: 모임 상태에 따라서 채팅방 인풋창 disabled 처리 ([9f1c400](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9f1c400))
+* feat: 채팅방 UI 구현 ([7be9562](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7be9562))
+* feat: 채팅방 UI 구현 ([f6fc244](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f6fc244))
+* Merge branch 'dev' into feature/meetChat ([ab38d4b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ab38d4b))
+* fix: 코드 리뷰 반영 ([f49bd9a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f49bd9a))
+* design: svg 색 변경, 변경된 모임 타입 적용 ([3a3d7f7](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3a3d7f7))
+* design: 채팅방 인풋창 내 pb 늘리기 ([45959e1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/45959e1))
+* chore: tailwind-scrollbar-hide 삭제 ([7640324](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7640324))
+
+## 1.8.0 (2025-03-20)
+
+* feat: dev 브런치 병항 ([8023bb5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8023bb5))
+* feat: 로그인 페이지 UI 구현 및 API 연결 완료 ([de13009](https://github.com/100-hours-a-week/3-team-modie-fe/commit/de13009))
+* feat: 로그인 페이지 화면 구현 ([4bd8416](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4bd8416))
+* feat: 카카오 로그인 구현 ([3af83af](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3af83af))
+* feat: 카카오 로그인 구현 ([795663d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/795663d))
+* Merge branch 'dev' into feature/loginpage ([ead5184](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ead5184))
+* Merge remote-tracking branch 'origin/dev' into feature/loginpage ([11f03c5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/11f03c5))
+* fix: dev 병합 ([ebf11bb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ebf11bb))
+* fix: map 로드되기 전 호출하는 문제 수정 ([c2e7f60](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c2e7f60))
+* fix: sw.js ([30e26ab](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30e26ab))
+* fix: sw.js ([6ee18b1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ee18b1))
+
 ## 1.7.0 (2025-03-20)
 
 * feat : 모임 종료 화면 UI 구현 ([c29bdcf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c29bdcf))
