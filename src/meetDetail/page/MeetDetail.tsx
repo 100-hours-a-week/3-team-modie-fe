@@ -18,6 +18,7 @@ import { useSubmitButton } from "../../common/hooks/useSubmitBtn";
 import { useFetchMeet } from "../hooks/useMeetStore";
 import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
+import { meetMembers } from "../../common/types/meetType";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -187,7 +188,7 @@ export default function MeetDetail() {
                 className="flex justify-between items-center w-full text-Body2 text-gray75 pt-4"
               >
                 <span className="break-words whitespace-pre-wrap max-w-[60%]">
-                  {member.name}
+                  {member.userName}
                 </span>
 
                 {meet.meetRule === "owner" && (
@@ -201,7 +202,11 @@ export default function MeetDetail() {
                       }
 
                       try {
-                        await updatePaymentService(meet.meetId, token);
+                        await updatePaymentService(
+                          meet.meetId,
+                          token,
+                          member.userId
+                        );
                         return true;
                       } catch {
                         showToast("정산 상태 변경 실패");

@@ -27,8 +27,7 @@ export const useFetchMeet = () => {
     //   ownerName: "허지노",
     //   meetIntro: "제주 해안 드라이브 같이 갈 사람 구해요! 맛집도 가용",
     //   meetType: "여행",
-    //   meetAt: "2025-03-16T12:00:00",
-    //   meetAt: "2025-03-16T12:00:00",
+    //   meetAt: "2025-03-30T12:00:00",
     //   address: "제주특별자치도 제주시 월성로 4길 19",
     //   addressDetail: "노블레스호텔 정문",
     //   totalCost: 10000,
@@ -49,7 +48,7 @@ export const useFetchMeet = () => {
     //   ],
     // };
 
-    // set({ meet: response.data.data });
+    // // set({ meet: response.data.data });
     // setMeet(dummyData); // 상태 업데이트
     // } catch (error) {
     //   console.error("Error fetching meet details:", error);

@@ -7,10 +7,14 @@ import axiosInstance from "../../__api__/axiosConfig";
  * @author 희진
  */
 
-export const updatePaymentService = async (meetId: number, token: string) => {
+export const updatePaymentService = async (
+  meetId: number,
+  token: string,
+  memberId: number
+) => {
   const response = await axiosInstance.patch(
     `/api/v1/meets/${meetId}/payments`,
-    {},
+    { userId: memberId },
     {
       headers: {
         Authorization: `Bearer ${token}`,
