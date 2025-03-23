@@ -8,7 +8,7 @@ import { meetType } from "../types/meetType";
 export const useSubmitButton = (meet: meetType | null) => {
   const isCompleted = meet?.completedAt !== null;
   const isDeleted = meet?.deletedAt !== null;
-  const isFull = meet?.members.length === meet?.memberLimit;
+  const isFull = meet?.members?.length === meet?.memberLimit;
 
   const statusMap = {
     completed: {

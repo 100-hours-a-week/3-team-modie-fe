@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import arrowIcon from "../../assets/arrow.svg";
+import ArrowIcon from "../../assets/arrow.svg?react";
 import logoIcon from "../../assets/logo.svg";
 import settingIcon from "../../assets/setting.svg";
 import { headerType } from "../types/headerType";
@@ -50,7 +50,9 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
 
   return (
     <>
-      <header className="relative flex justify-between items-center pr-4 py-3">
+      <header
+        className={`relative w-screen flex justify-between items-center px-[2rem] pr-4 ${isMainPage ? "py-[1.35rem]" : "py-[1.1rem]"}`}
+      >
         <div className="flex items-center gap-2">
           {isMainPage ? (
             <>
@@ -59,13 +61,11 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
                 alt="logo"
                 className="w-[6.4rem] h-auto ml-4"
               />
-              <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
-                {title}
-              </div>
             </>
           ) : (
             <>
-              <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} />
+              {/* <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} /> */}
+              <ArrowIcon onClick={() => navigate(-1)} />
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>
@@ -80,7 +80,13 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
             handleStatusIconClick();
           }}
         >
-          {isMainPage ? <img src={settingIcon} alt="setting" /> : statusIcon}
+          {isMainPage ? (
+            <button onClick={() => navigate("/my")}>
+              <img src={settingIcon} alt="setting" className="cursor-pointer" />
+            </button>
+          ) : (
+            statusIcon
+          )}
         </div>
 
         {showDropdown && meetStatus?.meetRule !== "guest" && meetStatus && (
@@ -90,7 +96,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
               onDelete={() => openConfirmModal("delete")}
               onEnd={() => openConfirmModal("end")}
               onUpdate={() => console.log("수정 페이지 이동")}
-              onPay={() => console.log("정산 페이지 이동")}
+              onPay={() => navigate("/paying")}
               onHide={() => openConfirmModal("hide")}
             />
           </div>
