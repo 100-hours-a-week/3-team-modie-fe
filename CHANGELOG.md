@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.15.1 (2025-03-23)</small>
+
+* fix: 깃헙 액션 에러 픽스 ([fdc20c0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/fdc20c0))
+
 ## 1.15.0 (2025-03-23)
 
 * feat: Merge pull request #27 from 100-hours-a-week/feature/loginpage ([93f1fee](https://github.com/100-hours-a-week/3-team-modie-fe/commit/93f1fee)), closes [#27](https://github.com/100-hours-a-week/3-team-modie-fe/issues/27)
