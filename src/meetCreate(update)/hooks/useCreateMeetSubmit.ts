@@ -49,8 +49,8 @@ export const useCreateMeetSubmit = () => {
       if (token) {
         const res = await createMeetService(requestData, token);
 
-        if (res.data?.id) {
-          navigate(`/${res.data.id}`);
+        if (res.data?.meetId) {
+          navigate(`/${res.data.meetId}`);
         }
       }
     } catch (err) {
