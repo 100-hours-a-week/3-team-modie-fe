@@ -8,7 +8,7 @@ import { chatType } from "../meetChat/types/chatTypes";
 
 export const getChatMessageMeta = (
   currentMessage: chatType,
-  prevMessage: chatType
+  prevMessage: chatType | null
 ) => {
   const currentDate = formatChatDate(currentMessage.dateTime);
   const prevDate = prevMessage ? formatChatDate(prevMessage.dateTime) : null;

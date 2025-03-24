@@ -5,8 +5,8 @@
 
 export interface chatType {
   nickname: string;
-  isMe: boolean;
-  isOwner: boolean;
+  me: boolean;
+  owner: boolean;
   content: string;
   dateTime: string;
 }
