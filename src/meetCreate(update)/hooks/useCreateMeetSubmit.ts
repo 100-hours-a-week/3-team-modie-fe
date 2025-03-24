@@ -46,29 +46,29 @@ export const useCreateMeetSubmit = () => {
 
       if (isEditMode && editMeetInfo) {
         const updateRequestData = {
-          meetIntro: editMeetInfo.intro,
+          meetIntro: meetInfo.intro,
           meetType:
-            editMeetInfo.category === "기타"
-              ? editMeetInfo.customType
-              : editMeetInfo.category,
-          address: editMeetInfo.address,
-          addressDescription: editMeetInfo.addressDescription,
-          meetAt: `${editMeetInfo.date.replace(/\./g, "-")}T${editMeetInfo.time.hour.padStart(2, "0")}:${editMeetInfo.time.minute.padStart(2, "0")}:00`,
-          memberLimit: editMeetInfo.memberCount,
-          totalCost: editMeetInfo.hasCost ? editMeetInfo.cost : 0,
+            meetInfo.category === "기타"
+              ? meetInfo.customType
+              : meetInfo.category,
+          address: meetInfo.address,
+          addressDescription: meetInfo.addressDescription,
+          meetAt: `${meetInfo.date.replace(/\./g, "-")}T${meetInfo.time.hour.padStart(2, "0")}:${meetInfo.time.minute.padStart(2, "0")}:00`,
+          memberLimit: meetInfo.memberCount,
+          totalCost: meetInfo.hasCost ? meetInfo.cost : 0,
         };
 
         console.log(updateRequestData);
 
         const updateRes = await updateMeetService(
-          editMeetInfo.meetId,
+          meetInfo.meetId,
           updateRequestData,
           token
         );
 
         if (updateRes.success) {
           showToast("모임이 수정되었어요!");
-          navigate(`/${editMeetInfo.meetId}`);
+          navigate(`/${meetInfo.meetId}`);
         } else {
           showToast("모임 수정에 실패했어요.");
         }

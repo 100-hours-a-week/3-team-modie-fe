@@ -24,7 +24,8 @@ export default function CreateMeetPlace() {
     isToastVisible,
   } = useCreateMeetPlace();
 
-  const { setMeetInfo, isEditMode, editMeetInfo } = useCreateMeetStore();
+  const { meetInfo, setMeetInfo, isEditMode, editMeetInfo } =
+    useCreateMeetStore();
 
   useEffect(() => {
     if (isEditMode && editMeetInfo?.address) {
@@ -46,7 +47,7 @@ export default function CreateMeetPlace() {
 
           // 상태에도 저장
           setMeetInfo({
-            ...editMeetInfo,
+            ...meetInfo,
             lat,
             lng,
             address: editMeetInfo.address,

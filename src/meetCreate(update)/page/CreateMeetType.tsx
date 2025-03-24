@@ -32,7 +32,8 @@ export default function CreateMeetType() {
     isToastVisible,
   } = useCreateMeetType();
 
-  const { isEditMode, editMeetInfo, setMeetInfo } = useCreateMeetStore();
+  const { meetInfo, isEditMode, editMeetInfo, setMeetInfo } =
+    useCreateMeetStore();
 
   useEffect(() => {
     if (isEditMode && editMeetInfo) {
@@ -40,7 +41,7 @@ export default function CreateMeetType() {
       const isCustomCategory = !categoryList.includes(editMeetInfo.category);
 
       setMeetInfo({
-        ...editMeetInfo,
+        ...meetInfo,
         meetId: editMeetInfo.meetId,
         intro: editMeetInfo.intro,
         category: isCustomCategory ? "기타" : editMeetInfo.category,

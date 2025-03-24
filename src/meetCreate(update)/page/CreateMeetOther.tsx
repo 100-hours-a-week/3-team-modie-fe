@@ -60,12 +60,13 @@ export default function CreateMeetOther() {
       };
 
       setMeetInfo({
-        ...editMeetInfo,
+        ...meetInfo,
         date: dateStr,
         time: timeObj,
         memberCount: editMeetInfo.memberCount,
         hasCost: !!editMeetInfo.hasCost,
         cost: editMeetInfo.cost || 0,
+        meetAt: `${dateInput} ${time.hour}:${time.minute}`,
       });
       console.log("설정된 값: ", meetInfo);
     }
