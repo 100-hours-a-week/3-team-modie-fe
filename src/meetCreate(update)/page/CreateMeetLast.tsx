@@ -10,7 +10,7 @@ import { useCreateMeetSubmit } from "../hooks/useCreateMeetSubmit";
 import ToastMsg from "../../common/components/ToastMsg";
 
 export default function CreateMeetLast() {
-  const { meetInfo } = useCreateMeetStore();
+  const { meetInfo, isEditMode } = useCreateMeetStore();
   const { handleSubmit, isToastVisible, toastMessage } = useCreateMeetSubmit();
 
   return (
@@ -34,9 +34,7 @@ export default function CreateMeetLast() {
           <div className="flex flex-col items-start text-left gap-1">
             <div className="text-Body2 text-black">{meetInfo.date}</div>
             <div className="text-Body1 font-bold">
-              {meetInfo?.time?.hour && meetInfo?.time?.minute
-                ? `${meetInfo.time.hour}:${meetInfo.time.minute}`
-                : ""}
+              {meetInfo?.time?.hour}:{meetInfo?.time?.minute}
             </div>
             <div className="flex items-center gap-2 mt-1">
               <MemberIcon className="text-gray42" />
@@ -49,12 +47,12 @@ export default function CreateMeetLast() {
 
         <div className="w-full mb-11">
           <div className="text-Body1 font-bold mb-2">모임 장소</div>
-          {meetInfo?.address && <KakaoMap address={meetInfo?.address} />}
+          <KakaoMap address={meetInfo?.address} />
           <div className="mt-4 text-Body2 text-gray42 font-bold break-words whitespace-pre-wrap w-full">
             {meetInfo?.address}
           </div>
           <p className="mt-4 text-Body2 text-gray75 break-words whitespace-pre-wrap w-full">
-            {meetInfo?.addressDetail}
+            {meetInfo?.addressDescription}
           </p>
         </div>
 
@@ -66,11 +64,12 @@ export default function CreateMeetLast() {
         </div>
 
         <div className="w-full">
-          {meetInfo?.cost > 0 ? (
+          {(meetInfo.cost ?? 0) > 0 ? (
             <>
               <div className="text-Body1 font-bold mb-2">비용이 발생해요</div>
               <p className="mt-4 text-Body2 text-gray75 break-words whitespace-pre-wrap w-full">
-                예상 비용 {meetInfo?.cost.toLocaleString()}원
+                예상 비용
+                {(meetInfo.cost ?? 0).toLocaleString()} 원
               </p>
             </>
           ) : (
@@ -89,7 +88,10 @@ export default function CreateMeetLast() {
         className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
         onClick={handleSubmit}
       >
-        <SubmitBtn active={true} description="생성하기" />
+        <SubmitBtn
+          active={true}
+          description={isEditMode ? "수정하기" : "생성하기"}
+        />
       </div>
     </div>
   );

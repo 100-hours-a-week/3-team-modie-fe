@@ -12,7 +12,9 @@ import { useEffect } from "react";
 export default function CreateMeetPlace() {
   const {
     center,
+    setCenter,
     position,
+    setPosition,
     handleMapClick,
     description,
     setDescription,
@@ -22,13 +24,38 @@ export default function CreateMeetPlace() {
     isToastVisible,
   } = useCreateMeetPlace();
 
-  const { meetInfo, setMeetInfo } = useCreateMeetStore();
+  const { setMeetInfo, isEditMode, editMeetInfo } = useCreateMeetStore();
 
   useEffect(() => {
-    if (meetInfo.addressDetail) {
-      setDescription(meetInfo.addressDetail);
+    if (isEditMode && editMeetInfo?.address) {
+      setDescription(editMeetInfo.addressDescription || "");
+
+      // 지오코딩: 주소 → 좌표 변환
+      const geocoder = new window.kakao.maps.services.Geocoder();
+      geocoder.addressSearch(editMeetInfo.address, (result, status) => {
+        if (
+          status === window.kakao.maps.services.Status.OK &&
+          result.length > 0
+        ) {
+          const { y, x } = result[0];
+          const lat = parseFloat(y);
+          const lng = parseFloat(x);
+
+          setCenter({ lat, lng });
+          setPosition({ lat, lng });
+
+          // 상태에도 저장
+          setMeetInfo({
+            ...editMeetInfo,
+            lat,
+            lng,
+            address: editMeetInfo.address,
+            addressDescription: editMeetInfo.addressDescription,
+          });
+        }
+      });
     }
-  }, [setDescription, meetInfo.addressDetail]);
+  }, [isEditMode, editMeetInfo]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -46,7 +73,28 @@ export default function CreateMeetPlace() {
           level={3}
           onClick={(_, mouseEvent) => {
             const latlng = mouseEvent.latLng;
-            handleMapClick(latlng.getLat(), latlng.getLng());
+            const lat = latlng.getLat();
+            const lng = latlng.getLng();
+            handleMapClick(lat, lng);
+
+            const geocoder = new window.kakao.maps.services.Geocoder();
+            geocoder.coord2Address(lng, lat, (result, status) => {
+              if (
+                status === window.kakao.maps.services.Status.OK &&
+                result.length > 0
+              ) {
+                const address = result[0].road_address
+                  ? result[0].road_address.address_name
+                  : result[0].address.address_name;
+
+                // Update address state
+                setMeetInfo({
+                  lat,
+                  lng,
+                  address,
+                });
+              }
+            });
           }}
         >
           {position && (
@@ -66,11 +114,10 @@ export default function CreateMeetPlace() {
           type="text"
           value={description}
           onChange={(e) => {
-            if (e.target.value.length <= 20) {
-              setDescription(e.target.value);
-              setMeetInfo({
-                addressDetail: e.target.value,
-              });
+            const value = e.target.value;
+            if (value.length <= 20) {
+              setDescription(value);
+              setMeetInfo({ addressDescription: value }); // ✅ 여기에서 필드명이 일관성 있게 `addressDetail` 사용해야 함
             }
           }}
           placeholder="장소에 대한 간단한 설명을 적어주세요."

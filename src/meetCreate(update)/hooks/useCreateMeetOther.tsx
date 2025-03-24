@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
@@ -15,35 +15,25 @@ export const useMeetCreateOther = () => {
   const navigate = useNavigate();
   const { meetInfo, setMeetInfo } = useCreateMeetStore();
 
-  const [dateInput, setDateInput] = useState("");
+  const [dateInput, setDateInput] = useState(meetInfo.date || "");
+  const [time, setTime] = useState(meetInfo.time || { hour: "", minute: "" });
+  const [memberCount, setMemberCount] = useState(
+    meetInfo.memberCount ? meetInfo.memberCount.toString() : ""
+  );
+  const [hasCost, setHasCost] = useState(meetInfo.hasCost || false);
+  const [cost, setCost] = useState(
+    meetInfo.cost ? meetInfo.cost.toLocaleString() : ""
+  );
+
   const [dateError, setDateError] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  const [time, setTime] = useState({ hour: "", minute: "" });
-  const [memberCount, setMemberCount] = useState("");
   const [memberError, setMemberError] = useState("");
-  const [hasCost, setHasCost] = useState(false);
-  const [cost, setCost] = useState("");
   const [costError, setCostError] = useState<string | undefined>(undefined);
-
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-
-  useEffect(() => {
-    if (meetInfo.date) setDateInput(meetInfo.date);
-    if (meetInfo.time) setTime(meetInfo.time);
-    if (meetInfo.memberCount) setMemberCount(meetInfo.memberCount.toString());
-    if (meetInfo.hasCost) setHasCost(meetInfo.hasCost);
-    if (meetInfo.cost) setCost(meetInfo.cost.toLocaleString());
-  }, [
-    meetInfo.date,
-    meetInfo.time,
-    meetInfo.memberCount,
-    meetInfo.hasCost,
-    meetInfo.cost,
-  ]);
 
   const handleTimePickerOpen = () => setShowTimePicker(true);
   const handleTimeSave = (selected: { hour: string; minute: string }) => {
@@ -151,7 +141,6 @@ export const useMeetCreateOther = () => {
   return {
     // Datepicker 관련
     dateInput,
-    setDateInput,
     dateError,
     showCalendar,
     setShowCalendar,

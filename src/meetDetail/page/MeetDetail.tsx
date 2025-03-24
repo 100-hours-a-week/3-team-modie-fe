@@ -144,7 +144,7 @@ export default function MeetDetail() {
             {meet.address}
           </div>
           <p className="mt-4 text-Body2 text-gray75 break-words whitespace-pre-wrap w-full">
-            {meet.addressDetail}
+            {meet.addressDescription}
           </p>
         </div>
 

@@ -61,7 +61,7 @@ export default function Main() {
             meetType={meet.meetType}
             meetAt={meet.meetAt}
             address={meet.address}
-            addressDetail={meet.addressDetail}
+            addressDescription={meet.addressDescription}
             cost={meet.cost}
             memberCount={meet.memberCount}
             memberLimit={meet.memberLimit}

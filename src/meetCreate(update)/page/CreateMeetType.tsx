@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "../../common/components/Header";
 import ToastMsg from "../../common/components/ToastMsg";
 import SubmitBtn from "../../common/components/SubmitBtn";
@@ -8,6 +9,7 @@ import etcIcon from "../../assets/etc.svg";
 import CategoryBox from "../components/CategoryBox";
 import { useCreateMeetType } from "../hooks/useCreateMeetType";
 import ProgressBar from "../../common/components/ProgressBar";
+import { useCreateMeetStore } from "../store/useCreateMeetStore";
 
 const CATEGORIES = [
   { id: "이동", icon: moveIcon, label: "이동" },
@@ -29,6 +31,23 @@ export default function CreateMeetType() {
     toastMessage,
     isToastVisible,
   } = useCreateMeetType();
+
+  const { isEditMode, editMeetInfo, setMeetInfo } = useCreateMeetStore();
+
+  useEffect(() => {
+    if (isEditMode && editMeetInfo) {
+      const categoryList = ["이동", "운동", "음식"];
+      const isCustomCategory = !categoryList.includes(editMeetInfo.category);
+
+      setMeetInfo({
+        ...editMeetInfo,
+        meetId: editMeetInfo.meetId,
+        intro: editMeetInfo.intro,
+        category: isCustomCategory ? "기타" : editMeetInfo.category,
+        customType: isCustomCategory ? editMeetInfo.category : "",
+      });
+    }
+  }, [isEditMode, editMeetInfo]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">

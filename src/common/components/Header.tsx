@@ -9,6 +9,8 @@ import ConfirmModal from "./ConfirmModal";
 import { useHeaderConfirmModal } from "../hooks/useHeaderContirmModal";
 import { useHeaderDropbox } from "../../meetDetail/hooks/useHeaderDropbox";
 import dayjs from "dayjs";
+import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore";
+import { convertMeetTypeToMeetInfo } from "../../utils/convertMeetTypeToMeetInfo";
 
 /**
  * 전역적으로 사용되는 헤더입니다.
@@ -18,6 +20,7 @@ import dayjs from "dayjs";
 export default function Header({ title, meetStatus, isMainPage }: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
+  const { setEditMode, setEditMeetInfo } = useCreateMeetStore();
 
   const {
     showConfirmModal,
@@ -95,7 +98,21 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
               meetStatus={meetStatus}
               onDelete={() => openConfirmModal("delete")}
               onEnd={() => openConfirmModal("end")}
-              onUpdate={() => console.log("수정 페이지 이동")}
+              onUpdate={async () => {
+                console.log("edit: ", meetStatus);
+                console.log(
+                  "edit address detail: ",
+                  meetStatus.addressDescription
+                );
+
+                const converted = await convertMeetTypeToMeetInfo(meetStatus);
+
+                setEditMode(true);
+                setEditMeetInfo(converted);
+
+                console.log("뭐지?: ", converted);
+                navigate("/meet/create/type");
+              }}
               onPay={() => navigate("/paying")}
               onHide={() => openConfirmModal("hide")}
             />

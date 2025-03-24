@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "../../common/components/Header";
 import ProgressBar from "../../common/components/ProgressBar";
 import CalendarIcon from "../../assets/calendar.svg";
@@ -9,6 +10,8 @@ import TimeDisplayField from "../components/TimeDisplayField";
 import SubmitBtn from "../../common/components/SubmitBtn";
 import ToastMsg from "../../common/components/ToastMsg";
 import { useMeetCreateOther } from "../hooks/useCreateMeetOther";
+import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import dayjs from "dayjs";
 
 export default function CreateMeetOther() {
   const {
@@ -44,6 +47,29 @@ export default function CreateMeetOther() {
     today,
     maxDate,
   } = useMeetCreateOther();
+
+  const { meetInfo, setMeetInfo, isEditMode, editMeetInfo } =
+    useCreateMeetStore();
+
+  useEffect(() => {
+    if (isEditMode && editMeetInfo) {
+      const dateStr = dayjs(editMeetInfo.date).format("YYYY.MM.DD");
+      const timeObj = {
+        hour: editMeetInfo.time.hour,
+        minute: editMeetInfo.time.minute,
+      };
+
+      setMeetInfo({
+        ...editMeetInfo,
+        date: dateStr,
+        time: timeObj,
+        memberCount: editMeetInfo.memberCount,
+        hasCost: !!editMeetInfo.hasCost,
+        cost: editMeetInfo.cost || 0,
+      });
+      console.log("설정된 값: ", meetInfo);
+    }
+  }, [isEditMode, editMeetInfo]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
