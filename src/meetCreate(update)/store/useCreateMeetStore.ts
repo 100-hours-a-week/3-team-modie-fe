@@ -5,7 +5,7 @@ import { create } from "zustand";
  * @author 희진
  */
 
-interface MeetInfo {
+export interface MeetInfo {
   intro: string;
   category: string;
   customType: string;
