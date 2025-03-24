@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.17.0 (2025-03-24)
+
+* feat: Merge pull request #30 from 100-hours-a-week/feature/my-api ([1fff426](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1fff426)), closes [#30](https://github.com/100-hours-a-week/3-team-modie-fe/issues/30)
+* feat: 사용자 프로필 조회, 계좌번호 업데이트 api 연동 #29 ([5cc0c38](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5cc0c38)), closes [#29](https://github.com/100-hours-a-week/3-team-modie-fe/issues/29)
+
 ## 1.16.0 (2025-03-24)
 
 * Merge pull request #28 from 100-hours-a-week/feat/CICD ([5e3f3ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5e3f3ff)), closes [#28](https://github.com/100-hours-a-week/3-team-modie-fe/issues/28)
