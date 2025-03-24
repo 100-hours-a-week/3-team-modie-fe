@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.16.0 (2025-03-24)
+
+* Merge pull request #28 from 100-hours-a-week/feat/CICD ([5e3f3ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5e3f3ff)), closes [#28](https://github.com/100-hours-a-week/3-team-modie-fe/issues/28)
+* feat: 환경변수 추가 ([2762904](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2762904))
+
 ## <small>1.15.3 (2025-03-23)</small>
 
 * fix: 사용하지 않는 테스트 코드 제거 ([79767f5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/79767f5))
