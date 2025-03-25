@@ -99,19 +99,18 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
               onDelete={() => openConfirmModal("delete")}
               onEnd={() => openConfirmModal("end")}
               onUpdate={async () => {
-                console.log("edit: ", meetStatus);
-                console.log(
-                  "edit address detail: ",
-                  meetStatus.addressDescription
-                );
-
                 const converted = await convertMeetTypeToMeetInfo(meetStatus);
 
-                setEditMode(true);
+                // 순서 바꿔서 먼저 editMeetInfo 설정
                 setEditMeetInfo(converted);
+                setEditMode(true);
 
-                console.log("뭐지?: ", converted);
-                navigate("/meet/create/type");
+                console.log("바뀜?: ", converted);
+
+                // 2. 다음 이벤트 루프에서 이동하도록 처리
+                setTimeout(() => {
+                  navigate("/meet/create/type");
+                }, 0);
               }}
               onPay={() => navigate("/paying")}
               onHide={() => openConfirmModal("hide")}

@@ -56,7 +56,7 @@ export default function CreateMeetPlace() {
         }
       });
     }
-  }, [isEditMode, editMeetInfo]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
