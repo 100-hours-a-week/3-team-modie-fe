@@ -1,95 +1,30 @@
 import Header from "../../common/components/Header";
 import MessageBox from "../components/MessageBox";
 import ChatInput from "../components/chatInput";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { formatChatDate, formatChatTime } from "../../utils/formatChatDate";
 import { getChatMessageMeta } from "../../utils/getChatMessageMeta";
 import { useChatStore } from "../hooks/useChat";
 import { useLocation } from "react-router-dom";
-import { Client } from "@stomp/stompjs";
+import { useAuth } from "../hooks/useAuth";
+import { useChatSocket } from "../hooks/useChatSocket";
 
 export default function MeetChat() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { messages, fetchMessages, addMessage } = useChatStore();
+  const { messages, fetchMessages } = useChatStore();
   const location = useLocation();
   const { id, type, isEnd } = location.state || {};
   const CHAT_INPUT_HEIGHT = "10rem";
-  const [stompClient, setStompClient] = useState<Client | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [processedMsgIds] = useState(new Set<string>());
+  const { userId, jwtToken } = useAuth();
+  const { isConnected, sendMessage } = useChatSocket({ chatId: id, userId });
 
-  const extractUserId = () => {
-    try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) return null;
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.userId || payload.sub;
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  };
-
-  const userId = extractUserId();
-
+  // 메시지 로드
   useEffect(() => {
-    if (!id) return;
-    const jwtToken = localStorage.getItem("accessToken");
-    if (!jwtToken) return;
-
+    if (!id || !jwtToken) return;
     fetchMessages(id, jwtToken);
+  }, [id, fetchMessages, jwtToken]);
 
-    const client = new Client({
-      brokerURL: "ws://localhost:8080/ws",
-      connectHeaders: { Authorization: `Bearer ${jwtToken}` },
-      onConnect: () => {
-        setIsConnected(true);
-        client.subscribe(`/topic/chat/${id}`, (message) => {
-          try {
-            const receivedMessage = JSON.parse(message.body);
-
-            if (
-              !receivedMessage ||
-              !receivedMessage.content ||
-              !receivedMessage.dateTime
-            ) {
-              return;
-            }
-
-            if (receivedMessage.userId === userId) {
-              return;
-            }
-
-            if (processedMsgIds.has(receivedMessage.chatId)) return;
-            processedMsgIds.add(receivedMessage.chatId);
-
-            addMessage({
-              nickname: receivedMessage.nickname,
-              isMe: receivedMessage.userId === userId,
-              isOwner: receivedMessage.isOwner,
-              content: receivedMessage.content,
-              dateTime: receivedMessage.dateTime,
-            });
-
-            scrollToBottom();
-          } catch (error) {
-            console.log(error);
-          }
-        });
-      },
-      onStompError: () => {
-        setIsConnected(false);
-      },
-    });
-
-    client.activate();
-    setStompClient(client);
-
-    return () => {
-      if (client.active) client.deactivate();
-    };
-  }, [id, fetchMessages, addMessage, userId, processedMsgIds]);
-
+  // 스크롤 기능
   const scrollToBottom = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -98,26 +33,11 @@ export default function MeetChat() {
     scrollToBottom();
   }, [messages.length]);
 
-  const handleSendMessage = async (msg: string) => {
-    if (!msg.trim() || !stompClient?.connected || !id) return;
-    const jwtToken = localStorage.getItem("accessToken");
-    if (!jwtToken) return;
-
-    stompClient.publish({
-      destination: `/app/chat/${id}`,
-      body: msg,
-      headers: { Authorization: `Bearer ${jwtToken}` },
-    });
-
-    addMessage({
-      nickname: "나",
-      isMe: true,
-      isOwner: false,
-      content: msg,
-      dateTime: new Date().toISOString(),
-    });
-
-    scrollToBottom();
+  // 메시지 전송 핸들러
+  const handleSendMessage = (msg: string) => {
+    if (sendMessage(msg)) {
+      scrollToBottom();
+    }
   };
 
   return (
