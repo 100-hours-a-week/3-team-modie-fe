@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Splash from "../../common/page/Splash";
 
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
@@ -21,5 +22,5 @@ export default function KakaoCallback() {
     }
   }, [code, navigate]);
 
-  return <div>로그인 처리 중...</div>;
+  return <Splash />;
 }
