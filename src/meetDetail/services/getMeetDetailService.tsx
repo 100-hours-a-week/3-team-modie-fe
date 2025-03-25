@@ -11,13 +11,13 @@ import { meetType } from "../../common/types/meetType";
  */
 
 export const getMeetDetailService = async (
-  meetId: number
-  // token: string
+  meetId: number,
+  token?: string
 ): Promise<apiResponse<meetType>> => {
   const response = await axiosInstance.get(`/api/v1/meets/${meetId}`, {
-    // headers: {
-    //   Authorization: `Bearer ${token}`,
-    // },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return response.data;
