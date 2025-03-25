@@ -22,14 +22,16 @@ export const useChatStore = create<ChatState>((set) => ({
    */
   fetchMessages: async (meetId: number, token: string) => {
     try {
+      set({ messages: [] }); // ✅ 기존 메시지 초기화
+
       const response = await axiosInstance.get(`/api/v1/chat/${meetId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      // 서버에서 받아온 메시지가 최신순이라면 역순으로 정렬
       const sortedMessages = [...response.data.data].reverse();
+
       set({ messages: sortedMessages });
     } catch (error) {
       console.error("Failed to fetch messages:", error);
@@ -41,11 +43,11 @@ export const useChatStore = create<ChatState>((set) => ({
    * @param message 추가할 메시지 객체
    */
   addMessage: (message: chatType) => {
-    set((state) => ({
-      messages: [...state.messages, message],
-    }));
+    set((state) => {
+      const updatedMessages = [...state.messages, message];
+      return { messages: updatedMessages };
+    });
   },
-
   /**
    * 메시지 목록을 초기화하는 함수
    * 채팅방을 나갈 때나 새로운 채팅방에 입장할 때 사용
