@@ -36,8 +36,13 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build Vite App
+        env:
+          VITE_KAKAO_JS_KEY: ${{ secrets.VITE_KAKAO_JS_KEY }}
+          VITE_KAKAO_REST_API_KEY: ${{ secrets.VITE_KAKAO_REST_API_KEY }}
+          VITE_KAKAO_REDIRECT_URI: ${{ secrets.VITE_KAKAO_REDIRECT_URI_DEV }}
+          VITE_APP_API_BASE_URL: ${{ secrets.VITE_APP_API_BASE_URL_DEV }}
         run: |
-          set -e  # 오류 발생 시 즉시 종료
+          set -e
           yarn build
       
       - name: Configure AWS credentials
