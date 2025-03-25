@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 1.18.0 (2025-03-25)
+
+* feat: @stomp/stompjs 의존성 추가 ([d4c69ea](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d4c69ea))
+* feat: Merge pull request #33 from 100-hours-a-week/feature/chat-ssl ([216c37e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/216c37e)), closes [#33](https://github.com/100-hours-a-week/3-team-modie-fe/issues/33)
+* feat: 이전 채팅 불러오기 구현 ([b0ed4c9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b0ed4c9))
+* fix: Jwt Token 중복 조회 수정 ([5d1bf9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5d1bf9e))
+* fix: 로직과 UI를 분리 ([cad6dd1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/cad6dd1))
+* fix: 배포용 주소 설정 ([23ae1cd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/23ae1cd))
+* fix: 비로그인시 모임 상세보기가 안 되는 문제 해결 ([da5a1af](https://github.com/100-hours-a-week/3-team-modie-fe/commit/da5a1af))
+* fix: 채팅 전송시 사용하지 않는 props 삭제 ([7b40070](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7b40070))
+* fix: 채팅 전송시 사용하지 않는 props 삭제 ([b377953](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b377953))
+* fix: 채팅에서 줄바꿈 안 되는 문제 해결 ([30bd840](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30bd840))
+* fix: 채팅을 수신하지 못하는 문제 해결 ([21b01b8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/21b01b8))
+
 ## 1.17.0 (2025-03-24)
 
 * feat: Merge pull request #30 from 100-hours-a-week/feature/my-api ([1fff426](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1fff426)), closes [#30](https://github.com/100-hours-a-week/3-team-modie-fe/issues/30)
