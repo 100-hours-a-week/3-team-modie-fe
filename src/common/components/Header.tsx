@@ -18,7 +18,12 @@ import { useMeetStore } from "../../meetDetail/store/getMeetStore";
  * @author 희진
  */
 
-export default function Header({ title, meetStatus, isMainPage }: headerType) {
+export default function Header({
+  title,
+  meetStatus,
+  isMainPage,
+  canGoHome,
+}: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
   const { setEditMode, setEditMeetInfo } = useCreateMeetStore();
@@ -51,6 +56,14 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
     }
   };
 
+  const handleBack = () => {
+    if (canGoHome) {
+      navigate("/");
+    } else {
+      navigate(-1);
+    }
+  };
+
   const confirmContent = getConfirmModalContent();
 
   return (
@@ -69,8 +82,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
             </>
           ) : (
             <>
-              {/* <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} /> */}
-              <ArrowIcon onClick={() => navigate(-1)} />
+              <ArrowIcon onClick={handleBack} />
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>

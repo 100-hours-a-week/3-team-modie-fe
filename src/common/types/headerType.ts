@@ -9,4 +9,5 @@ export interface headerType {
   title?: string;
   meetStatus?: meetType;
   isMainPage?: boolean;
+  canGoHome?: boolean;
 }
