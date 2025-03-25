@@ -3,7 +3,9 @@ import { meetType } from "../../common/types/meetType";
 
 interface MeetStoreState {
   meet: meetType | null;
+  meetId?: meetType["meetId"];
   setMeet: (data: meetType) => void;
+  setMeetId: (id: meetType["meetId"]) => void;
   resetMeet: () => void;
 }
 
@@ -15,5 +17,6 @@ interface MeetStoreState {
 export const useMeetStore = create<MeetStoreState>((set) => ({
   meet: null,
   setMeet: (data) => set({ meet: data }),
+  setMeetId: (id) => set({ meetId: id }),
   resetMeet: () => set({ meet: null }),
 }));

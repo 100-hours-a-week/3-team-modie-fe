@@ -11,6 +11,7 @@ import { useHeaderDropbox } from "../../meetDetail/hooks/useHeaderDropbox";
 import dayjs from "dayjs";
 import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore";
 import { convertMeetTypeToMeetInfo } from "../../utils/convertMeetTypeToMeetInfo";
+import { useMeetStore } from "../../meetDetail/store/getMeetStore";
 
 /**
  * 전역적으로 사용되는 헤더입니다.
@@ -21,6 +22,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
   const { setEditMode, setEditMeetInfo } = useCreateMeetStore();
+  const { setMeetId } = useMeetStore();
 
   const {
     showConfirmModal,
@@ -113,7 +115,10 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
                 console.log("뭐지?: ", converted);
                 navigate("/meet/create/type");
               }}
-              onPay={() => navigate("/paying")}
+              onPay={() => {
+                setMeetId(meetStatus.meetId);
+                navigate("/paying");
+              }}
               onHide={() => openConfirmModal("hide")}
             />
           </div>
