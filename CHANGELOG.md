@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.19.5 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([a9f0008](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a9f0008))
+
 ## <small>1.19.4 (2025-03-25)</small>
 
 * fix: 환경변수명 변경 ([f2f13fe](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f2f13fe))
