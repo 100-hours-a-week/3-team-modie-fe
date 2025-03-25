@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.18.1 (2025-03-25)</small>
+
+* fix: 배포 주소로 변경 ([dc55416](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dc55416))
+
 ## 1.18.0 (2025-03-25)
 
 * feat: @stomp/stompjs 의존성 추가 ([d4c69ea](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d4c69ea))
