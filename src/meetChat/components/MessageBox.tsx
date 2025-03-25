@@ -38,7 +38,9 @@ export default function MessageBox({
         </div>
       )}
       <div className={`flex items-end max-w-2/3 gap-2 ${messageRowDirection}`}>
-        <div className={`px-4 py-2 rounded-xl break-words ${bubbleBgColor}`}>
+        <div
+          className={`px-4 py-2 rounded-xl break-words break-all overflow-hidden ${bubbleBgColor}`}
+        >
           <div className="text-Body1 text-black">{content}</div>
         </div>
         <div className="text-Caption2 text-grayBd">{time}</div>
