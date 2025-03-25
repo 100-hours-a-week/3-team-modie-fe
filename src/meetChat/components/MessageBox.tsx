@@ -1,5 +1,5 @@
 interface MessageBoxProps {
-  nickname: string;
+  nickname?: string;
   isMe: boolean;
   isOwner: boolean;
   content: string;

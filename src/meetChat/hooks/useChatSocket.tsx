@@ -23,8 +23,8 @@ export const useChatSocket = ({
     if (!jwtToken) return;
 
     const client = new Client({
-      brokerURL: "wss://dev-api.modie.site/wss",
-      // brokerURL: "ws://localhost:8080/ws",
+      // brokerURL: "wss://dev-api.modie.site/wss",
+      brokerURL: "ws://localhost:8080/ws",
       connectHeaders: { Authorization: `Bearer ${jwtToken}` },
       onConnect: () => {
         setIsConnected(true);
@@ -84,9 +84,7 @@ export const useChatSocket = ({
       });
 
       addMessage({
-        nickname: "나",
         isMe: true,
-        isOwner: false,
         content: message,
         dateTime: new Date().toISOString(),
       });
