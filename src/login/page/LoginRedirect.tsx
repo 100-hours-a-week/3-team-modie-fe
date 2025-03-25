@@ -11,6 +11,7 @@ export default function KakaoCallback() {
     if (code) {
       axios
         .get(`https://dev-api.modie.site/auth/kakao/login?code=${code}`) // ✅ GET 요청으로 변경
+        // .get(`http://localhost:8080/auth/kakao/login?code=${code}`) // ✅ GET 요청으로 변경
         .then((res) => {
           console.log("로그인 성공", res.data);
           localStorage.setItem("accessToken", res.data.data);

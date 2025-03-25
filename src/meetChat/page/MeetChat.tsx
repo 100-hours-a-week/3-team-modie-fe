@@ -16,7 +16,11 @@ export default function MeetChat() {
   const { id, type, isEnd } = location.state || {};
   const CHAT_INPUT_HEIGHT = "10rem";
   const { userId, jwtToken } = useAuth();
-  const { isConnected, sendMessage } = useChatSocket({ chatId: id, userId });
+  const { isConnected, sendMessage } = useChatSocket({
+    chatId: id,
+    userId,
+    jwtToken,
+  });
 
   // 메시지 로드
   useEffect(() => {
@@ -35,7 +39,7 @@ export default function MeetChat() {
 
   // 메시지 전송 핸들러
   const handleSendMessage = (msg: string) => {
-    if (sendMessage(msg)) {
+    if (sendMessage(msg, jwtToken)) {
       scrollToBottom();
     }
   };

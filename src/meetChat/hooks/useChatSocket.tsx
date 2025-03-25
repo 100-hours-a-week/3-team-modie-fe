@@ -5,9 +5,14 @@ import { useChatStore } from "./useChat";
 interface UseChatSocketProps {
   chatId: string | null;
   userId: string | null;
+  jwtToken: string | null;
 }
 
-export const useChatSocket = ({ chatId, userId }: UseChatSocketProps) => {
+export const useChatSocket = ({
+  chatId,
+  userId,
+  jwtToken,
+}: UseChatSocketProps) => {
   const { addMessage } = useChatStore();
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -15,11 +20,11 @@ export const useChatSocket = ({ chatId, userId }: UseChatSocketProps) => {
 
   useEffect(() => {
     if (!chatId) return;
-    const jwtToken = localStorage.getItem("accessToken");
     if (!jwtToken) return;
 
     const client = new Client({
       brokerURL: "wss://dev-api.modie.site/wss",
+      // brokerURL: "ws://localhost:8080/ws",
       connectHeaders: { Authorization: `Bearer ${jwtToken}` },
       onConnect: () => {
         setIsConnected(true);
@@ -68,9 +73,8 @@ export const useChatSocket = ({ chatId, userId }: UseChatSocketProps) => {
   }, [chatId, addMessage, userId, processedMsgIds]);
 
   const sendMessage = useCallback(
-    (message: string) => {
+    (message: string, jwtToken: string | null) => {
       if (!message.trim() || !stompClient?.connected || !chatId) return false;
-      const jwtToken = localStorage.getItem("accessToken");
       if (!jwtToken) return false;
 
       stompClient.publish({
