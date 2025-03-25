@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.19.1 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([f8134e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f8134e6))
+
 ## 1.19.0 (2025-03-25)
 
 * Merge pull request #35 from 100-hours-a-week/feat/CICD ([45a83ce](https://github.com/100-hours-a-week/3-team-modie-fe/commit/45a83ce)), closes [#35](https://github.com/100-hours-a-week/3-team-modie-fe/issues/35)
