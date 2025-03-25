@@ -19,7 +19,7 @@ export const useChatSocket = ({ chatId, userId }: UseChatSocketProps) => {
     if (!jwtToken) return;
 
     const client = new Client({
-      brokerURL: "ws://localhost:8080/ws",
+      brokerURL: "wss://dev-api.modie.site/wss",
       connectHeaders: { Authorization: `Bearer ${jwtToken}` },
       onConnect: () => {
         setIsConnected(true);
