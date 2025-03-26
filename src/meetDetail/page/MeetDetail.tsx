@@ -131,7 +131,7 @@ export default function MeetDetail() {
           <InfoItem
             icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
-            content={`${meet.members?.length} / ${meet.memberLimit}`}
+            content={`${(meet.members ?? []).length + 1} / ${meet.memberLimit}`}
           />
         </div>
 
