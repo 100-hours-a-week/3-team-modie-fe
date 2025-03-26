@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import Header from "../../common/components/Header";
 import MeetCard from "../components/MeetCard.tsx";
 import MeetTap from "../components/MeetTab.tsx";
 import MeetChip from "../components/MeetChip.tsx";
 import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
+import Splash from "../../common/page/Splash.tsx";
 
 export default function Main() {
   const {
@@ -14,6 +16,21 @@ export default function Main() {
     handleTabClick,
     handleChipClick,
   } = useMeetData();
+  const [showSplash, setShowSplash] = useState(false);
+
+  useEffect(() => {
+    const hasSeenSplash = localStorage.getItem("hasSeenSplash");
+
+    if (!hasSeenSplash) {
+      setShowSplash(true);
+      setTimeout(() => {
+        setShowSplash(false);
+        localStorage.setItem("hasSeenSplash", "true");
+      }, 2000); // 2초 보여주기 (원하는 시간으로 조정)
+    }
+  }, []);
+
+  if (showSplash) return <Splash />;
 
   return (
     <div className="flex flex-col min-h-screen">

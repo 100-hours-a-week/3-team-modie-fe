@@ -19,6 +19,7 @@ import { useFetchMeet } from "../hooks/useMeetStore";
 import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
+import Splash from "../../common/page/Splash";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -41,11 +42,7 @@ export default function MeetDetail() {
   }, [meetId]);
 
   if (!meet) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p>Loading</p>
-      </div>
-    );
+    return <Splash />;
   }
 
   const handleCopyUrl = () => {
