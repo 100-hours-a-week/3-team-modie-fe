@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## <small>1.23.2 (2025-03-26)</small>
+
+* fix: 모임 상세 토큰 유무에 따라 포함 ([8db03ef](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8db03ef))
+* fix:dev 환경변수추가 ([de3c760](https://github.com/100-hours-a-week/3-team-modie-fe/commit/de3c760))
+* fix:prod 환경변수추가 ([c3bac7a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c3bac7a))
+* fix:prod 환경변수추가 ([bedcc88](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bedcc88))
+* chore: wss url 환경변수 추가 ([f12b33a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f12b33a))
+
 ## <small>1.23.1 (2025-03-26)</small>
 
 * fix: 타임피커 저장하기 버튼 z-index 설정 ([e2e50d8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e2e50d8))
