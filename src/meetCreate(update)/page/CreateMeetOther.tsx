@@ -69,15 +69,7 @@ export default function CreateMeetOther() {
         meetAt: `${dateInput} ${time.hour}:${time.minute}`,
       });
     }
-  }, [
-    isEditMode,
-    editMeetInfo,
-    setMeetInfo,
-    dateInput,
-    meetInfo,
-    time.hour,
-    time.minute,
-  ]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
