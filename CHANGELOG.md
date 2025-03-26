@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.24.0 (2025-03-26)
+
+* feat: 로그인 페이지로 리다이렉트 ([63cf362](https://github.com/100-hours-a-week/3-team-modie-fe/commit/63cf362))
+
 ## <small>1.23.2 (2025-03-26)</small>
 
 * fix: 모임 상세 토큰 유무에 따라 포함 ([8db03ef](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8db03ef))
