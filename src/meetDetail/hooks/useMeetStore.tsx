@@ -6,12 +6,12 @@ export const useFetchMeet = () => {
 
   const fetchMeet = async (meetId: number) => {
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.log("로그인이 필요합니다.");
-        resetMeet();
-        return;
-      }
+      const token = localStorage.getItem("accessToken") || "";
+      // if (!token) {
+      //   console.log("로그인이 필요합니다.");
+      //   resetMeet();
+      //   return;
+      // }
 
       const res = await getMeetDetailService(meetId, token);
       // const res = await getMeetDetailService(meetId);

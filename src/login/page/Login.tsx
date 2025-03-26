@@ -1,7 +1,10 @@
 import logoIcon from "../../assets/logo.svg";
 import kakaoLogin from "../../assets/kakao_login_large_wide.png";
 
-const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_REST_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code`;
+const key = import.meta.env.VITE_KAKAO_REST_API_KEY;
+const redirectUrl = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${key}&redirect_uri=${redirectUrl}&response_type=code`;
 
 export default function Login() {
   const handleLogin = () => {

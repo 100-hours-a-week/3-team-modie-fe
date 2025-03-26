@@ -1,5 +1,59 @@
 # CHANGELOG
 
+## 1.20.0 (2025-03-26)
+
+* feat: Merge pull request #38 from 100-hours-a-week/feature/splashPage ([8080722](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8080722)), closes [#38](https://github.com/100-hours-a-week/3-team-modie-fe/issues/38)
+* feat: 스플래시 UI 구현 ([e8cce5d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e8cce5d))
+* design: splash 화면 애니메이션 추가 ([44aed23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/44aed23))
+
+## <small>1.19.5 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([a9f0008](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a9f0008))
+
+## <small>1.19.4 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([f2f13fe](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f2f13fe))
+
+## <small>1.19.3 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([7a7a5c8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7a7a5c8))
+
+## <small>1.19.2 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([82b8501](https://github.com/100-hours-a-week/3-team-modie-fe/commit/82b8501))
+
+## <small>1.19.1 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([f8134e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f8134e6))
+
+## 1.19.0 (2025-03-25)
+
+* Merge pull request #35 from 100-hours-a-week/feat/CICD ([45a83ce](https://github.com/100-hours-a-week/3-team-modie-fe/commit/45a83ce)), closes [#35](https://github.com/100-hours-a-week/3-team-modie-fe/issues/35)
+* feat: 환경변수 추가 (Prod) ([beda665](https://github.com/100-hours-a-week/3-team-modie-fe/commit/beda665))
+
+## <small>1.18.1 (2025-03-25)</small>
+
+* fix: 배포 주소로 변경 ([dc55416](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dc55416))
+
+## 1.18.0 (2025-03-25)
+
+* feat: @stomp/stompjs 의존성 추가 ([d4c69ea](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d4c69ea))
+* feat: Merge pull request #33 from 100-hours-a-week/feature/chat-ssl ([216c37e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/216c37e)), closes [#33](https://github.com/100-hours-a-week/3-team-modie-fe/issues/33)
+* feat: 이전 채팅 불러오기 구현 ([b0ed4c9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b0ed4c9))
+* fix: Jwt Token 중복 조회 수정 ([5d1bf9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5d1bf9e))
+* fix: 로직과 UI를 분리 ([cad6dd1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/cad6dd1))
+* fix: 배포용 주소 설정 ([23ae1cd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/23ae1cd))
+* fix: 비로그인시 모임 상세보기가 안 되는 문제 해결 ([da5a1af](https://github.com/100-hours-a-week/3-team-modie-fe/commit/da5a1af))
+* fix: 채팅 전송시 사용하지 않는 props 삭제 ([7b40070](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7b40070))
+* fix: 채팅 전송시 사용하지 않는 props 삭제 ([b377953](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b377953))
+* fix: 채팅에서 줄바꿈 안 되는 문제 해결 ([30bd840](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30bd840))
+* fix: 채팅을 수신하지 못하는 문제 해결 ([21b01b8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/21b01b8))
+
+## 1.17.0 (2025-03-24)
+
+* feat: Merge pull request #30 from 100-hours-a-week/feature/my-api ([1fff426](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1fff426)), closes [#30](https://github.com/100-hours-a-week/3-team-modie-fe/issues/30)
+* feat: 사용자 프로필 조회, 계좌번호 업데이트 api 연동 #29 ([5cc0c38](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5cc0c38)), closes [#29](https://github.com/100-hours-a-week/3-team-modie-fe/issues/29)
+
 ## 1.16.0 (2025-03-24)
 
 * Merge pull request #28 from 100-hours-a-week/feat/CICD ([5e3f3ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5e3f3ff)), closes [#28](https://github.com/100-hours-a-week/3-team-modie-fe/issues/28)

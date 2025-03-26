@@ -12,6 +12,7 @@ import MeetChat from "./meetChat/page/MeetChat";
 import Login from "./login/page/Login.tsx";
 import LoginRedirect from "./login/page/LoginRedirect.tsx";
 import MeetDone from "./meetDone/page/MeetDone.tsx";
+import Splash from "./common/page/Splash.tsx";
 
 export default function Routers() {
   const router = createBrowserRouter([
@@ -74,6 +75,10 @@ export default function Routers() {
     {
       path: "/paying",
       element: <MeetPaying />,
+    },
+    {
+      path: "/splash",
+      element: <Splash />,
     },
     {
       path: "*",
