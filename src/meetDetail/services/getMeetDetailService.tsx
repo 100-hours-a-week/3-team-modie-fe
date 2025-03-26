@@ -14,11 +14,14 @@ export const getMeetDetailService = async (
   meetId: number,
   token?: string
 ): Promise<apiResponse<meetType>> => {
-  const response = await axiosInstance.get(`/api/v1/meets/${meetId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const config = token
+    ? {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    : {};
 
+  const response = await axiosInstance.get(`/api/v1/meets/${meetId}`, config);
   return response.data;
 };
