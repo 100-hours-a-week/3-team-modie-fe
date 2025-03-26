@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.21.0 (2025-03-26)
+
+* feat: Merge pull request #36 from 100-hours-a-week/feature/meetDetail-totalCost-api ([8ce4e9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ce4e9e)), closes [#36](https://github.com/100-hours-a-week/3-team-modie-fe/issues/36)
+* feat: 모임 수정 api 에러 ([c0dec5b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c0dec5b))
+* feat: 모임 수정 api 연동 ([2220b6b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2220b6b))
+* feat: 정산 금액 업데이트 api 구조 잡기 ([3c6ff45](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3c6ff45))
+* feat: 정산 여부 업데이트 api 연동 ([07e795d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/07e795d))
+* Merge branch 'dev' into feature/meetDetail-totalCost-api ([1e19f2f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1e19f2f))
+* chore: 로그 출력문 제거 ([92a69c1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/92a69c1))
+* fix: 코드 리뷰 반영 ([082d4ca](https://github.com/100-hours-a-week/3-team-modie-fe/commit/082d4ca))
+
 ## 1.20.0 (2025-03-26)
 
 * feat: Merge pull request #38 from 100-hours-a-week/feature/splashPage ([8080722](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8080722)), closes [#38](https://github.com/100-hours-a-week/3-team-modie-fe/issues/38)
