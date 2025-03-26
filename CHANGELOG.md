@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.20.0 (2025-03-26)
+
+* feat: Merge pull request #38 from 100-hours-a-week/feature/splashPage ([8080722](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8080722)), closes [#38](https://github.com/100-hours-a-week/3-team-modie-fe/issues/38)
+* feat: 스플래시 UI 구현 ([e8cce5d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e8cce5d))
+* design: splash 화면 애니메이션 추가 ([44aed23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/44aed23))
+
 ## <small>1.19.5 (2025-03-25)</small>
 
 * fix: 환경변수명 변경 ([a9f0008](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a9f0008))
