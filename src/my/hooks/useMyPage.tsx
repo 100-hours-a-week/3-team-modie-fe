@@ -39,6 +39,7 @@ export const useMyPage = () => {
         const token = localStorage.getItem("accessToken");
         if (!token) {
           showToast("로그인이 필요합니다.");
+          navigate("/login");
           return;
         }
 
@@ -71,6 +72,7 @@ export const useMyPage = () => {
       const token = localStorage.getItem("accessToken");
       if (!token) {
         showToast("로그인이 필요합니다.");
+        navigate("/login");
         return;
       }
 

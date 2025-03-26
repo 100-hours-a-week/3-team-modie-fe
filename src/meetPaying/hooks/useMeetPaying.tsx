@@ -34,13 +34,16 @@ export const useMeetPaying = () => {
 
   const handleSave = async () => {
     const token = localStorage.getItem("accessToken");
-    if (!token) return showToast("로그인이 필요합니다.");
+    if (!token) {
+      showToast("로그인이 필요합니다.");
+      navigate("/login");
+    }
 
     if (!isValid) return;
     const costNum = parseInt(cost) || 0;
 
     try {
-      if (!meetId) {
+      if (!meetId || !token) {
         showToast("잘못된 접근입니다.");
       } else {
         const res = await updateAmountService(meetId, token, costNum);
