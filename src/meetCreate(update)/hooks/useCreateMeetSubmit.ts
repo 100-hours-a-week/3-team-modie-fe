@@ -27,7 +27,7 @@ export const useCreateMeetSubmit = () => {
         cost,
         memberCount,
         address,
-        addressDescription, // ✅ 여기 수정됨
+        addressDescription,
       } = meetInfo;
 
       const finalCost = hasCost ? cost : 0;
@@ -38,7 +38,7 @@ export const useCreateMeetSubmit = () => {
         meetIntro: intro,
         meetType,
         address,
-        addressDescription: addressDescription, // ✅ 여기 수정됨
+        addressDescription: addressDescription,
         meetAt,
         memberLimit: memberCount,
         totalCost: finalCost,
@@ -57,8 +57,6 @@ export const useCreateMeetSubmit = () => {
           memberLimit: meetInfo.memberCount,
           totalCost: meetInfo.hasCost ? meetInfo.cost : 0,
         };
-
-        console.log(updateRequestData);
 
         const updateRes = await updateMeetService(
           meetInfo.meetId,

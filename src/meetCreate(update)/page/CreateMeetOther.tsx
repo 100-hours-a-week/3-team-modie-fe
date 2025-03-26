@@ -68,7 +68,6 @@ export default function CreateMeetOther() {
         cost: editMeetInfo.cost || 0,
         meetAt: `${dateInput} ${time.hour}:${time.minute}`,
       });
-      console.log("설정된 값: ", meetInfo);
     }
   }, [isEditMode, editMeetInfo]);
 

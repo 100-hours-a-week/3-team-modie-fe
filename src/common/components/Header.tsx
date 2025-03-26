@@ -113,12 +113,6 @@ export default function Header({
               onDelete={() => openConfirmModal("delete")}
               onEnd={() => openConfirmModal("end")}
               onUpdate={async () => {
-                console.log("edit: ", meetStatus);
-                console.log(
-                  "edit address detail: ",
-                  meetStatus.addressDescription
-                );
-
                 const converted = await convertMeetTypeToMeetInfo(meetStatus);
 
                 setEditMode(true);
