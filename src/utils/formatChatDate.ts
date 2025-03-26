@@ -1,6 +1,21 @@
 /**
- * ISO 형식 날짜 문자열을 '2025년 3월 25일' 형식으로 변환하는 함수
- * @param {string} dateTime - ISO 형식 날짜 문자열 (예: '2025-03-25T09:48:59')
+ * 현재 한국 시간을 ISO 형식으로 반환하는 함수
+ * - 메시지 전송 시 사용해 서버 시간과 동일한 형식 유지
+ * @returns {string} 한국 시간 기준 ISO 문자열
+ */
+export const getKoreanISOString = (): string => {
+  const now = new Date();
+
+  // 클라이언트와 서버의 3시간 차이를 조정
+  const adjustedDate = new Date(now);
+  adjustedDate.setHours(now.getHours() + 15);
+
+  return adjustedDate.toISOString();
+};
+
+/**
+ * ISO 형식 날짜 문자열을 한국 시간(KST) 기준 '2025년 3월 25일' 형식으로 변환하는 함수
+ * @param {string} dateTime - 서버에서 받은 날짜 문자열
  * @returns {string} 포맷팅된 날짜 문자열 (예: '2025년 3월 25일')
  */
 export const formatChatDate = (dateTime: string): string => {
@@ -8,7 +23,11 @@ export const formatChatDate = (dateTime: string): string => {
   if (!dateTime) return "";
 
   try {
+    // 서버에서 이미 KST로 보내주는 시간을 그대로 파싱
     const date = new Date(dateTime);
+
+    // 3시간 조정 (서버 시간과 클라이언트 시간 사이 차이 해결)
+    date.setHours(date.getHours() - 3);
 
     // 날짜가 유효한지 확인
     if (isNaN(date.getTime())) {
@@ -28,16 +47,20 @@ export const formatChatDate = (dateTime: string): string => {
 };
 
 /**
- * ISO 형식 날짜 문자열에서 시간 정보를 'HH:MM' 형식으로 변환하는 함수
- * @param {string} dateTime - ISO 형식 날짜 문자열 (예: '2025-03-25T09:48:59')
- * @returns {string} 포맷팅된 시간 문자열 (예: '09:48')
+ * 서버에서 받은 날짜 문자열에서 시간 정보를 'HH:MM' 형식으로 변환하는 함수
+ * @param {string} dateTime - 서버에서 받은 날짜 문자열
+ * @returns {string} 포맷팅된 시간 문자열 (예: '14:58')
  */
 export const formatChatTime = (dateTime: string): string => {
   // 입력값 유효성 검사
   if (!dateTime) return "";
 
   try {
+    // 서버에서 이미 KST로 보내주는 시간을 그대로 파싱
     const date = new Date(dateTime);
+
+    // 3시간 조정 (서버 시간과 클라이언트 시간 사이 차이 해결)
+    date.setHours(date.getHours() + 9);
 
     // 날짜가 유효한지 확인
     if (isNaN(date.getTime())) {
@@ -56,7 +79,27 @@ export const formatChatTime = (dateTime: string): string => {
   }
 };
 
-// 사용 예시
-// const isoString = "2025-03-25T09:48:59";
-// const koreanDate = formatChatDate(isoString); // 결과: "2025년 3월 25일"
-// const timeOnly = formatChatTime(isoString);   // 결과: "09:48"
+// 디버깅 도우미 함수 (개발 과정에서만 사용)
+export const debugDateTime = (dateTime: string): void => {
+  if (!dateTime) return;
+
+  try {
+    const date = new Date(dateTime);
+    console.log("원본 시간 문자열:", dateTime);
+    console.log("JS Date 객체 시간:", date.toString());
+    console.log("현재 로컬 시간:", new Date().toString());
+
+    // 조정된 시간 (3시간 차이 적용)
+    const adjustedDate = new Date(dateTime);
+    adjustedDate.setHours(adjustedDate.getHours() - 3);
+    console.log("조정된 시간 (-3시간):", adjustedDate.toString());
+
+    // 포맷팅된 결과
+    console.log(
+      "포맷팅 결과:",
+      `${formatChatDate(dateTime)} ${formatChatTime(dateTime)}`
+    );
+  } catch (error) {
+    console.error("디버깅 중 오류 발생:", error);
+  }
+};

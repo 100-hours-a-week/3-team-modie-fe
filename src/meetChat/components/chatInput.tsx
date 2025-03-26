@@ -28,10 +28,19 @@ export default function ChatInput({
     }
   };
 
+  // 버튼 클릭으로 메시지 전송
   const handleSend = () => {
     if (!message.trim()) return;
     onSend(message.trim());
     setMessage("");
+  };
+
+  // 엔터키 처리 함수
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   // 4줄 미만일 때 입력칸 height 늘이고
@@ -64,6 +73,7 @@ export default function ChatInput({
               ref={textareaRef}
               value={message}
               onChange={handleChange}
+              onKeyDown={handleKeyDown} // 엔터키 이벤트 핸들러 추가
               placeholder={isDisabled ? "종료된 모임입니다" : "메시지 입력"}
               disabled={isDisabled}
               rows={1}
