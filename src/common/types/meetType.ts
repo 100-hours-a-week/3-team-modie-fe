@@ -10,7 +10,7 @@ export interface meetType {
   meetType: string;
   meetAt: string;
   address: string;
-  addressDetail: string;
+  addressDescription: string;
   totalCost: number;
   memberLimit: number;
   createdAt?: string;

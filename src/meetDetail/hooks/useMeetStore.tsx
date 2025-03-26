@@ -29,7 +29,7 @@ export const useFetchMeet = () => {
     //   meetType: "여행",
     //   meetAt: "2025-03-30T12:00:00",
     //   address: "제주특별자치도 제주시 월성로 4길 19",
-    //   addressDetail: "노블레스호텔 정문",
+    //   addressDescription: "노블레스호텔 정문",
     //   totalCost: 10000,
     //   memberLimit: 5,
     //   createdAt: "2025-03-10T12:00:00",

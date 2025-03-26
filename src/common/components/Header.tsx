@@ -9,15 +9,25 @@ import ConfirmModal from "./ConfirmModal";
 import { useHeaderConfirmModal } from "../hooks/useHeaderContirmModal";
 import { useHeaderDropbox } from "../../meetDetail/hooks/useHeaderDropbox";
 import dayjs from "dayjs";
+import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore";
+import { convertMeetTypeToMeetInfo } from "../../utils/convertMeetTypeToMeetInfo";
+import { useMeetStore } from "../../meetDetail/store/getMeetStore";
 
 /**
  * 전역적으로 사용되는 헤더입니다.
  * @author 희진
  */
 
-export default function Header({ title, meetStatus, isMainPage }: headerType) {
+export default function Header({
+  title,
+  meetStatus,
+  isMainPage,
+  canGoHome,
+}: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
+  const { setEditMode, setEditMeetInfo } = useCreateMeetStore();
+  const { setMeetId } = useMeetStore();
 
   const {
     showConfirmModal,
@@ -46,6 +56,14 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
     }
   };
 
+  const handleBack = () => {
+    if (canGoHome) {
+      navigate("/");
+    } else {
+      navigate(-1);
+    }
+  };
+
   const confirmContent = getConfirmModalContent();
 
   return (
@@ -64,8 +82,7 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
             </>
           ) : (
             <>
-              {/* <img src={arrowIcon} alt="arrow" onClick={() => navigate(-1)} /> */}
-              <ArrowIcon onClick={() => navigate(-1)} />
+              <ArrowIcon onClick={handleBack} />
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>
@@ -95,8 +112,18 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
               meetStatus={meetStatus}
               onDelete={() => openConfirmModal("delete")}
               onEnd={() => openConfirmModal("end")}
-              onUpdate={() => console.log("수정 페이지 이동")}
-              onPay={() => navigate("/paying")}
+              onUpdate={async () => {
+                const converted = await convertMeetTypeToMeetInfo(meetStatus);
+
+                setEditMode(true);
+                setEditMeetInfo(converted);
+
+                navigate("/meet/create/type");
+              }}
+              onPay={() => {
+                setMeetId(meetStatus.meetId);
+                navigate("/paying");
+              }}
               onHide={() => openConfirmModal("hide")}
             />
           </div>

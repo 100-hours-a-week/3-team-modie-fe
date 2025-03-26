@@ -14,7 +14,7 @@ export default function MeetCard({
   meetType,
   meetAt,
   address,
-  addressDetail,
+  addressDescription,
   cost,
   memberCount,
   memberLimit,
@@ -52,7 +52,7 @@ export default function MeetCard({
       <div className="flex h-fit items-center gap-2 self-stretch">
         <LocationIcon className="w-[2.4rem] h-[2.4rem] text-gray75" />
         <div className="text-gray75 text-Body3 font-pretendard truncate w-full text--">
-          {addressDetail} ({address})
+          {addressDescription} ({address})
         </div>
       </div>
 

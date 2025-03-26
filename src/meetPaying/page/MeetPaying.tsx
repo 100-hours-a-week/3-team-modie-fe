@@ -1,68 +1,12 @@
-import { useState, useEffect } from "react";
 import cn from "../../utils/cn.ts";
 import MeetInputField from "../../common/components/MeetInputField.tsx";
 import SubmitBtn from "../../common/components/SubmitBtn.tsx";
 import Header from "../../common/components/Header.tsx";
+import { useMeetPaying } from "../hooks/useMeetPaying.tsx";
 
-export default function MeetPayiing() {
-  // 상태 관리: 숫자 값과 표시용 포맷팅된 값 구분
-  const [cost, setCost] = useState<string>("");
-  const [formattedCost, setFormattedCost] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(true);
-
-  // 최대 금액 설정 (10,000,000원)
-  const MAX_AMOUNT = 10000000;
-
-  // 입력값 처리 함수: 숫자만 추출하여 저장하고 최대값 검증
-  const handleCostChange = (value: string) => {
-    // 숫자와 콤마만 허용하고 콤마 제거
-    const numericValue = value.replace(/[^0-9,]/g, "").replace(/,/g, "");
-
-    // 최대값 검증
-    const numericAmount = parseInt(numericValue) || 0;
-
-    if (numericAmount > MAX_AMOUNT) {
-      setError(
-        `정산 금액은 ${formatCurrency(MAX_AMOUNT.toString())}원을 초과할 수 없습니다.`
-      );
-      setIsValid(false);
-      // 최대 금액으로 제한
-      setCost(MAX_AMOUNT.toString());
-    } else {
-      setError("");
-      setIsValid(true);
-      setCost(numericValue);
-    }
-  };
-
-  // 입력값 변경 시 포맷팅된 값 업데이트
-  useEffect(() => {
-    setFormattedCost(cost ? formatCurrency(cost) : "");
-  }, [cost]);
-
-  // 저장 버튼 클릭 처리
-  const handleSave = () => {
-    const costNum = parseInt(cost) || 0;
-
-    if (!isValid) {
-      return; // 유효하지 않은 경우 저장 방지
-    }
-
-    if (costNum > 0) {
-      alert(`정산 금액 ${formatCurrency(cost)}원이 저장되었습니다.`);
-      // 실제 구현 시: navigate('/meet-detail');
-    } else {
-      alert("비용 없는 모임으로 처리됩니다.");
-      // 실제 구현 시: navigate('/meet-detail');
-    }
-  };
-
-  // 화폐 형식 변환 함수 - 간결하게 개선
-  const formatCurrency = (value: string): string => {
-    if (!value) return "";
-    return Number(value).toLocaleString();
-  };
+export default function MeetPaying() {
+  const { formattedCost, error, isValid, handleCostChange, handleSave } =
+    useMeetPaying();
 
   return (
     <div
@@ -132,7 +76,7 @@ export default function MeetPayiing() {
         className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
         onClick={isValid ? handleSave : undefined}
       >
-        <SubmitBtn active={isValid} description="다음" />
+        <SubmitBtn active={isValid} description="저장하기" />
       </div>
     </div>
   );

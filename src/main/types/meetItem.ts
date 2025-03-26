@@ -14,7 +14,7 @@ export interface meetItem
     | "meetType"
     | "meetAt"
     | "address"
-    | "addressDetail"
+    | "addressDescription"
     | "memberLimit"
     | "ownerName"
   > {

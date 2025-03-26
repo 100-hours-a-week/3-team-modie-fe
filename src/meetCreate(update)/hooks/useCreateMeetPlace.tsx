@@ -67,7 +67,7 @@ export const useCreateMeetPlace = () => {
       setMeetInfo({
         lat: position.lat,
         lng: position.lng,
-        addressDetail: description,
+        addressDescription: description,
       });
     }
 
@@ -76,7 +76,9 @@ export const useCreateMeetPlace = () => {
 
   return {
     center,
+    setCenter,
     position,
+    setPosition,
     handleMapClick,
     description,
     setDescription,

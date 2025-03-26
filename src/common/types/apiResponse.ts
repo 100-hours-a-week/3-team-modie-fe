@@ -3,4 +3,5 @@ export interface apiResponse<T> {
   success?: boolean;
   status: number;
   message: string;
+  success?: boolean;
 }
