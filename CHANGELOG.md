@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.22.0 (2025-03-26)
+
+* feat: Merge pull request #34 from 100-hours-a-week/feature/meetDetail-update-api ([f3a56fd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f3a56fd)), closes [#34](https://github.com/100-hours-a-week/3-team-modie-fe/issues/34)
+* feat: 모임 수정 api 에러 픽스 중 ([95e1412](https://github.com/100-hours-a-week/3-team-modie-fe/commit/95e1412))
+* feat: 모임 수정 api 연동 ([039392b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/039392b))
+* Merge branch 'dev' into feature/meetDetail-update-api ([5308e5e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5308e5e))
+* fix: 코드 리뷰 반영 ([76f053b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/76f053b))
+
 ## 1.21.0 (2025-03-26)
 
 * feat: Merge pull request #36 from 100-hours-a-week/feature/meetDetail-totalCost-api ([8ce4e9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ce4e9e)), closes [#36](https://github.com/100-hours-a-week/3-team-modie-fe/issues/36)
