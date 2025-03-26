@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Splash from "../../common/page/Splash";
 
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
@@ -10,7 +11,8 @@ export default function KakaoCallback() {
   useEffect(() => {
     if (code) {
       axios
-        .get(`http://localhost:8080/auth/kakao/login?code=${code}`) // ✅ GET 요청으로 변경
+        .get(`https://dev-api.modie.site/auth/kakao/login?code=${code}`) // ✅ GET 요청으로 변경
+        // .get(`http://localhost:8080/auth/kakao/login?code=${code}`) // ✅ GET 요청으로 변경
         .then((res) => {
           console.log("로그인 성공", res.data);
           localStorage.setItem("accessToken", res.data.data);
@@ -20,5 +22,5 @@ export default function KakaoCallback() {
     }
   }, [code, navigate]);
 
-  return <div>로그인 처리 중...</div>;
+  return <Splash />;
 }

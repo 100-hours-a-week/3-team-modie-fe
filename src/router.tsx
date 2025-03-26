@@ -5,13 +5,14 @@ import CreateMeetType from "./meetCreate(update)/page/CreateMeetType";
 import CreateMeetPlace from "./meetCreate(update)/page/CreateMeetPlace";
 import CreateMeetOther from "./meetCreate(update)/page/CreateMeetOther";
 import CreateMeetLast from "./meetCreate(update)/page/CreateMeetLast";
-import MeetPayiing from "./meetPayiing/page/MeetPayiing.tsx";
+import MeetPaying from "./meetPaying/page/MeetPaying.tsx";
 import My from "./my/page/My.tsx";
 import Terms from "./my/page/Terms.tsx";
 import MeetChat from "./meetChat/page/MeetChat";
 import Login from "./login/page/Login.tsx";
 import LoginRedirect from "./login/page/LoginRedirect.tsx";
 import MeetDone from "./meetDone/page/MeetDone.tsx";
+import Splash from "./common/page/Splash.tsx";
 
 export default function Routers() {
   const router = createBrowserRouter([
@@ -73,7 +74,11 @@ export default function Routers() {
     },
     {
       path: "/paying",
-      element: <MeetPayiing />,
+      element: <MeetPaying />,
+    },
+    {
+      path: "/splash",
+      element: <Splash />,
     },
     {
       path: "*",

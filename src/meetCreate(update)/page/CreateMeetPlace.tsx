@@ -112,7 +112,7 @@ export default function CreateMeetPlace() {
             const value = e.target.value;
             if (value.length <= 20) {
               setDescription(value);
-              setMeetInfo({ addressDescription: value }); // ✅ 여기에서 필드명이 일관성 있게 `addressDetail` 사용해야 함
+              setMeetInfo({ addressDescription: value });
             }
           }}
           placeholder="장소에 대한 간단한 설명을 적어주세요."

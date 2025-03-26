@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## 1.21.0 (2025-03-26)
+
+* feat: Merge pull request #36 from 100-hours-a-week/feature/meetDetail-totalCost-api ([8ce4e9e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ce4e9e)), closes [#36](https://github.com/100-hours-a-week/3-team-modie-fe/issues/36)
+* feat: 모임 수정 api 에러 ([c0dec5b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c0dec5b))
+* feat: 모임 수정 api 연동 ([2220b6b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2220b6b))
+* feat: 정산 금액 업데이트 api 구조 잡기 ([3c6ff45](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3c6ff45))
+* feat: 정산 여부 업데이트 api 연동 ([07e795d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/07e795d))
+* Merge branch 'dev' into feature/meetDetail-totalCost-api ([1e19f2f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1e19f2f))
+* chore: 로그 출력문 제거 ([92a69c1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/92a69c1))
+* fix: 코드 리뷰 반영 ([082d4ca](https://github.com/100-hours-a-week/3-team-modie-fe/commit/082d4ca))
+
+## 1.20.0 (2025-03-26)
+
+* feat: Merge pull request #38 from 100-hours-a-week/feature/splashPage ([8080722](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8080722)), closes [#38](https://github.com/100-hours-a-week/3-team-modie-fe/issues/38)
+* feat: 스플래시 UI 구현 ([e8cce5d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e8cce5d))
+* design: splash 화면 애니메이션 추가 ([44aed23](https://github.com/100-hours-a-week/3-team-modie-fe/commit/44aed23))
+
+## <small>1.19.5 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([a9f0008](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a9f0008))
+
+## <small>1.19.4 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([f2f13fe](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f2f13fe))
+
+## <small>1.19.3 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([7a7a5c8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7a7a5c8))
+
+## <small>1.19.2 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([82b8501](https://github.com/100-hours-a-week/3-team-modie-fe/commit/82b8501))
+
+## <small>1.19.1 (2025-03-25)</small>
+
+* fix: 환경변수명 변경 ([f8134e6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f8134e6))
+
+## 1.19.0 (2025-03-25)
+
+* Merge pull request #35 from 100-hours-a-week/feat/CICD ([45a83ce](https://github.com/100-hours-a-week/3-team-modie-fe/commit/45a83ce)), closes [#35](https://github.com/100-hours-a-week/3-team-modie-fe/issues/35)
+* feat: 환경변수 추가 (Prod) ([beda665](https://github.com/100-hours-a-week/3-team-modie-fe/commit/beda665))
+
 ## <small>1.18.1 (2025-03-25)</small>
 
 * fix: 배포 주소로 변경 ([dc55416](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dc55416))
