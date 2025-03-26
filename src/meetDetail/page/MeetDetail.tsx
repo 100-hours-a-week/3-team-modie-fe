@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMeetStore } from "../store/getMeetStore";
@@ -62,22 +63,26 @@ export default function MeetDetail() {
 
     try {
       const res = await joinMeetService(Number(meetId), token);
-      if (res.status == 200) {
+      if (res.success) {
         showToast("모임에 참여했어요!");
-        // 필요 시 navigate나 fetchMeet 다시 호출
         setTimeout(() => {
-          window.location.reload(); // ✅ 페이지 리로드
+          window.location.reload();
         }, 1000);
-        // fetchMeet(Number(meetId));
       }
-    } catch {
-      showToast("참여에 실패했어요");
+    } catch (error: unknown) {
+      let message = "참여에 실패했어요";
+
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.data?.message || "참여에 실패했어요";
+      }
+
+      showToast(message);
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header title={meet.meetType} meetStatus={meet} />
+      <Header title={meet.meetType} meetStatus={meet} canGoHome={true} />
 
       <main className="flex-1 flex flex-col items-center px-5 pb-6 ">
         <hr />
