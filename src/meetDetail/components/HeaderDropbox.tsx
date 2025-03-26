@@ -8,7 +8,6 @@ interface HeaderDropboxProps {
   onEnd: () => void;
   onUpdate: () => void;
   onPay: () => void;
-  onHide: () => void;
 }
 
 /**
@@ -22,7 +21,6 @@ export default function HeaderDropbox({
   onEnd,
   onUpdate,
   onPay,
-  onHide,
 }: HeaderDropboxProps) {
   const status = useMeetStatusInfo(meetStatus);
 
@@ -65,8 +63,6 @@ export default function HeaderDropbox({
           {renderButton("모임 종료하기", onEnd, "border-t-1 border-grayBd")}
         </>
       )}
-
-      {status.isEnded && renderButton("모임 숨기기", onHide)}
     </div>
   );
 }
