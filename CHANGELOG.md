@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.23.1 (2025-03-26)</small>
+
+* fix: 타임피커 저장하기 버튼 z-index 설정 ([e2e50d8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e2e50d8))
+
 ## 1.23.0 (2025-03-26)
 
 * feat: Merge pull request #41 from 100-hours-a-week/fix/error-fix ([7740699](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7740699)), closes [#41](https://github.com/100-hours-a-week/3-team-modie-fe/issues/41)
