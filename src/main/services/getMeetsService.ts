@@ -18,16 +18,21 @@ export const getMeetsService = async ({
   category,
   completed,
   page,
+  token,
 }: {
   category: string;
   completed: boolean;
   page: number;
+  token: string;
 }): Promise<apiResponse<MeetsResponseData>> => {
   const response = await axiosInstance.get("/api/v1/meets", {
     params: {
       category,
       completed,
       page,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
   return response.data;

@@ -65,7 +65,10 @@ export default function MeetDetail() {
       if (res.status == 200) {
         showToast("모임에 참여했어요!");
         // 필요 시 navigate나 fetchMeet 다시 호출
-        fetchMeet(Number(meetId));
+        setTimeout(() => {
+          window.location.reload(); // ✅ 페이지 리로드
+        }, 1000);
+        // fetchMeet(Number(meetId));
       }
     } catch {
       showToast("참여에 실패했어요");

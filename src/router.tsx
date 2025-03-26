@@ -14,11 +14,19 @@ import LoginRedirect from "./login/page/LoginRedirect.tsx";
 import MeetDone from "./meetDone/page/MeetDone.tsx";
 import Splash from "./common/page/Splash.tsx";
 import ProtectedRoute from "./common/components/ProtectedRoute.tsx";
+import RedirectIfAuthenticated from "./common/components/RedirectIfAuthenticated.tsx";
 
 export default function Routers() {
   const router = createBrowserRouter([
     { path: "/", element: <Main /> },
-    { path: "/login", element: <Login /> },
+    {
+      path: "/login",
+      element: (
+        <RedirectIfAuthenticated>
+          <Login />
+        </RedirectIfAuthenticated>
+      ),
+    },
     { path: "/auth/kakao/callback", element: <LoginRedirect /> },
     { path: "/:meetId", element: <MeetDetail /> },
     { path: "/:meetId/chat", element: <MeetChat /> },
