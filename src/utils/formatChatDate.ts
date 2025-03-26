@@ -1,6 +1,6 @@
 /**
- * ISO 형식 날짜 문자열을 '2025년 3월 25일' 형식으로 변환하는 함수
- * @param {string} dateTime - ISO 형식 날짜 문자열 (예: '2025-03-25T09:48:59')
+ * ISO 형식 날짜 문자열을 한국 시간(KST) 기준 '2025년 3월 25일' 형식으로 변환하는 함수
+ * @param {string} dateTime - 서버에서 받은 날짜 문자열
  * @returns {string} 포맷팅된 날짜 문자열 (예: '2025년 3월 25일')
  */
 export const formatChatDate = (dateTime: string): string => {
@@ -8,7 +8,11 @@ export const formatChatDate = (dateTime: string): string => {
   if (!dateTime) return "";
 
   try {
+    // 서버에서 이미 KST로 보내주는 시간을 그대로 파싱
     const date = new Date(dateTime);
+
+    // 3시간 조정 (서버 시간과 클라이언트 시간 사이 차이 해결)
+    date.setHours(date.getHours() - 3);
 
     // 날짜가 유효한지 확인
     if (isNaN(date.getTime())) {
@@ -28,16 +32,20 @@ export const formatChatDate = (dateTime: string): string => {
 };
 
 /**
- * ISO 형식 날짜 문자열에서 시간 정보를 'HH:MM' 형식으로 변환하는 함수
- * @param {string} dateTime - ISO 형식 날짜 문자열 (예: '2025-03-25T09:48:59')
- * @returns {string} 포맷팅된 시간 문자열 (예: '09:48')
+ * 서버에서 받은 날짜 문자열에서 시간 정보를 'HH:MM' 형식으로 변환하는 함수
+ * @param {string} dateTime - 서버에서 받은 날짜 문자열
+ * @returns {string} 포맷팅된 시간 문자열 (예: '14:58')
  */
 export const formatChatTime = (dateTime: string): string => {
   // 입력값 유효성 검사
   if (!dateTime) return "";
 
   try {
+    // 서버에서 이미 KST로 보내주는 시간을 그대로 파싱
     const date = new Date(dateTime);
+
+    // 3시간 조정 (서버 시간과 클라이언트 시간 사이 차이 해결)
+    date.setHours(date.getHours() + 9);
 
     // 날짜가 유효한지 확인
     if (isNaN(date.getTime())) {
@@ -55,8 +63,3 @@ export const formatChatTime = (dateTime: string): string => {
     return "";
   }
 };
-
-// 사용 예시
-// const isoString = "2025-03-25T09:48:59";
-// const koreanDate = formatChatDate(isoString); // 결과: "2025년 3월 25일"
-// const timeOnly = formatChatTime(isoString);   // 결과: "09:48"

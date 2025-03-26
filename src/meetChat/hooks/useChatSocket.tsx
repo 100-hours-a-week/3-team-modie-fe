@@ -86,7 +86,11 @@ export const useChatSocket = ({
       addMessage({
         isMe: true,
         content: message,
-        dateTime: new Date().toISOString(),
+        dateTime: (() => {
+          const now = new Date();
+          now.setHours(now.getHours() - 9);
+          return now.toISOString();
+        })(),
       });
 
       return true;
