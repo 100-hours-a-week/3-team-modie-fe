@@ -99,7 +99,7 @@ export default function TimePicker({
       <div className="w-full flex justify-center">
         <button
           onClick={handleSave}
-          className="w-80 mt-6 bg-primaryDark2 text-white text-Body2 font-bold py-3 rounded-full"
+          className="w-80 mt-6 bg-primaryDark2 text-white text-Body2 font-bold py-3 rounded-full z-50"
         >
           저장하기
         </button>
