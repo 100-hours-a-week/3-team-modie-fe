@@ -102,7 +102,7 @@ export default function Header({
               <img src={settingIcon} alt="setting" className="cursor-pointer" />
             </button>
           ) : (
-            statusIcon
+            !meetStatus?.completedAt && statusIcon
           )}
         </div>
 
@@ -128,7 +128,6 @@ export default function Header({
                 setMeetId(meetStatus.meetId);
                 navigate("/paying");
               }}
-              onHide={() => openConfirmModal("hide")}
             />
           </div>
         )}

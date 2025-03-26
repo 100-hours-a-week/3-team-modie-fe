@@ -8,7 +8,6 @@ interface HeaderDropboxProps {
   onEnd: () => void;
   onUpdate: () => void;
   onPay: () => void;
-  onHide: () => void;
 }
 
 /**
@@ -22,7 +21,6 @@ export default function HeaderDropbox({
   onEnd,
   onUpdate,
   onPay,
-  onHide,
 }: HeaderDropboxProps) {
   const status = useMeetStatusInfo(meetStatus);
 
@@ -42,31 +40,31 @@ export default function HeaderDropbox({
   );
 
   return (
-    <div
-      className={cn(
-        "absolute right-4 -top-4 bg-white shadow-md rounded-[6px] border-1 border-grayBd",
-        "z-50 text-Body2 w-[10.2rem] cursor-pointer text-center"
-      )}
-    >
-      {status.isOwner && status.isBeforeMeet && (
-        <>
-          {renderButton("모임 수정하기", onUpdate)}
-          {renderButton(
-            "모임 삭제하기",
-            onDelete,
-            "text-activeRed border-t-1 border-grayBd"
-          )}
-        </>
-      )}
+    !status.isEnded && (
+      <div
+        className={cn(
+          "absolute right-4 -top-4 bg-white shadow-md rounded-[6px] border-1 border-grayBd",
+          "z-50 text-Body2 w-[10.2rem] cursor-pointer text-center"
+        )}
+      >
+        {status.isOwner && status.isBeforeMeet && (
+          <>
+            {renderButton("모임 수정하기", onUpdate)}
+            {renderButton(
+              "모임 삭제하기",
+              onDelete,
+              "text-activeRed border-t-1 border-grayBd"
+            )}
+          </>
+        )}
 
-      {status.isOwner && !status.isBeforeMeet && !status.isEnded && (
-        <>
-          {renderButton("모임 정산하기", onPay)}
-          {renderButton("모임 종료하기", onEnd, "border-t-1 border-grayBd")}
-        </>
-      )}
-
-      {status.isEnded && renderButton("모임 숨기기", onHide)}
-    </div>
+        {status.isOwner && !status.isBeforeMeet && !status.isEnded && (
+          <>
+            {renderButton("모임 정산하기", onPay)}
+            {renderButton("모임 종료하기", onEnd, "border-t-1 border-grayBd")}
+          </>
+        )}
+      </div>
+    )
   );
 }

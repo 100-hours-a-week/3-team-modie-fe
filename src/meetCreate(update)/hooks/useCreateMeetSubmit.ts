@@ -3,11 +3,13 @@ import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { createMeetService } from "../services/createMeetService";
 import { updateMeetService } from "../services/updateMeetService";
 import { useToast } from "../../common/hooks/useToastMsg";
+import { useMeetStore } from "../../meetDetail/store/getMeetStore";
 
 export const useCreateMeetSubmit = () => {
   const navigate = useNavigate();
   const { meetInfo, isEditMode, editMeetInfo } = useCreateMeetStore();
   const { showToast, isToastVisible, toastMessage } = useToast();
+  const { resetMeet } = useMeetStore();
 
   const handleSubmit = async () => {
     try {
@@ -76,9 +78,12 @@ export const useCreateMeetSubmit = () => {
       // 생성 모드일 경우
       const createRes = await createMeetService(requestData, token);
 
-      if (createRes.data?.id) {
+      if (createRes.success) {
+        resetMeet();
         showToast("모임이 생성되었어요!");
-        navigate(`/${createRes.data.id}`);
+        setTimeout(() => {
+          navigate(`/${createRes.data.meetId}`);
+        }, 1000);
       } else {
         showToast("모임 생성에 실패했어요.");
       }

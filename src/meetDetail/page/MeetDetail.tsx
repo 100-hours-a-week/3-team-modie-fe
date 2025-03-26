@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMeetStore } from "../store/getMeetStore";
@@ -19,6 +20,7 @@ import { useFetchMeet } from "../hooks/useMeetStore";
 import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
+import Splash from "../../common/page/Splash";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -41,11 +43,7 @@ export default function MeetDetail() {
   }, [meetId]);
 
   if (!meet) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p>Loading</p>
-      </div>
-    );
+    return <Splash />;
   }
 
   const handleCopyUrl = () => {
@@ -65,19 +63,26 @@ export default function MeetDetail() {
 
     try {
       const res = await joinMeetService(Number(meetId), token);
-      if (res.status == 200) {
+      if (res.success) {
         showToast("모임에 참여했어요!");
-        // 필요 시 navigate나 fetchMeet 다시 호출
-        fetchMeet(Number(meetId));
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
-    } catch {
-      showToast("참여에 실패했어요");
+    } catch (error: unknown) {
+      let message = "참여에 실패했어요";
+
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.data?.message || "참여에 실패했어요";
+      }
+
+      showToast(message);
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header title={meet.meetType} meetStatus={meet} />
+      <Header title={meet.meetType} meetStatus={meet} canGoHome={true} />
 
       <main className="flex-1 flex flex-col items-center px-5 pb-6 ">
         <hr />
@@ -131,7 +136,7 @@ export default function MeetDetail() {
           <InfoItem
             icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
-            content={`${meet.members?.length} / ${meet.memberLimit}`}
+            content={`${(meet.members ?? []).length + 1} / ${meet.memberLimit}`}
           />
         </div>
 

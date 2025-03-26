@@ -42,6 +42,10 @@
     font-family: var(--font-primary);
   }
 
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
   hr {
     width: 100%;
     color: var(--color-grayE0);

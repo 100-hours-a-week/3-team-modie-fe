@@ -100,11 +100,24 @@ export const useMeetCreateOther = () => {
   };
 
   const handleMemberChange = (value: string) => {
-    const num = parseInt(value.replace(/\D/g, ""), 10);
+    const onlyNumbers = value.replace(/\D/g, "");
+    const num = parseInt(onlyNumbers, 10);
+
+    if (!onlyNumbers) {
+      setMemberCount("");
+      setMemberError("모집 인원을 입력해 주세요.");
+      return;
+    }
+
+    if (num < 1) {
+      setMemberError("최소 인원은 1명입니다.");
+    } else if (num > 30) {
+      setMemberError("최대 인원은 30명입니다.");
+    } else {
+      setMemberError("");
+    }
+
     setMemberCount(num.toString());
-    if (num < 1) setMemberError("최소 인원은 1명입니다.");
-    else if (num > 30) setMemberError("최대 인원은 30명입니다.");
-    else setMemberError("");
   };
 
   const handleCostChange = (value: string) => {

@@ -9,6 +9,8 @@ import { useCreateMeetPlace } from "../hooks/useCreateMeetPlace";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { useEffect } from "react";
 import { useGeocode } from "../../common/hooks/useGeocodes";
+import logoIcon from "../../assets/logo.svg";
+import { motion } from "framer-motion";
 
 export default function CreateMeetPlace() {
   const {
@@ -58,13 +60,24 @@ export default function CreateMeetPlace() {
       <ProgressBar width={50} />
 
       {!center ? (
-        <div className="flex items-center justify-center h-[552px] bg-white/60">
-          <div className="text-gray9e text-Body1">지도를 불러오는 중...</div>
+        <div className="flex flex-col items-center justify-center h-[552px] bg-white/60">
+          <motion.img
+            src={logoIcon}
+            alt="loading"
+            className="w-14 h-14 mb-4"
+            animate={{ y: [0, -10, 0] }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <div className="text-gray9e text-Caption1">지도를 불러오는 중...</div>
         </div>
       ) : (
         <Map
           center={center}
-          style={{ width: "100%", height: "552px" }}
+          style={{ width: "100%", height: "70vh" }}
           level={3}
           onClick={(_, mouseEvent) => {
             const latlng = mouseEvent.latLng;
@@ -104,32 +117,34 @@ export default function CreateMeetPlace() {
         </Map>
       )}
 
-      <div className="mb-15 px-5 mt-5">
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (value.length <= 20) {
-              setDescription(value);
-              setMeetInfo({ addressDescription: value });
-            }
-          }}
-          placeholder="장소에 대한 간단한 설명을 적어주세요."
-          style={{ backgroundColor: "#f5f5f5" }}
-          className="w-full rounded-md p-4 text-Body2 placeholder:text-grayBd focus:outline-none"
-        />
-      </div>
+      <div className="min-h-[166px]">
+        <div className="mb-15 px-5 mt-5 min-h-[41px]">
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value.length <= 20) {
+                setDescription(value);
+                setMeetInfo({ addressDescription: value });
+              }
+            }}
+            placeholder="장소에 대한 간단한 설명을 적어주세요."
+            style={{ backgroundColor: "#f5f5f5" }}
+            className="w-full rounded-md p-4 text-Body2 placeholder:text-grayBd focus:outline-none"
+          />
+        </div>
 
-      <div className="fixed bottom-29 w-full flex justify-center">
-        <ToastMsg active={isToastVisible} description={toastMessage} />
-      </div>
+        <div className="fixed bottom-29 w-full flex justify-center">
+          <ToastMsg active={isToastVisible} description={toastMessage} />
+        </div>
 
-      <div
-        className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
-        onClick={handleSubmit}
-      >
-        <SubmitBtn active={isFormValid} description="다음" />
+        <div
+          className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+          onClick={handleSubmit}
+        >
+          <SubmitBtn active={isFormValid} description="다음" />
+        </div>
       </div>
     </div>
   );

@@ -13,68 +13,80 @@ import Login from "./login/page/Login.tsx";
 import LoginRedirect from "./login/page/LoginRedirect.tsx";
 import MeetDone from "./meetDone/page/MeetDone.tsx";
 import Splash from "./common/page/Splash.tsx";
+import ProtectedRoute from "./common/components/ProtectedRoute.tsx";
+import RedirectIfAuthenticated from "./common/components/RedirectIfAuthenticated.tsx";
 
 export default function Routers() {
   const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main />,
-    },
-    {
-      path: "/:meetId",
-      element: <MeetDetail />,
-    },
-    {
-      path: "/meet/create/type",
-      element: <CreateMeetType />,
-    },
-    {
-      path: "/meet/create/place",
-      element: <CreateMeetPlace />,
-    },
-    {
-      path: "/meet/create/other",
-      element: <CreateMeetOther />,
-    },
-    {
-      path: "/meet/create/last",
-      element: <CreateMeetLast />,
-    },
-    {
-      path: "/",
-      element: <Main />,
-    },
+    { path: "/", element: <Main /> },
     {
       path: "/login",
-      element: <Login />,
+      element: (
+        <RedirectIfAuthenticated>
+          <Login />
+        </RedirectIfAuthenticated>
+      ),
     },
-    {
-      path: "/auth/kakao/callback",
-      element: <LoginRedirect />,
-    },
-    {
-      path: "/:meetId",
-      element: <MeetDetail />,
-    },
-    {
-      path: "/:meetId/chat",
-      element: <MeetChat />,
-    },
-    {
-      path: "/end",
-      element: <MeetDone />,
-    },
-    {
-      path: "/my",
-      element: <My />,
-    },
+    { path: "/auth/kakao/callback", element: <LoginRedirect /> },
+    { path: "/:meetId", element: <MeetDetail /> },
+    { path: "/:meetId/chat", element: <MeetChat /> },
     {
       path: "/term",
       element: <Terms />,
     },
     {
+      path: "/meet/create/type",
+      element: <CreateMeetType />,
+    },
+
+    {
+      path: "/meet/create/place",
+      element: (
+        <ProtectedRoute>
+          <CreateMeetPlace />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/meet/create/other",
+      element: (
+        <ProtectedRoute>
+          <CreateMeetOther />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/meet/create/last",
+      element: (
+        <ProtectedRoute>
+          <CreateMeetLast />
+        </ProtectedRoute>
+      ),
+    },
+    {
       path: "/paying",
-      element: <MeetPaying />,
+      element: (
+        <ProtectedRoute>
+          <MeetPaying />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/my",
+      element: (
+        <ProtectedRoute>
+          <My />
+        </ProtectedRoute>
+      ),
+    },
+
+    {
+      path: "/end",
+      element: (
+        <ProtectedRoute>
+          <MeetDone />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/splash",
@@ -89,5 +101,6 @@ export default function Routers() {
       ),
     },
   ]);
+
   return <RouterProvider router={router} />;
 }

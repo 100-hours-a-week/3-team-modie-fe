@@ -45,6 +45,12 @@ export const useCreateMeetType = () => {
   };
 
   const handleSubmit = () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     const validationChecks: [boolean, keyof typeof errorMessages][] = [
       [!intro.trim(), "intro"],
       [!selectedCategory, "category"],

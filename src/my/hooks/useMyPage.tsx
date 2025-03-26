@@ -21,6 +21,7 @@ export const useMyPage = () => {
   const [bankName, setBankName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [profileImg, setProfileImg] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   // 참조
   const bankInputRef = useRef<HTMLInputElement>(null);
@@ -49,6 +50,8 @@ export const useMyPage = () => {
         setProfileImg(res.data.profileImageUrl);
       } catch {
         showToast("유저 조회 중 오류가 발생했어요.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -128,6 +131,7 @@ export const useMyPage = () => {
     profileImg,
     showConfirmModal,
     confirmContent,
+    isLoading,
 
     // 참조
     bankInputRef,
