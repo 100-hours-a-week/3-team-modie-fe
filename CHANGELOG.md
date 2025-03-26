@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## <small>1.22.1 (2025-03-26)</small>
+
+* fix: Merge pull request #40 from 100-hours-a-week/fix/chat-enter-time ([8f85257](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8f85257)), closes [#40](https://github.com/100-hours-a-week/3-team-modie-fe/issues/40)
+* fix: 엔터키로 전송 기능 추가 및 시간 차이 수정 ([e7f8850](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e7f8850))
+
 ## 1.22.0 (2025-03-26)
 
 * feat: Merge pull request #34 from 100-hours-a-week/feature/meetDetail-update-api ([f3a56fd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f3a56fd)), closes [#34](https://github.com/100-hours-a-week/3-team-modie-fe/issues/34)

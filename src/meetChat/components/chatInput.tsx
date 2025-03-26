@@ -28,6 +28,14 @@ export default function ChatInput({
     }
   };
 
+  // 엔터키 처리 함수
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
   const handleSend = () => {
     if (!message.trim()) return;
     onSend(message.trim());
@@ -64,6 +72,7 @@ export default function ChatInput({
               ref={textareaRef}
               value={message}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               placeholder={isDisabled ? "종료된 모임입니다" : "메시지 입력"}
               disabled={isDisabled}
               rows={1}
