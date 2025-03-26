@@ -1,124 +1,54 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+@import "tailwindcss";
+
+@theme {
+  --font-primary: "pretendard", "sans-serif";
+  --color-primaryDark1: #90e0ef;
+  --color-primaryDark2: #00b4d8;
+  --color-primaryDark3: #0096c7;
+  --color-grayE0: #e0e0e0;
+  --color-grayC8: #c8c8c8;
+  --color-grayA0: #a0a0a0;
+  --color-gray78: #787878;
+  --color-gray40: #404040;
+  --color-gray21: #212121;
+  --color-gray42: #424242;
+  --color-gray61: #616161;
+  --color-gray75: #757575;
+  --color-gray9e: #9e9e9e;
+  --color-grayBd: #bdbdbd;
+  --color-grayEe: #eeeeee;
+  --color-grayF5: #f5f5f5;
+  --color-grayFa: #fafafa;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-activeBlue: #00aad2;
+  --color-activeRed: #e63312;
+  --text-Headline1: 3.2rem;
+  --text-Headline3: 2.8rem;
+  --text-Headline4: 2.4rem;
+  --text-Title: 2rem;
+  --text-Title2: 1.8rem;
+  --text-Body1: 1.6rem;
+  --text-Body2: 1.4rem;
+  --text-Body3: 1.2rem;
+  --text-Caption1: 1.2rem;
+  --text-Caption2: 1rem;
 }
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+
+@layer base {
+  html {
+    font-size: 62.5%;
+    font-family: var(--font-primary);
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  hr {
+    width: 100%;
+    color: var(--color-grayE0);
+    align-self: stretch;
+  }
 }
