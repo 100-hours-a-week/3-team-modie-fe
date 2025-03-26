@@ -105,8 +105,6 @@ export default function Header({ title, meetStatus, isMainPage }: headerType) {
                 setEditMeetInfo(converted);
                 setEditMode(true);
 
-                console.log("바뀜?: ", converted);
-
                 // 2. 다음 이벤트 루프에서 이동하도록 처리
                 setTimeout(() => {
                   navigate("/meet/create/type");
