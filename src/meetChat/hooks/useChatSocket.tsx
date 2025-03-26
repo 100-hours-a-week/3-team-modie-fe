@@ -23,8 +23,7 @@ export const useChatSocket = ({
     if (!jwtToken) return;
 
     const client = new Client({
-      brokerURL: "wss://dev-api.modie.site/wss",
-      // brokerURL: "ws://localhost:8080/ws",
+      brokerURL: import.meta.env.VITE_CHAT_WSS_URL,
       connectHeaders: { Authorization: `Bearer ${jwtToken}` },
       onConnect: () => {
         setIsConnected(true);
