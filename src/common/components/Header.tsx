@@ -124,7 +124,6 @@ export default function Header({
                 setEditMode(true);
                 setEditMeetInfo(converted);
 
-                console.log("뭐지?: ", converted);
                 navigate("/meet/create/type");
               }}
               onPay={() => {

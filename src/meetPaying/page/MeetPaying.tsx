@@ -76,7 +76,7 @@ export default function MeetPaying() {
         className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
         onClick={isValid ? handleSave : undefined}
       >
-        <SubmitBtn active={isValid} description="다음" />
+        <SubmitBtn active={isValid} description="저장하기" />
       </div>
     </div>
   );

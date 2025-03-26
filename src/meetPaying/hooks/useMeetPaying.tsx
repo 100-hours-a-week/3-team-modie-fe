@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateAmountService } from "../services/updateAmountService";
 import { useMeetStore } from "../../meetDetail/store/getMeetStore";
@@ -6,7 +6,6 @@ import { useToast } from "../../common/hooks/useToastMsg";
 
 export const useMeetPaying = () => {
   const [cost, setCost] = useState<string>("");
-  const [formattedCost, setFormattedCost] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
 
@@ -16,12 +15,8 @@ export const useMeetPaying = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setFormattedCost(cost ? formatCurrency(cost) : "");
-  }, [cost]);
-
   const handleCostChange = (value: string) => {
-    const numericValue = value.replace(/[^0-9,]/g, "").replace(/,/g, "");
+    const numericValue = value.replace(/[^0-9]/g, "");
     const numericAmount = parseInt(numericValue) || 0;
 
     if (numericAmount > MAX_AMOUNT) {
@@ -50,20 +45,20 @@ export const useMeetPaying = () => {
       } else {
         const res = await updateAmountService(meetId, token, costNum);
         if (res?.success) {
-          showToast(`정산 금액 ${formatCurrency(cost)}원이 저장되었습니다.`);
+          showToast(`정산 금액 ${formattedCost}원이 저장되었습니다.`);
           navigate(`/${meetId}`);
         }
       }
     } catch {
-      const message = "정산 등록에 실패했어요.";
-      showToast(message);
+      showToast("정산 등록에 실패했어요.");
     }
   };
 
   const formatCurrency = (value: string): string => {
-    if (!value) return "";
     return Number(value).toLocaleString();
   };
+
+  const formattedCost = cost ? formatCurrency(cost) : "";
 
   return {
     cost,
