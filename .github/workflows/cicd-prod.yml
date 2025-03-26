@@ -1,4 +1,4 @@
-name: Deploy Vite to S3 (Dev)
+name: Deploy Vite to S3 (Prod)
 
 on:
   push:
