@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import Picker from "react-mobile-picker";
 import "../styles/timepicker.css";
+import dayjs from "dayjs";
 
 interface TimePickerProps {
   onSave: (time: { hour: string; minute: string }) => void;
   onClose: () => void;
+  selectedDate: Date | null;
 }
 
-export default function TimePicker({ onSave, onClose }: TimePickerProps) {
+export default function TimePicker({
+  onSave,
+  onClose,
+  selectedDate,
+}: TimePickerProps) {
   const [pickerValue, setPickerValue] = useState({
     hour: "00",
     minute: "00",
@@ -40,10 +46,16 @@ export default function TimePicker({ onSave, onClose }: TimePickerProps) {
       Number(pickerValue.minute)
     );
 
-    if (selected < now) {
+    // 선택한 날짜가 오늘일 때만
+    if (
+      selectedDate &&
+      dayjs(selectedDate).isSame(now, "day") &&
+      selected < now
+    ) {
       alert("현재 시간 이후로 선택해주세요.");
       return;
     }
+
     onSave(pickerValue);
     onClose();
   };

@@ -115,10 +115,14 @@ export default function Header({
               onUpdate={async () => {
                 const converted = await convertMeetTypeToMeetInfo(meetStatus);
 
-                setEditMode(true);
+                // 순서 바꿔서 먼저 editMeetInfo 설정
                 setEditMeetInfo(converted);
+                setEditMode(true);
 
-                navigate("/meet/create/type");
+                // 2. 다음 이벤트 루프에서 이동하도록 처리
+                setTimeout(() => {
+                  navigate("/meet/create/type");
+                }, 0);
               }}
               onPay={() => {
                 setMeetId(meetStatus.meetId);

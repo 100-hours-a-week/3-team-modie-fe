@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import { useGeocode } from "../../common/hooks/useGeocodes";
 
 interface MarkerInfoWindowProps {
   lat: number | undefined;
@@ -15,6 +16,7 @@ interface MarkerInfoWindowProps {
 export default function MarkerInfoWindow({ lat, lng }: MarkerInfoWindowProps) {
   const [address, setAddress] = useState("");
   const { meetInfo, setMeetInfo } = useCreateMeetStore();
+  const { getAddressByCoords } = useGeocode();
 
   useEffect(() => {
     if (meetInfo.address) {
@@ -22,27 +24,17 @@ export default function MarkerInfoWindow({ lat, lng }: MarkerInfoWindowProps) {
       return;
     }
 
-    if (!lat || !lng || !window.kakao?.maps?.services) return;
+    if (!lat || !lng) return;
 
-    const geocoder = new window.kakao.maps.services.Geocoder();
-    const coord = new window.kakao.maps.LatLng(lat, lng);
-
-    geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
-      if (status === window.kakao.maps.services.Status.OK) {
-        const roadAddr = result[0].road_address?.address_name;
-        const jibunAddr = result[0].address?.address_name;
-        setAddress(roadAddr || jibunAddr || "주소 정보를 찾을 수 없습니다");
-
-        if (roadAddr || jibunAddr) {
-          setMeetInfo({
-            address: roadAddr || jibunAddr,
-          });
-        }
+    getAddressByCoords(lat, lng).then((addr) => {
+      if (addr) {
+        setAddress(addr);
+        setMeetInfo({ address: addr });
       } else {
         setAddress("주소 정보를 찾을 수 없습니다");
       }
     });
-  }, [lat, lng, meetInfo.address, setMeetInfo]);
+  }, [lat, lng]);
 
   return (
     <>

@@ -8,6 +8,7 @@ import markerIcon from "../../assets/marker.svg";
 import { useCreateMeetPlace } from "../hooks/useCreateMeetPlace";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { useEffect } from "react";
+import { useGeocode } from "../../common/hooks/useGeocodes";
 
 export default function CreateMeetPlace() {
   const {
@@ -27,36 +28,29 @@ export default function CreateMeetPlace() {
   const { meetInfo, setMeetInfo, isEditMode, editMeetInfo } =
     useCreateMeetStore();
 
+  const { getCoordsByAddress } = useGeocode();
+
   useEffect(() => {
     if (isEditMode && editMeetInfo?.address) {
       setDescription(editMeetInfo.addressDescription || "");
 
-      // 지오코딩: 주소 → 좌표 변환
-      const geocoder = new window.kakao.maps.services.Geocoder();
-      geocoder.addressSearch(editMeetInfo.address, (result, status) => {
-        if (
-          status === window.kakao.maps.services.Status.OK &&
-          result.length > 0
-        ) {
-          const { y, x } = result[0];
-          const lat = parseFloat(y);
-          const lng = parseFloat(x);
+      getCoordsByAddress(editMeetInfo.address).then((coords) => {
+        if (!coords) return;
 
-          setCenter({ lat, lng });
-          setPosition({ lat, lng });
+        const { lat, lng } = coords;
+        setCenter({ lat, lng });
+        setPosition({ lat, lng });
 
-          // 상태에도 저장
-          setMeetInfo({
-            ...meetInfo,
-            lat,
-            lng,
-            address: editMeetInfo.address,
-            addressDescription: editMeetInfo.addressDescription,
-          });
-        }
+        setMeetInfo({
+          ...meetInfo,
+          lat,
+          lng,
+          address: editMeetInfo.address,
+          addressDescription: editMeetInfo.addressDescription,
+        });
       });
     }
-  }, [isEditMode, editMeetInfo]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">

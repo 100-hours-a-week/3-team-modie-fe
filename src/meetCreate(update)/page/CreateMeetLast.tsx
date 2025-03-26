@@ -2,12 +2,12 @@ import Header from "../../common/components/Header";
 import ProgressBar from "../../common/components/ProgressBar";
 import KakaoMap from "../../meetDetail/components/KakaoMap";
 import CategoryBox from "../components/CategoryBox";
-import moveIcon from "../../assets/move.svg";
 import MemberIcon from "../../assets/member.svg?react";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import SubmitBtn from "../../common/components/SubmitBtn";
 import { useCreateMeetSubmit } from "../hooks/useCreateMeetSubmit";
 import ToastMsg from "../../common/components/ToastMsg";
+import { getCategoryIcon } from "../../utils/getCategoryIcon";
 
 export default function CreateMeetLast() {
   const { meetInfo, isEditMode } = useCreateMeetStore();
@@ -25,8 +25,12 @@ export default function CreateMeetLast() {
 
         <div className="flex items-center mb-11 px-2 gap-11">
           <CategoryBox
-            icon={moveIcon}
-            label={meetInfo?.category || "이동"}
+            icon={getCategoryIcon(meetInfo?.category ?? "기타")}
+            label={
+              meetInfo?.category === "기타"
+                ? meetInfo?.customType || "기타"
+                : meetInfo?.category || "기타"
+            }
             width="w-[120px]"
             height="h-[100px]"
           />
@@ -68,8 +72,7 @@ export default function CreateMeetLast() {
             <>
               <div className="text-Body1 font-bold mb-2">비용이 발생해요</div>
               <p className="mt-4 text-Body2 text-gray75 break-words whitespace-pre-wrap w-full">
-                예상 비용
-                {(meetInfo.cost ?? 0).toLocaleString()} 원
+                예상 비용 {(meetInfo.cost ?? 0).toLocaleString()} 원
               </p>
             </>
           ) : (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
@@ -13,16 +13,18 @@ export const useMeetCreateOther = () => {
   const maxDate = today.add(1, "year");
 
   const navigate = useNavigate();
-  const { meetInfo, setMeetInfo } = useCreateMeetStore();
+  const { setMeetInfo, editMeetInfo } = useCreateMeetStore();
 
-  const [dateInput, setDateInput] = useState(meetInfo.date || "");
-  const [time, setTime] = useState(meetInfo.time || { hour: "", minute: "" });
-  const [memberCount, setMemberCount] = useState(
-    meetInfo.memberCount ? meetInfo.memberCount.toString() : ""
+  const [dateInput, setDateInput] = useState(editMeetInfo?.date || "");
+  const [time, setTime] = useState(
+    editMeetInfo?.time || { hour: "", minute: "" }
   );
-  const [hasCost, setHasCost] = useState(meetInfo.hasCost || false);
+  const [memberCount, setMemberCount] = useState(
+    editMeetInfo?.memberCount ? editMeetInfo.memberCount.toString() : ""
+  );
+  const [hasCost, setHasCost] = useState(editMeetInfo?.hasCost || false);
   const [cost, setCost] = useState(
-    meetInfo.cost ? meetInfo.cost.toLocaleString() : ""
+    editMeetInfo?.cost ? editMeetInfo.cost.toLocaleString() : ""
   );
 
   const [dateError, setDateError] = useState("");
@@ -34,6 +36,15 @@ export const useMeetCreateOther = () => {
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    if (editMeetInfo?.date) setDateInput(editMeetInfo.date);
+    if (editMeetInfo?.time) setTime(editMeetInfo.time);
+    if (editMeetInfo?.memberCount)
+      setMemberCount(editMeetInfo.memberCount.toString());
+    if (editMeetInfo?.hasCost) setHasCost(editMeetInfo.hasCost);
+    if (editMeetInfo?.cost) setCost(editMeetInfo.cost.toLocaleString());
+  }, []);
 
   const handleTimePickerOpen = () => setShowTimePicker(true);
   const handleTimeSave = (selected: { hour: string; minute: string }) => {

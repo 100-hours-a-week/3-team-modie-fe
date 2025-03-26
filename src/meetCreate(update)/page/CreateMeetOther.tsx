@@ -69,7 +69,15 @@ export default function CreateMeetOther() {
         meetAt: `${dateInput} ${time.hour}:${time.minute}`,
       });
     }
-  }, [isEditMode, editMeetInfo]);
+  }, [
+    isEditMode,
+    editMeetInfo,
+    setMeetInfo,
+    dateInput,
+    meetInfo,
+    time.hour,
+    time.minute,
+  ]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -119,6 +127,7 @@ export default function CreateMeetOther() {
             <TimePicker
               onSave={handleTimeSave}
               onClose={() => setShowTimePicker(false)}
+              selectedDate={selectedDate}
             />
           </div>
         )}

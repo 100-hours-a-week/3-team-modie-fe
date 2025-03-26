@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMeetCreateValidation } from "./useMeetCreateValidation";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
@@ -13,11 +13,17 @@ import { useCreateMeetStore } from "../store/useCreateMeetStore";
 export const useCreateMeetType = () => {
   const { meetInfo, setMeetInfo } = useCreateMeetStore();
   const navigate = useNavigate();
-  const [intro, setIntro] = useState(meetInfo.intro || "");
-  const [selectedCategory, setSelectedCategory] = useState(
-    meetInfo.category || ""
-  );
-  const [customType, setCustomType] = useState(meetInfo.customType || "");
+  const [intro, setIntro] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [customType, setCustomType] = useState("");
+
+  useEffect(() => {
+    if (meetInfo) {
+      setIntro(meetInfo.intro || "");
+      setSelectedCategory(meetInfo.category || "");
+      setCustomType(meetInfo.customType || "");
+    }
+  }, [meetInfo]);
 
   const { toastMessage, isToastVisible, showToast } = useToast();
 
@@ -57,6 +63,7 @@ export const useCreateMeetType = () => {
       intro,
       category: selectedCategory,
       customType: selectedCategory === "기타" ? customType : "",
+      meetAt: "",
     });
 
     navigate("/meet/create/place");
