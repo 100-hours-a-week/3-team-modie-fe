@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.25.0 (2025-03-26)
+
+* feat: Merge pull request #42 from 100-hours-a-week/dev ([bf8fd32](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bf8fd32)), closes [#42](https://github.com/100-hours-a-week/3-team-modie-fe/issues/42)
+
 ## 1.24.0 (2025-03-26)
 
 * feat: 로그인 페이지로 리다이렉트 ([63cf362](https://github.com/100-hours-a-week/3-team-modie-fe/commit/63cf362))
