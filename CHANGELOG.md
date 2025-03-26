@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 1.23.0 (2025-03-26)
+
+* feat: Merge pull request #41 from 100-hours-a-week/fix/error-fix ([7740699](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7740699)), closes [#41](https://github.com/100-hours-a-week/3-team-modie-fe/issues/41)
+* feat: 마이페이지 스켈레톤 UI 추가 ([3abe59b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3abe59b))
+* feat: 스플래시 화면 및 로그인 페이지 리다이렉팅 추가 ([261d732](https://github.com/100-hours-a-week/3-team-modie-fe/commit/261d732))
+* Merge branch 'dev' into fix/error-fix ([8f898ae](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8f898ae))
+* fix: 로그인하면 로그인 페이지 접근 제한, 모임 목록 조회 api 헤더 수정 ([8bd74cc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8bd74cc))
+* fix: 메임 페이지 스크롤 숨기기 ([0678dbc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0678dbc))
+* fix: 모임 상세 페이지의 멤버 수 관련 에러 픽스 ([13cf34a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/13cf34a))
+* fix: 모임 숨기기 제거 ([dd42817](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd42817))
+* fix: 모임 인원 필드 NaN 뜨는 에러 픽스 ([32ed3bd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/32ed3bd))
+* fix: 모임 참여, 생성 후 페이지 이동 처리 ([13c2bb1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/13c2bb1))
+* fix: 종료된 모임 햄버거 버튼 숨기기 ([4a97f44](https://github.com/100-hours-a-week/3-team-modie-fe/commit/4a97f44))
+
 ## <small>1.22.1 (2025-03-26)</small>
 
 * fix: Merge pull request #40 from 100-hours-a-week/fix/chat-enter-time ([8f85257](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8f85257)), closes [#40](https://github.com/100-hours-a-week/3-team-modie-fe/issues/40)
