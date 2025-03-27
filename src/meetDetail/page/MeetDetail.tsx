@@ -98,7 +98,7 @@ export default function MeetDetail() {
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
-          content="https://cdn.discordapp.com/attachments/1343278076515188960/1343501018566103060/image.png?ex=67bd8053&is=67bc2ed3&hm=bcac15d735e94ace406febd5bcaa5fb0873575b0c9106db4d1e276589d6d6255&"
+          content="https://i.ibb.co/v4W38BxK/image.png"
         />
         <meta property="og:url" content={window.location.href} />
 
@@ -114,7 +114,7 @@ export default function MeetDetail() {
         />
         <meta
           name="twitter:image"
-          content="https://cdn.discordapp.com/attachments/1343278076515188960/1343501018566103060/image.png?ex=67bd8053&is=67bc2ed3&hm=bcac15d735e94ace406febd5bcaa5fb0873575b0c9106db4d1e276589d6d6255&"
+          content="https://i.ibb.co/v4W38BxK/image.png"
         />
       </Helmet>
 
