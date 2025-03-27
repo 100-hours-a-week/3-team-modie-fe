@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.26.0 (2025-03-27)
+
+* Merge branch 'main' into dev ([a5494e9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a5494e9))
+* feat: 로그인 후 다시 모임 상세 페이지로 이동 ([458376b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/458376b))
+* chore: 카카오 로그인 redirect url 환경변수로 관리 ([f0f0f4e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f0f0f4e))
+
 ## <small>1.25.1 (2025-03-26)</small>
 
 * fix: change name ([2b12cf5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2b12cf5))
