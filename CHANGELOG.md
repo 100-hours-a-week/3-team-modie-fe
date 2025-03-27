@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.28.1 (2025-03-27)</small>
+
+* fix: 테스트를 위한 로그인 환경변수 하드코딩 ([315253d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/315253d))
+
 ## 1.28.0 (2025-03-27)
 
 * feat: 메타 태그 컴포넌트 분리 ([47c9e77](https://github.com/100-hours-a-week/3-team-modie-fe/commit/47c9e77))
