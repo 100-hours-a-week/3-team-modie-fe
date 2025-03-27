@@ -6,8 +6,8 @@ import Splash from "../../common/page/Splash";
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
-  // const login_url = import.meta.env.VITE_LOGIN_URI;
-  const login_url = "https://dev-api.modie.site/auth/kakao/login";
+  const login_url = import.meta.env.VITE_LOGIN_URI;
+  // const login_url = "https://dev-api.modie.site/auth/kakao/login";
   const navigate = useNavigate();
   const login_vite = import.meta.env.VITE_LOGIN;
 
