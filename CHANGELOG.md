@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## <small>1.30.1 (2025-03-27)</small>
+
+* Merge branch 'main' into dev ([3e1a254](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3e1a254))
+* chore: 1.25.2 [skip ci] ([f2bb5f8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f2bb5f8))
+* fix: 카카오 url 추가 ([c8f15d5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c8f15d5))
+* fix: 카카오 url 추가 ([15b4ea1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/15b4ea1))
+
 ## 1.30.0 (2025-03-27)
 
 * feat: 메타 데이터 고정 및 helmet 제거 ([9c19eb1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9c19eb1))
