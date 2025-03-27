@@ -139,8 +139,19 @@ export const useMeetCreateOther = () => {
   };
 
   const isFormValid = () => {
+    const memberCountNum = Number(memberCount);
+    const costNum = Number(cost.replace(/,/g, ""));
+
+    const isMemberValid = memberCountNum >= 1 && memberCountNum <= 30;
+    const isCostValid = !hasCost || (costNum >= 1000 && costNum <= 10000000);
+
     return Boolean(
-      dateInput && time.hour && time.minute && memberCount && (!hasCost || cost)
+      dateInput &&
+        time.hour &&
+        time.minute &&
+        memberCount &&
+        isMemberValid &&
+        isCostValid
     );
   };
 
