@@ -47,6 +47,7 @@
     "react": "^19.0.0",
     "react-calendar": "^5.1.0",
     "react-dom": "^19.0.0",
+    "react-helmet-async": "^2.0.5",
     "react-kakao-maps-sdk": "^1.1.27",
     "react-loading-skeleton": "^3.5.0",
     "react-mobile-picker": "^1.1.0",
