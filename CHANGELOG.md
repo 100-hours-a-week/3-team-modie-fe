@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.27.1 (2025-03-27)</small>
+
+* fix: 메타 태그 내부 링크 수정 ([6ac51fa](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ac51fa))
+
 ## 1.27.0 (2025-03-27)
 
 * feat: Merge pull request #43 from 100-hours-a-week/feature/meta-tag ([bbee62a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bbee62a)), closes [#43](https://github.com/100-hours-a-week/3-team-modie-fe/issues/43)
