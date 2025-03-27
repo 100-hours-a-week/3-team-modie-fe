@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## <small>1.27.2 (2025-03-27)</small>
+
+* fix: 테스트를 위한 로그인 환경변수 하드코딩 ([7bbe4a9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7bbe4a9))
+* chore: VITE_LOGIN_URI 환경변수 추가 ([2d26fa0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2d26fa0))
+
 ## <small>1.27.1 (2025-03-27)</small>
 
 * fix: 메타 태그 내부 링크 수정 ([6ac51fa](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ac51fa))
