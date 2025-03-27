@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.30.0 (2025-03-27)
+
+* feat: 메타 데이터 고정 및 helmet 제거 ([9c19eb1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9c19eb1))
+
 ## 1.29.0 (2025-03-27)
 
 * feat: 메타 데이터 고정 ([24d4987](https://github.com/100-hours-a-week/3-team-modie-fe/commit/24d4987))
