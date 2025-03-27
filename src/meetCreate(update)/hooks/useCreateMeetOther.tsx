@@ -38,13 +38,19 @@ export const useMeetCreateOther = () => {
   const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
-    if (editMeetInfo?.date) setDateInput(editMeetInfo.date);
-    if (editMeetInfo?.time) setTime(editMeetInfo.time);
-    if (editMeetInfo?.memberCount)
-      setMemberCount(editMeetInfo.memberCount.toString());
-    if (editMeetInfo?.hasCost) setHasCost(editMeetInfo.hasCost);
-    if (editMeetInfo?.cost) setCost(editMeetInfo.cost.toLocaleString());
-  }, []);
+    if (!editMeetInfo) return;
+
+    setDateInput(editMeetInfo.date || "");
+    setTime(editMeetInfo.time || { hour: "", minute: "" });
+    setMemberCount(editMeetInfo.memberCount?.toString() || "");
+    setHasCost(editMeetInfo.hasCost || false);
+    setCost(editMeetInfo.cost ? editMeetInfo.cost.toLocaleString() : "");
+
+    const parsedDate = dayjs(editMeetInfo.date, "YYYY.MM.DD").toDate();
+    if (!selectedDate || parsedDate.getTime() !== selectedDate.getTime()) {
+      setSelectedDate(parsedDate);
+    }
+  }, [editMeetInfo]);
 
   const handleTimePickerOpen = () => setShowTimePicker(true);
   const handleTimeSave = (selected: { hour: string; minute: string }) => {
@@ -52,23 +58,16 @@ export const useMeetCreateOther = () => {
     setShowTimePicker(false);
   };
 
-  const validateDate = (value: string) => {
+  const validateDate = (value: string): boolean => {
     const formatRegex = /^\d{4}\.\d{2}\.\d{2}$/;
     const parsed = dayjs(value, "YYYY.MM.DD", true);
-    if (!formatRegex.test(value) || !parsed.isValid()) {
-      setDateError("올바르지 않은 날짜 형식입니다. (yyyy.mm.dd)");
-      return false;
-    }
-    if (parsed.isBefore(today, "day")) {
-      setDateError("올바르지 않은 날짜입니다.");
-      return false;
-    }
-    if (parsed.isAfter(maxDate, "day")) {
-      setDateError("최대 1년 이내 일정만 등록 가능합니다.");
-      return false;
-    }
-    setDateError("");
-    return true;
+
+    return (
+      formatRegex.test(value) &&
+      parsed.isValid() &&
+      !parsed.isBefore(today, "day") &&
+      !parsed.isAfter(maxDate, "day")
+    );
   };
 
   const handleDateInputChange = (value: string) => {
@@ -84,10 +83,12 @@ export const useMeetCreateOther = () => {
 
     setDateInput(val);
 
-    if (validateDate(val)) {
-      setSelectedDate(dayjs(val, "YYYY.MM.DD").toDate());
-    } else {
+    if (!validateDate(val)) {
+      setDateError("올바르지 않은 날짜 형식입니다.");
       setSelectedDate(null);
+    } else {
+      setDateError("");
+      setSelectedDate(dayjs(val, "YYYY.MM.DD").toDate());
     }
   };
 
@@ -145,10 +146,28 @@ export const useMeetCreateOther = () => {
     const isMemberValid = memberCountNum >= 2 && memberCountNum <= 30;
     const isCostValid = !hasCost || (costNum >= 1000 && costNum <= 10000000);
 
+    const isDateValid = selectedDate
+      ? validateDate(dayjs(selectedDate).format("YYYY.MM.DD"))
+      : false;
+
+    const isToday = dayjs(dateInput).isSame(today, "day");
+    const nowHour = today.hour();
+    const nowMinute = today.minute();
+    const selectedHour = Number(time.hour);
+    const selectedMinute = Number(time.minute);
+    const isPastTime =
+      isToday &&
+      (selectedHour < nowHour ||
+        (selectedHour === nowHour && selectedMinute <= nowMinute));
+
+    const isTimeValid = !isPastTime;
+
     return Boolean(
       dateInput &&
+        isDateValid &&
         time.hour &&
         time.minute &&
+        isTimeValid &&
         memberCount &&
         isMemberValid &&
         isCostValid
@@ -156,21 +175,23 @@ export const useMeetCreateOther = () => {
   };
 
   const handleSubmit = () => {
-    if (!dateInput) return triggerToast("날짜를 입력해 주세요");
-    if (!time.hour || !time.minute)
-      return triggerToast("모임 시간을 입력해 주세요");
-    if (!memberCount) return triggerToast("모집 인원을 입력해 주세요");
-    if (hasCost && !cost) return triggerToast("예상 비용을 입력해 주세요");
+    if (isFormValid()) {
+      if (!dateInput) return triggerToast("날짜를 입력해 주세요");
+      if (!time.hour || !time.minute)
+        return triggerToast("모임 시간을 입력해 주세요");
+      if (!memberCount) return triggerToast("모집 인원을 입력해 주세요");
+      if (hasCost && !cost) return triggerToast("예상 비용을 입력해 주세요");
 
-    setMeetInfo({
-      date: dateInput,
-      time,
-      memberCount: Number(memberCount),
-      hasCost,
-      cost: hasCost ? Number(cost.replace(/,/g, "")) : 0,
-    });
+      setMeetInfo({
+        date: dateInput,
+        time,
+        memberCount: Number(memberCount),
+        hasCost,
+        cost: hasCost ? Number(cost.replace(/,/g, "")) : 0,
+      });
 
-    navigate("/meet/create/last");
+      navigate("/meet/create/last");
+    }
   };
 
   return {
