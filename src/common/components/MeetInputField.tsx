@@ -1,7 +1,7 @@
 interface MeetInputFieldProps {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   placeholder?: string;
   type?: "text" | "date" | "time" | "number";
   icon?: React.ReactNode;
@@ -34,7 +34,8 @@ const MeetInputField = ({
         <input
           type={type}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          // onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => onChange?.(e.target.value)}
           onClick={onClick}
           placeholder={placeholder}
           readOnly={readOnly}
