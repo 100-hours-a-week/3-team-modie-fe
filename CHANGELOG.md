@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## <small>1.31.1 (2025-03-27)</small>
+
+* fix: cicd-prod.yml 환경변수 중복 제거 ([b7a0cd5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b7a0cd5))
+* fix: Merge pull request #46 from 100-hours-a-week/dev ([92adf8b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/92adf8b)), closes [#46](https://github.com/100-hours-a-week/3-team-modie-fe/issues/46)
+* fix:prod 환경변수 변경 ([2f3ff83](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2f3ff83))
+
 ## 1.31.0 (2025-03-27)
 
 * feat: Merge pull request #45 from 100-hours-a-week/dev ([abe6e76](https://github.com/100-hours-a-week/3-team-modie-fe/commit/abe6e76)), closes [#45](https://github.com/100-hours-a-week/3-team-modie-fe/issues/45)
