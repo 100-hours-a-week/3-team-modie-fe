@@ -21,6 +21,7 @@ import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
 import Splash from "../../common/page/Splash";
+import { Helmet } from "react-helmet-async";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -84,6 +85,39 @@ export default function MeetDetail() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Helmet>
+        <title>{meet?.meetIntro ?? "모임 상세보기"}</title>
+        <meta
+          property="og:title"
+          content={meet?.meetIntro ?? "모임 상세보기"}
+        />
+        <meta
+          property="og:description"
+          content={`${meet?.ownerName ?? ""}님의 모임에 참여하세요!`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://cdn.discordapp.com/attachments/1343278076515188960/1343501018566103060/image.png?ex=67bd8053&is=67bc2ed3&hm=bcac15d735e94ace406febd5bcaa5fb0873575b0c9106db4d1e276589d6d6255&"
+        />
+        <meta property="og:url" content={window.location.href} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content={meet?.meetIntro ?? "모임 상세보기"}
+        />
+        <meta
+          name="twitter:description"
+          content={`${meet?.ownerName ?? ""}님의 모임에 참여하세요!`}
+        />
+        <meta
+          name="twitter:image"
+          content="https://cdn.discordapp.com/attachments/1343278076515188960/1343501018566103060/image.png?ex=67bd8053&is=67bc2ed3&hm=bcac15d735e94ace406febd5bcaa5fb0873575b0c9106db4d1e276589d6d6255&"
+        />
+      </Helmet>
+
       <Header title={meet.meetType} meetStatus={meet} canGoHome={true} />
 
       <main className="flex-1 flex flex-col items-center px-5 pb-6 ">
