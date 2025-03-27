@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## <small>1.31.2 (2025-03-27)</small>
+
+* fix: Merge pull request #49 from 100-hours-a-week/fix/meetCreate-validation-update ([cfde0bb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/cfde0bb)), closes [#49](https://github.com/100-hours-a-week/3-team-modie-fe/issues/49)
+* fix: Merge pull request #50 from 100-hours-a-week/dev ([f708462](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f708462)), closes [#50](https://github.com/100-hours-a-week/3-team-modie-fe/issues/50)
+* fix: 모임 최소 인원 수 관리 ([e4f71ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e4f71ff))
+* fix: 버튼 상태 관리 추가 ([31e8476](https://github.com/100-hours-a-week/3-team-modie-fe/commit/31e8476))
+
 ## <small>1.31.1 (2025-03-27)</small>
 
 * fix: cicd-prod.yml 환경변수 중복 제거 ([b7a0cd5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/b7a0cd5))
