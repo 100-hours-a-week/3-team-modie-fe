@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.27.0 (2025-03-27)
+
+* feat: Merge pull request #43 from 100-hours-a-week/feature/meta-tag ([bbee62a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bbee62a)), closes [#43](https://github.com/100-hours-a-week/3-team-modie-fe/issues/43)
+* feat: 링크 공유시 모임 미리보기 기능 구현 ([1615dc5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1615dc5))
+
 ## 1.26.0 (2025-03-27)
 
 * Merge branch 'main' into dev ([a5494e9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a5494e9))
