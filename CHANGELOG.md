@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.31.0 (2025-03-27)
+
+* feat: Merge pull request #45 from 100-hours-a-week/dev ([abe6e76](https://github.com/100-hours-a-week/3-team-modie-fe/commit/abe6e76)), closes [#45](https://github.com/100-hours-a-week/3-team-modie-fe/issues/45)
+
 ## <small>1.30.1 (2025-03-27)</small>
 
 * Merge branch 'main' into dev ([3e1a254](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3e1a254))
