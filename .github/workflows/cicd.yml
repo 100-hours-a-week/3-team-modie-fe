@@ -39,10 +39,10 @@ jobs:
         env:
           VITE_KAKAO_JS_KEY: ${{ secrets.VITE_KAKAO_JS_KEY }}
           VITE_KAKAO_REST_API_KEY: ${{ secrets.VITE_KAKAO_REST_API_KEY }}
+          VITE_LOGIN_URI: ${{ secrets.VITE_LOGIN_URI_DEV }}
           VITE_KAKAO_REDIRECT_URI: ${{ secrets.VITE_KAKAO_REDIRECT_URI_DEV }}
           VITE_APP_API_BASE_URL: ${{ secrets.VITE_APP_API_BASE_URL_DEV }}
-          VITE_CHAT_WSS_URL: ${{ secrets.VITE_APP_API_BASE_URL_DEV }}
-          VITE_LOGIN_URI_DEV: ${{ secrets.VITE_LOGIN_URI_DEV }}
+          VITE_CHAT_WSS_URL: ${{ secrets.VITE_CHAT_WSS_URL_DEV }}
 
         run: |
           set -e

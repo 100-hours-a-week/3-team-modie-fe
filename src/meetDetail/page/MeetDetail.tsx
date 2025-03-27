@@ -57,6 +57,7 @@ export default function MeetDetail() {
   const handleJoinMeet = async () => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
+      localStorage.setItem("afterLoginRedirect", window.location.pathname);
       showToast("로그인이 필요합니다.");
       navigate("/login");
       return;

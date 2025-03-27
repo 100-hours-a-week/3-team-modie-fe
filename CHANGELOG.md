@@ -1,9 +1,55 @@
 # CHANGELOG
 
+## <small>1.30.1 (2025-03-27)</small>
+
+* Merge branch 'main' into dev ([3e1a254](https://github.com/100-hours-a-week/3-team-modie-fe/commit/3e1a254))
+* chore: 1.25.2 [skip ci] ([f2bb5f8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f2bb5f8))
+* fix: 카카오 url 추가 ([c8f15d5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c8f15d5))
+* fix: 카카오 url 추가 ([15b4ea1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/15b4ea1))
+
+## 1.30.0 (2025-03-27)
+
+* feat: 메타 데이터 고정 및 helmet 제거 ([9c19eb1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/9c19eb1))
+
+## 1.29.0 (2025-03-27)
+
+* feat: 메타 데이터 고정 ([24d4987](https://github.com/100-hours-a-week/3-team-modie-fe/commit/24d4987))
+
+## <small>1.28.1 (2025-03-27)</small>
+
+* fix: 테스트를 위한 로그인 환경변수 하드코딩 ([315253d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/315253d))
+
+## 1.28.0 (2025-03-27)
+
+* feat: 메타 태그 컴포넌트 분리 ([47c9e77](https://github.com/100-hours-a-week/3-team-modie-fe/commit/47c9e77))
+* fix:dev 환경변수변경 ([a6743ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a6743ff))
+* fix:prod 환경변수변경 ([ad9c297](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ad9c297))
+
+## <small>1.27.2 (2025-03-27)</small>
+
+* fix: 테스트를 위한 로그인 환경변수 하드코딩 ([7bbe4a9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7bbe4a9))
+* chore: VITE_LOGIN_URI 환경변수 추가 ([2d26fa0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2d26fa0))
+
+## <small>1.27.1 (2025-03-27)</small>
+
+* fix: 메타 태그 내부 링크 수정 ([6ac51fa](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ac51fa))
+
+## 1.27.0 (2025-03-27)
+
+* feat: Merge pull request #43 from 100-hours-a-week/feature/meta-tag ([bbee62a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bbee62a)), closes [#43](https://github.com/100-hours-a-week/3-team-modie-fe/issues/43)
+* feat: 링크 공유시 모임 미리보기 기능 구현 ([1615dc5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1615dc5))
+
+## 1.26.0 (2025-03-27)
+
+* Merge branch 'main' into dev ([a5494e9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a5494e9))
+* feat: 로그인 후 다시 모임 상세 페이지로 이동 ([458376b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/458376b))
+* chore: 카카오 로그인 redirect url 환경변수로 관리 ([f0f0f4e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f0f0f4e))
+
 ## <small>1.25.2 (2025-03-27)</small>
 
 * fix: 카카오 url 추가 ([c8f15d5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c8f15d5))
 * fix: 카카오 url 추가 ([15b4ea1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/15b4ea1))
+
 
 ## <small>1.25.1 (2025-03-26)</small>
 
