@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.28.0 (2025-03-27)
+
+* feat: 메타 태그 컴포넌트 분리 ([47c9e77](https://github.com/100-hours-a-week/3-team-modie-fe/commit/47c9e77))
+* fix:dev 환경변수변경 ([a6743ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a6743ff))
+* fix:prod 환경변수변경 ([ad9c297](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ad9c297))
+
 ## <small>1.27.2 (2025-03-27)</small>
 
 * fix: 테스트를 위한 로그인 환경변수 하드코딩 ([7bbe4a9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7bbe4a9))
