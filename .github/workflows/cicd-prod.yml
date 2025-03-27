@@ -43,6 +43,9 @@ jobs:
           VITE_KAKAO_REDIRECT_URI: ${{ secrets.VITE_KAKAO_REDIRECT_URI_PROD }}
           VITE_APP_API_BASE_URL: ${{ secrets.VITE_APP_API_BASE_URL_PROD }}
           VITE_CHAT_WSS_URL: ${{ secrets.VITE_CHAT_WSS_URL_PROD }}
+          VITE_CHAT_WSS_URL: ${{ secrets.VITE_APP_API_BASE_URL_PROD }}
+          VITE_LOGIN_URI_PROD: ${{ secrets.VITE_LOGIN_URI_PROD }}
+          
         run: |
           set -e
           yarn build
