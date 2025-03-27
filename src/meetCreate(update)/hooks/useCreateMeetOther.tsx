@@ -109,8 +109,8 @@ export const useMeetCreateOther = () => {
       return;
     }
 
-    if (num < 1) {
-      setMemberError("최소 인원은 1명입니다.");
+    if (num < 2) {
+      setMemberError("최소 인원은 2명입니다.");
     } else if (num > 30) {
       setMemberError("최대 인원은 30명입니다.");
     } else {
@@ -139,8 +139,19 @@ export const useMeetCreateOther = () => {
   };
 
   const isFormValid = () => {
+    const memberCountNum = Number(memberCount);
+    const costNum = Number(cost.replace(/,/g, ""));
+
+    const isMemberValid = memberCountNum >= 2 && memberCountNum <= 30;
+    const isCostValid = !hasCost || (costNum >= 1000 && costNum <= 10000000);
+
     return Boolean(
-      dateInput && time.hour && time.minute && memberCount && (!hasCost || cost)
+      dateInput &&
+        time.hour &&
+        time.minute &&
+        memberCount &&
+        isMemberValid &&
+        isCostValid
     );
   };
 
