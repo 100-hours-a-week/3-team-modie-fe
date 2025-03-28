@@ -1,96 +1,79 @@
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { meetItem } from "../types/meetItem";
 import { getMeetsService } from "../services/getMeetsService";
+import { meetItem } from "../types/meetItem";
 
-interface UseMeetDataReturn {
-  meets: meetItem[];
-  activeTab: string;
-  selectedChip: string;
-  chipCategories: string[];
-  handleTabClick: (tab: string) => void;
-  handleChipClick: (category: string) => void;
-}
-
-export const useMeetData = (): UseMeetDataReturn => {
+export const useMeetData = (activeTab: string, selectedChip: string) => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("참여중");
-  const [selectedChip, setSelectedChip] = useState("전체");
-  const [meets, setMeets] = useState<meetItem[]>([]);
+  const token = localStorage.getItem("accessToken") || "";
+  const queryKey = ["meets", activeTab, selectedChip];
 
-  const chipCategories = ["전체", "음식", "운동", "이동", "기타"];
+  if (!token) {
+    navigate("/login");
+  }
 
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading, // TODO: 로딩시 화면에 로직 추가하기
+    refetch,
+    error,
+  } = useInfiniteQuery({
+    queryKey: queryKey,
+    initialPageParam: 1,
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await getMeetsService({
+        category: selectedChip,
+        completed: activeTab === "종료",
+        page: pageParam,
+        token,
+      });
 
-    if (!token) {
-      navigate("/login");
-    }
+      let meets = res.data.meets;
 
-    if (token) {
-      const fetchMeets = async () => {
-        try {
-          const res = await getMeetsService({
-            category: selectedChip == "기타" ? "전체" : selectedChip,
-            completed: activeTab === "종료",
-            page: 1, // TODO: 추후 무한스크롤 구현하면서 변경하기
-            token,
-          });
-
-          if (res.data.meets) {
-            let filteredMeets = res.data.meets;
-
-            if (selectedChip !== "전체") {
-              if (selectedChip === "기타") {
-                const basicCategories = ["음식", "운동", "이동"];
-                filteredMeets = filteredMeets.filter(
-                  (meet) => !basicCategories.includes(meet.meetType)
-                );
-              } else {
-                filteredMeets = filteredMeets.filter(
-                  (meet) => meet.meetType === selectedChip
-                );
-              }
-            }
-
-            // 종료된 모임 필터링
-            const now = new Date();
-            if (activeTab === "종료") {
-              filteredMeets = filteredMeets.filter(
-                (meet) => new Date(meet.meetAt) < now
-              );
-            } else {
-              filteredMeets = filteredMeets.filter(
-                (meet) => new Date(meet.meetAt) >= now
-              );
-            }
-
-            setMeets(filteredMeets);
-          }
-        } catch (error) {
-          console.error("모임 목록 조회 실패:", error);
+      if (selectedChip !== "전체") {
+        if (selectedChip === "기타") {
+          const basicCategories = ["음식", "운동", "이동"];
+          meets = meets.filter(
+            (meet) => !basicCategories.includes(meet.meetType)
+          );
+        } else {
+          meets = meets.filter((meet) => meet.meetType === selectedChip);
         }
+      }
+
+      return {
+        meets,
+        nextPage: pageParam + 1,
+        totalElements: res.data.totalElements,
+        pageSize: res.data.size,
       };
-      fetchMeets();
-    }
-  }, [activeTab, selectedChip]);
+    },
 
-  // 탭 클릭 핸들러
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
+    getNextPageParam: (lastPage, pages) => {
+      const loadedCount = pages.reduce(
+        (acc, page) => acc + page.meets.length,
+        0
+      );
 
-  // 칩 클릭 핸들러
-  const handleChipClick = (category: string) => {
-    setSelectedChip(category);
-  };
+      return loadedCount < lastPage.totalElements
+        ? lastPage.nextPage
+        : undefined;
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  const meetsFlat: meetItem[] = data?.pages.flatMap((page) => page.meets) || [];
 
   return {
-    meets,
-    activeTab,
-    selectedChip,
-    chipCategories,
-    handleTabClick,
-    handleChipClick,
+    meets: meetsFlat,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    refetch,
+    error,
   };
 };
