@@ -57,6 +57,7 @@ export const useMeetData = (activeTab: string, selectedChip: string) => {
         (acc, page) => acc + page.meets.length,
         0
       );
+
       return loadedCount < lastPage.totalElements
         ? lastPage.nextPage
         : undefined;

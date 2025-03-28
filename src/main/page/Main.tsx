@@ -1,4 +1,3 @@
-// import { useEffect, useState } from "react";
 import { useEffect, useState } from "react";
 import Header from "../../common/components/Header";
 import MeetCard from "../components/MeetCard.tsx";
@@ -6,7 +5,6 @@ import MeetTap from "../components/MeetTab.tsx";
 import MeetChip from "../components/MeetChip.tsx";
 import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
-// import Splash from "../../common/page/Splash.tsx";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
@@ -17,20 +15,6 @@ export default function Main() {
     selectedChip
   );
 
-  // useEffect(() => {
-  //   const hasSeenSplash = localStorage.getItem("hasSeenSplash");
-
-  //   if (!hasSeenSplash) {
-  //     setShowSplash(true);
-  //     setTimeout(() => {
-  //       setShowSplash(false);
-  //       localStorage.setItem("hasSeenSplash", "true");
-  //     }, 2000); // 2초 보여주기 (원하는 시간으로 조정)
-  //   }
-  // }, []);
-
-  // if (showSplash) return <Splash />;
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -39,7 +23,7 @@ export default function Main() {
 
       // 스크롤이 바닥에 가까워지면 다음 페이지 요청
       if (
-        scrollTop + windowHeight >= fullHeight - 100 &&
+        scrollTop + windowHeight >= fullHeight - 50 &&
         !isFetchingNextPage &&
         hasNextPage
       ) {
@@ -86,14 +70,6 @@ export default function Main() {
               onClick={() => setSelectedChip(category)}
             />
           ))}
-          {/* {chipCategories.map((category) => (
-            <MeetChip
-              key={category}
-              title={category}
-              isSelected={selectedChip === category}
-              onClick={() => handleChipClick(category)}
-            />
-          ))} */}
         </div>
       </div>
       <div className="flex flex-col px-[2rem] py-[1rem] gap-[2rem]">
