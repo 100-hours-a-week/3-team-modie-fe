@@ -5,32 +5,35 @@ import MeetTap from "../components/MeetTab.tsx";
 import MeetChip from "../components/MeetChip.tsx";
 import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
-import Splash from "../../common/page/Splash.tsx";
 
 export default function Main() {
-  const {
-    meets,
+  const [activeTab, setActiveTab] = useState("참여중");
+  const [selectedChip, setSelectedChip] = useState("전체");
+
+  const { meets, fetchNextPage, hasNextPage, isFetchingNextPage } = useMeetData(
     activeTab,
-    selectedChip,
-    chipCategories,
-    handleTabClick,
-    handleChipClick,
-  } = useMeetData();
-  const [showSplash, setShowSplash] = useState(false);
+    selectedChip
+  );
 
   useEffect(() => {
-    const hasSeenSplash = localStorage.getItem("hasSeenSplash");
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
 
-    if (!hasSeenSplash) {
-      setShowSplash(true);
-      setTimeout(() => {
-        setShowSplash(false);
-        localStorage.setItem("hasSeenSplash", "true");
-      }, 2000); // 2초 보여주기 (원하는 시간으로 조정)
-    }
-  }, []);
+      // 스크롤이 바닥에 가까워지면 다음 페이지 요청
+      if (
+        scrollTop + windowHeight >= fullHeight - 50 &&
+        !isFetchingNextPage &&
+        hasNextPage
+      ) {
+        fetchNextPage();
+      }
+    };
 
-  if (showSplash) return <Splash />;
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [fetchNextPage, isFetchingNextPage, hasNextPage]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -42,12 +45,12 @@ export default function Main() {
           <MeetTap
             title="참여중"
             isSelected={activeTab === "참여중"}
-            onClick={() => handleTabClick("참여중")}
+            onClick={() => setActiveTab("참여중")}
           />
           <MeetTap
             title="종료"
             isSelected={activeTab === "종료"}
-            onClick={() => handleTabClick("종료")}
+            onClick={() => setActiveTab("종료")}
           />
         </div>
 
@@ -59,12 +62,12 @@ export default function Main() {
             scrollbarWidth: "none",
           }}
         >
-          {chipCategories.map((category) => (
+          {["전체", "음식", "운동", "이동", "기타"].map((category) => (
             <MeetChip
               key={category}
               title={category}
               isSelected={selectedChip === category}
-              onClick={() => handleChipClick(category)}
+              onClick={() => setSelectedChip(category)}
             />
           ))}
         </div>
