@@ -11,11 +11,7 @@ interface ToggleProps {
  * @author 희진
  */
 
-const Toggle = ({
-  initial = false,
-  onChange = () => true,
-  delay,
-}: ToggleProps) => {
+const Toggle = ({ initial, onChange = () => true, delay }: ToggleProps) => {
   const { checked, toggle } = useDebouncedToggle(initial, onChange, delay);
 
   return (
