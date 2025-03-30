@@ -130,11 +130,14 @@ export default function MeetDetail() {
                   : formatDate(meet.meetAt)
             }
           />
-          <InfoItem
-            icon={<CostIcon className="text-primaryDark3" />}
-            title="비용이 발생해요 !"
-            content={`예상 비용 ${meet.totalCost.toLocaleString()}원`}
-          />
+          {meet.totalCost > 0 && (
+            <InfoItem
+              icon={<CostIcon className="text-primaryDark3" />}
+              title="비용이 발생해요 !"
+              content={`예상 비용 ${meet.totalCost.toLocaleString()}원`}
+            />
+          )}
+
           <InfoItem
             icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
@@ -198,7 +201,7 @@ export default function MeetDetail() {
                   {member.userName}
                 </span>
 
-                {meet.meetRule === "owner" && (
+                {meet.meetRule === "owner" && meet.totalCost > 0 && (
                   <Toggle
                     initial={member.payed}
                     onChange={async () => {
