@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import { useChatStore } from "./useChat";
 
@@ -16,7 +16,7 @@ export const useChatSocket = ({
   const { addMessage } = useChatStore();
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [processedMsgIds] = useState(new Set<string>());
+  const processedMsgIds = useRef(new Set<string>());
 
   useEffect(() => {
     if (!chatId) return;
@@ -43,8 +43,13 @@ export const useChatSocket = ({
               return;
             }
 
-            if (processedMsgIds.has(receivedMessage.chatId)) return;
-            processedMsgIds.add(receivedMessage.chatId);
+            // messageId가 없는 경우 fallback으로 유니크한 식별자 생성
+            const messageId =
+              receivedMessage.messageId ||
+              `${receivedMessage.userId}_${receivedMessage.dateTime}`;
+
+            if (processedMsgIds.current.has(messageId)) return;
+            processedMsgIds.current.add(messageId);
 
             addMessage({
               nickname: receivedMessage.nickname,
@@ -54,7 +59,7 @@ export const useChatSocket = ({
               dateTime: receivedMessage.dateTime,
             });
           } catch (error) {
-            console.log(error);
+            console.error("메시지 처리 중 오류 발생:", error);
           }
         });
       },
@@ -69,30 +74,35 @@ export const useChatSocket = ({
     return () => {
       if (client.active) client.deactivate();
     };
-  }, [chatId, addMessage, userId, processedMsgIds]);
+  }, [chatId, addMessage, userId]); // processedMsgIds 제거됨
 
   const sendMessage = useCallback(
     (message: string, jwtToken: string | null) => {
       if (!message.trim() || !stompClient?.connected || !chatId) return false;
       if (!jwtToken) return false;
 
-      stompClient.publish({
-        destination: `/app/chat/${chatId}`,
-        body: message,
-        headers: { Authorization: `Bearer ${jwtToken}` },
-      });
+      try {
+        stompClient.publish({
+          destination: `/app/chat/${chatId}`,
+          body: message,
+          headers: { Authorization: `Bearer ${jwtToken}` },
+        });
 
-      addMessage({
-        isMe: true,
-        content: message,
-        dateTime: (() => {
-          const now = new Date();
-          now.setHours(now.getHours() - 9);
-          return now.toISOString();
-        })(),
-      });
+        addMessage({
+          isMe: true,
+          content: message,
+          dateTime: (() => {
+            const now = new Date();
+            now.setHours(now.getHours() - 9);
+            return now.toISOString();
+          })(),
+        });
 
-      return true;
+        return true;
+      } catch (error) {
+        console.error("메시지 전송 중 오류 발생:", error);
+        return false;
+      }
     },
     [stompClient, chatId, addMessage]
   );

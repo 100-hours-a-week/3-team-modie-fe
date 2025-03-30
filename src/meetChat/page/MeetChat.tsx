@@ -1,4 +1,3 @@
-// page/MeetChat.tsx
 import Header from "../../common/components/Header";
 import MessageBox from "../components/MessageBox";
 import ChatInput from "../components/chatInput";
@@ -30,30 +29,24 @@ export default function MeetChat() {
     jwtToken,
   });
 
-  // 초기 메시지 로드
   useEffect(() => {
-    if (!id || !jwtToken) return;
+    if (!id || !jwtToken) return; // TODO: 여기서 리턴 말고 로그인 페이지로 이동하는 로직 필요함 !
     fetchMessages(id, jwtToken);
-    setInitialLoad(true);
   }, [id, fetchMessages, jwtToken]);
-
-  // 초기 로드 후 스크롤 아래로 이동
-  useEffect(() => {
-    if (messages.length > 0 && initialLoad) {
-      scrollToBottom();
-      setInitialLoad(false);
-    }
-  }, [messages.length, initialLoad]);
 
   // 스크롤 기능
   const scrollToBottom = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // 새 메시지가 추가되면 스크롤 아래로 이동
   useEffect(() => {
-    if (!initialLoad) {
-      // 초기 로드가 아닐 때만 스크롤 (무한 스크롤시 방해되지 않도록)
+    if (messages.length === 0) return;
+
+    if (initialLoad) {
+      scrollToBottom();
+      setInitialLoad(false);
+    } else {
+      // 새 메시지가 추가된 경우에만 스크롤
       scrollToBottom();
     }
   }, [messages.length, initialLoad]);
@@ -94,12 +87,56 @@ export default function MeetChat() {
     }
   }, [isLoading, prevScrollHeight]);
 
-  // 메시지 전송 핸들러
   const handleSendMessage = (msg: string) => {
-    if (sendMessage(msg, jwtToken)) {
-      scrollToBottom();
+    try {
+      if (sendMessage(msg, jwtToken)) {
+        scrollToBottom();
+      } else {
+        console.error("메시지 전송 실패");
+        // 여기에 토스트 메시지 등 사용자 알림 추가 가능
+      }
+    } catch (error) {
+      console.error("메시지 전송 오류:", error);
+      // 사용자에게 오류 알림 (토스트 메시지 등)
     }
   };
+
+  const EmptyMessageIndicator = () => (
+    <div className="flex items-center justify-center h-full text-gray-400">
+      아직 메시지가 없습니다. 첫 메시지를 보내보세요!
+    </div>
+  );
+
+  const MessageList = () => (
+    <>
+      {messages.map((msg, index) => {
+        const prev = messages[index - 1];
+        const { showDate, showNickname } = getChatMessageMeta(msg, prev);
+
+        return (
+          <div
+            key={`msg-${index}-${msg.dateTime}`}
+            className="flex flex-col gap-1"
+          >
+            {showDate && (
+              <div className="text-Body1 font-bold text-center mt-4 mb-1">
+                {formatChatDate(msg.dateTime)}
+              </div>
+            )}
+            <MessageBox
+              nickname={msg.nickname || ""}
+              isMe={msg.isMe}
+              isOwner={msg.isOwner || false}
+              content={msg.content}
+              date={formatChatDate(msg.dateTime)}
+              time={formatChatTime(msg.dateTime)}
+              showNickname={showNickname}
+            />
+          </div>
+        );
+      })}
+    </>
+  );
 
   return (
     <div className="flex flex-col h-screen">
@@ -125,38 +162,9 @@ export default function MeetChat() {
           )}
         </div>
 
-        {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-gray-400">
-            아직 메시지가 없습니다. 첫 메시지를 보내보세요!
-          </div>
-        ) : (
-          messages.map((msg, index) => {
-            const prev = messages[index - 1];
-            const { showDate, showNickname } = getChatMessageMeta(msg, prev);
+        {/* 3. 조건부 렌더링 최적화 */}
+        {messages.length === 0 ? <EmptyMessageIndicator /> : <MessageList />}
 
-            return (
-              <div
-                key={`msg-${index}-${msg.dateTime}`}
-                className="flex flex-col gap-1"
-              >
-                {showDate && (
-                  <div className="text-Body1 font-bold text-center mt-4 mb-1">
-                    {formatChatDate(msg.dateTime)}
-                  </div>
-                )}
-                <MessageBox
-                  nickname={msg.nickname || ""}
-                  isMe={msg.isMe}
-                  isOwner={msg.isOwner || false}
-                  content={msg.content}
-                  date={formatChatDate(msg.dateTime)}
-                  time={formatChatTime(msg.dateTime)}
-                  showNickname={showNickname}
-                />
-              </div>
-            );
-          })
-        )}
         <div ref={scrollRef} />
       </main>
 
