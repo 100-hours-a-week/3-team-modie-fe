@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 1.32.0 (2025-03-30)
+
+* feat: Merge pull request #53 from 100-hours-a-week/feature/main-infinite-scroll ([f9336a4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f9336a4)), closes [#53](https://github.com/100-hours-a-week/3-team-modie-fe/issues/53)
+* feat: Merge pull request #59 from 100-hours-a-week/dev ([206b7a0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/206b7a0)), closes [#59](https://github.com/100-hours-a-week/3-team-modie-fe/issues/59)
+* feat: tanstack-query 이용한 무한 스크롤 구현 ([c5c1f91](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c5c1f91))
+* feat: 무한 스크롤 구현 중 ([6299c86](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6299c86))
+* ✨ Feature - 멤버의 정산 내역 업데이트 토글 관련 에러 픽스 ([e9b26a8](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e9b26a8))
+* ✨ Fix - 1차 상호 QA 내용 수정 ([def38a9](https://github.com/100-hours-a-week/3-team-modie-fe/commit/def38a9))
+* fix: Merge pull request #52 from 100-hours-a-week/fix/meetCreate-validatation ([592a8eb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/592a8eb)), closes [#52](https://github.com/100-hours-a-week/3-team-modie-fe/issues/52)
+* fix: 날짜 관련 에러 픽스 ([6891c5a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6891c5a))
+* fix: 멤버의 정산 내역 업데이트 토글 상태 변경 #10 ([588047b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/588047b)), closes [#10](https://github.com/100-hours-a-week/3-team-modie-fe/issues/10)
+* fix: 모임 생성 후 모임 생성시 만든 데이터 초기화 ([2d18b7e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2d18b7e))
+* fix: 모임 생성 후 지연 로딩을 적용하여 토스트 메세지 중복 방지 ([cadacbf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/cadacbf))
+* fix: 비용이 발생하지 않는 모임의 경우, 비용 섹션 숨기기 ([96fa93b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/96fa93b))
+* fix: 출발 장소 선탠기 지도 줌 아웃 오류 픽스 ([88ec218](https://github.com/100-hours-a-week/3-team-modie-fe/commit/88ec218))
+* chore: 주석 제거 ([bae6946](https://github.com/100-hours-a-week/3-team-modie-fe/commit/bae6946))
+
 ## <small>1.31.2 (2025-03-27)</small>
 
 * fix: Merge pull request #49 from 100-hours-a-week/fix/meetCreate-validation-update ([cfde0bb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/cfde0bb)), closes [#49](https://github.com/100-hours-a-week/3-team-modie-fe/issues/49)
