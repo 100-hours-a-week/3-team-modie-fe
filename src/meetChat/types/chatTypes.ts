@@ -4,6 +4,7 @@
  */
 
 export interface chatType {
+  chatId?: number;
   nickname?: string;
   isMe: boolean;
   isOwner?: boolean;
