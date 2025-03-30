@@ -20,6 +20,7 @@ export default function MeetChat() {
   const mainRef = useRef<HTMLDivElement>(null);
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [isScrolling, setIsScrolling] = useState(false); // 스크롤 중복 방지용 상태 추가
 
   const { showToast } = useToast();
 
@@ -54,22 +55,38 @@ export default function MeetChat() {
     fetchMessages(id, jwtToken);
   }, [id, fetchMessages, jwtToken]);
 
-  // 스크롤 기능
+  // 최적화된 스크롤 기능
   const scrollToBottom = () => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    // 이미 스크롤 중이면 추가 스크롤 방지
+    if (isScrolling) return;
+
+    setIsScrolling(true); // 스크롤 시작 상태 설정
+
+    // 직접 scrollTop 설정 (애니메이션 없이 바로 이동)
+    if (mainRef.current) {
+      mainRef.current.scrollTop = mainRef.current.scrollHeight;
+    }
+
+    // 스크롤 상태 해제를 위한 타이머
+    setTimeout(() => {
+      setIsScrolling(false);
+    }, 300); // 스크롤 애니메이션 완료 예상 시간
   };
 
+  // 메시지 로드 후 한 번만 스크롤 처리
   useEffect(() => {
-    if (messages.length === 0) return;
+    if (messages.length === 0 || isLoading) return;
 
-    if (initialLoad) {
+    // 메시지가 로드되고 로딩이 완료된 경우에만 타이머 설정
+    const scrollTimer = setTimeout(() => {
       scrollToBottom();
-      setInitialLoad(false);
-    } else {
-      // 새 메시지가 추가된 경우에만 스크롤
-      scrollToBottom();
-    }
-  }, [messages.length, initialLoad]);
+      if (initialLoad) {
+        setInitialLoad(false);
+      }
+    }, 150); // 적절한 지연 시간
+
+    return () => clearTimeout(scrollTimer); // 타이머 정리
+  }, [messages.length, isLoading]);
 
   // 무한 스크롤 설정
   useEffect(() => {
@@ -110,7 +127,7 @@ export default function MeetChat() {
   const handleSendMessage = (msg: string) => {
     try {
       if (sendMessage(msg, jwtToken)) {
-        scrollToBottom();
+        // 메시지 전송 후 스크롤 처리는 메시지 목록 업데이트 후 useEffect에서 처리됨
       } else {
         console.error("메시지 전송 실패");
         showToast("메시지를 보낼 수 없습니다. 다시 시도해주세요.");
