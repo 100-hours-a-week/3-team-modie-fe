@@ -1,15 +1,25 @@
+import React, { useRef, useCallback, useEffect } from "react";
 import Header from "../../common/components/Header";
-import MessageBox from "../components/MessageBox";
+import { MessageList } from "../components/MessageList";
+import { EmptyMessageIndicator } from "../components/EmptyMessageIndicator";
 import ChatInput from "../components/chatInput";
-import { useEffect, useRef, useState } from "react";
-import { formatChatDate, formatChatTime } from "../../utils/formatChatDate";
-import { getChatMessageMeta } from "../../utils/getChatMessageMeta";
 import { useChatStore } from "../hooks/useChat";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useChatSocket } from "../hooks/useChatSocket";
-import { useToast } from "../../common/hooks/useToastMsg.tsx";
+import { useToast } from "../../common/hooks/useToastMsg";
+import { useChatScroll } from "../hooks/useChatScroll";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import {
+  sendChatMessage,
+  NetworkError,
+  AuthorizationError,
+} from "../services/messageService";
 
+/**
+ * 미팅 채팅 컴포넌트
+ * 채팅 메시지 목록과 입력 영역을 포함
+ */
 export default function MeetChat() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,9 +28,6 @@ export default function MeetChat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const [prevScrollHeight, setPrevScrollHeight] = useState(0);
-  const [initialLoad, setInitialLoad] = useState(true);
-  const [isScrolling, setIsScrolling] = useState(false); // 스크롤 중복 방지용 상태 추가
 
   const { showToast } = useToast();
 
@@ -42,137 +49,66 @@ export default function MeetChat() {
     jwtToken,
   });
 
+  // 스크롤 관리 커스텀 훅 적용
+  const { setPrevScrollHeight, scrollToBottom } = useChatScroll({
+    messages,
+    isLoading,
+    mainRef: mainRef as React.RefObject<HTMLDivElement>,
+  });
+
+  // 로그인 확인
   useEffect(() => {
     if (!jwtToken) {
       localStorage.setItem("afterLoginRedirect", window.location.pathname);
       showToast("로그인이 필요합니다.");
       navigate("/login");
     }
-  }, []);
+  }, [jwtToken, showToast, navigate]);
 
+  // 메시지 로드
   useEffect(() => {
     if (!id || !jwtToken) return;
     fetchMessages(id, jwtToken);
   }, [id, fetchMessages, jwtToken]);
 
-  // 최적화된 스크롤 기능
-  const scrollToBottom = () => {
-    // 이미 스크롤 중이면 추가 스크롤 방지
-    if (isScrolling) return;
-
-    setIsScrolling(true); // 스크롤 시작 상태 설정
-
-    // 직접 scrollTop 설정 (애니메이션 없이 바로 이동)
-    if (mainRef.current) {
-      mainRef.current.scrollTop = mainRef.current.scrollHeight;
-    }
-
-    // 스크롤 상태 해제를 위한 타이머
-    setTimeout(() => {
-      setIsScrolling(false);
-    }, 300); // 스크롤 애니메이션 완료 예상 시간
-  };
-
-  // 메시지 로드 후 한 번만 스크롤 처리
-  useEffect(() => {
-    if (messages.length === 0 || isLoading) return;
-
-    // 메시지가 로드되고 로딩이 완료된 경우에만 타이머 설정
-    const scrollTimer = setTimeout(() => {
-      scrollToBottom();
-      if (initialLoad) {
-        setInitialLoad(false);
-      }
-    }, 150); // 적절한 지연 시간
-
-    return () => clearTimeout(scrollTimer); // 타이머 정리
-  }, [messages.length, isLoading]);
-
-  // 무한 스크롤 설정
-  useEffect(() => {
-    if (!loadMoreRef.current || !id || !jwtToken) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !isLoading) {
-          // 스크롤 위치 기억을 위해 현재 스크롤 높이 저장
-          if (mainRef.current) {
-            setPrevScrollHeight(mainRef.current.scrollHeight);
-          }
-          fetchMoreMessages(id, jwtToken);
+  // 무한 스크롤 감지 - 커스텀 훅 사용
+  useIntersectionObserver<HTMLDivElement>(
+    loadMoreRef as React.RefObject<HTMLDivElement>,
+    () => {
+      if (hasMore && !isLoading && id && jwtToken) {
+        if (mainRef.current) {
+          setPrevScrollHeight(mainRef.current.scrollHeight);
         }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(loadMoreRef.current);
-
-    return () => {
-      if (loadMoreRef.current) {
-        observer.unobserve(loadMoreRef.current);
+        fetchMoreMessages(id, jwtToken);
       }
-    };
-  }, [id, jwtToken, fetchMoreMessages, hasMore, isLoading]);
-
-  // 이전 메시지 로드 후 스크롤 위치 유지
-  useEffect(() => {
-    if (!isLoading && prevScrollHeight > 0 && mainRef.current) {
-      const newScrollHeight = mainRef.current.scrollHeight;
-      const scrollDiff = newScrollHeight - prevScrollHeight;
-      mainRef.current.scrollTop = scrollDiff > 0 ? scrollDiff : 0;
-      setPrevScrollHeight(0);
-    }
-  }, [isLoading, prevScrollHeight]);
-
-  const handleSendMessage = (msg: string) => {
-    try {
-      if (sendMessage(msg, jwtToken)) {
-        // 메시지 전송 후 스크롤 처리는 메시지 목록 업데이트 후 useEffect에서 처리됨
-      } else {
-        console.error("메시지 전송 실패");
-        showToast("메시지를 보낼 수 없습니다. 다시 시도해주세요.");
-      }
-    } catch (error) {
-      console.error("메시지 전송 오류:", error);
-      showToast("메시지 전송 중 오류가 발생했습니다.");
-    }
-  };
-
-  const EmptyMessageIndicator = () => (
-    <div className="flex items-center justify-center h-full text-gray-400">
-      아직 메시지가 없습니다. 첫 메시지를 보내보세요!
-    </div>
+    },
+    { threshold: 0.1 }
   );
 
-  const MessageList = () => (
-    <>
-      {messages.map((msg, index) => {
-        const prev = messages[index - 1];
-        const { showDate, showNickname } = getChatMessageMeta(msg, prev);
+  // 메시지 전송 핸들러 - useCallback으로 최적화
+  const handleSendMessage = useCallback(
+    async (msg: string) => {
+      if (!jwtToken) {
+        showToast("로그인이 필요합니다");
+        return;
+      }
 
-        return (
-          <div
-            key={`msg-${index}-${msg.dateTime}`}
-            className="flex flex-col gap-1"
-          >
-            {showDate && (
-              <div className="text-Body1 font-bold text-center mt-4 mb-1">
-                {formatChatDate(msg.dateTime)}
-              </div>
-            )}
-            <MessageBox
-              nickname={msg.nickname || ""}
-              isMe={msg.isMe}
-              isOwner={msg.isOwner || false}
-              content={msg.content}
-              date={formatChatDate(msg.dateTime)}
-              time={formatChatTime(msg.dateTime)}
-              showNickname={showNickname}
-            />
-          </div>
-        );
-      })}
-    </>
+      try {
+        await sendChatMessage(sendMessage, msg, jwtToken);
+        // 성공 시 스크롤은 메시지 목록 변화 감지 시 자동으로 처리됨
+      } catch (error) {
+        console.error("메시지 전송 오류:", error);
+
+        if (error instanceof NetworkError) {
+          showToast("네트워크 연결을 확인해주세요");
+        } else if (error instanceof AuthorizationError) {
+          showToast("메시지 전송 권한이 없습니다");
+        } else {
+          showToast("메시지 전송에 실패했습니다. 다시 시도해주세요");
+        }
+      }
+    },
+    [jwtToken, sendMessage, showToast]
   );
 
   return (
@@ -199,8 +135,12 @@ export default function MeetChat() {
           )}
         </div>
 
-        {/* 조건부 렌더링 최적화 */}
-        {messages.length === 0 ? <EmptyMessageIndicator /> : <MessageList />}
+        {/* 조건부 렌더링 최적화 - 메모이제이션된 컴포넌트 사용 */}
+        {messages.length === 0 ? (
+          <EmptyMessageIndicator />
+        ) : (
+          <MessageList messages={messages} />
+        )}
 
         <div ref={scrollRef} />
       </main>

@@ -11,3 +11,11 @@ export interface chatType {
   content: string;
   dateTime: string;
 }
+
+/**
+ * 채팅 메시지 메타데이터 인터페이스
+ */
+export interface ChatMetadata {
+  showDate: boolean;
+  showNickname: boolean;
+}
