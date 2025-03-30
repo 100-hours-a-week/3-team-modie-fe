@@ -42,7 +42,7 @@ export default function MeetChat() {
   }, []);
 
   useEffect(() => {
-    if (!id || !jwtToken) return; // TODO: 여기서 리턴 말고 로그인 페이지로 이동하는 로직 필요함 !
+    if (!id || !jwtToken) return;
     fetchMessages(id, jwtToken);
   }, [id, fetchMessages, jwtToken]);
 
