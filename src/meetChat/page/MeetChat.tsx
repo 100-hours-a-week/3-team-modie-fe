@@ -5,13 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import { formatChatDate, formatChatTime } from "../../utils/formatChatDate";
 import { getChatMessageMeta } from "../../utils/getChatMessageMeta";
 import { useChatStore } from "../hooks/useChat";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useChatSocket } from "../hooks/useChatSocket";
 import { useToast } from "../../common/hooks/useToastMsg.tsx";
 
 export default function MeetChat() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams(); // URL 파라미터 추출을 위한 hook 추가
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -23,8 +26,13 @@ export default function MeetChat() {
   const { messages, fetchMessages, fetchMoreMessages, hasMore, isLoading } =
     useChatStore();
 
-  const location = useLocation();
-  const { id, type, isEnd } = location.state || {};
+  const locationState = location.state || {};
+  const meetIdFromParams = params.meetId; // URL 파라미터에서 meetId 추출 (/:meetId/chat 형식)
+
+  // 우선순위: URL 파라미터 > location.state
+  const id = meetIdFromParams || locationState.id;
+  const { type, isEnd } = locationState;
+
   const CHAT_INPUT_HEIGHT = "10rem";
   const { userId, jwtToken } = useAuth();
   const { isConnected, sendMessage } = useChatSocket({
@@ -105,11 +113,11 @@ export default function MeetChat() {
         scrollToBottom();
       } else {
         console.error("메시지 전송 실패");
-        // 여기에 토스트 메시지 등 사용자 알림 추가 가능
+        showToast("메시지를 보낼 수 없습니다. 다시 시도해주세요.");
       }
     } catch (error) {
       console.error("메시지 전송 오류:", error);
-      // 사용자에게 오류 알림 (토스트 메시지 등)
+      showToast("메시지 전송 중 오류가 발생했습니다.");
     }
   };
 
@@ -174,7 +182,7 @@ export default function MeetChat() {
           )}
         </div>
 
-        {/* 3. 조건부 렌더링 최적화 */}
+        {/* 조건부 렌더링 최적화 */}
         {messages.length === 0 ? <EmptyMessageIndicator /> : <MessageList />}
 
         <div ref={scrollRef} />
