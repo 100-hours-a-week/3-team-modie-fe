@@ -146,7 +146,7 @@ export default function MeetDetail() {
 
         <div className="w-full py-6">
           <div className="text-Body1 font-bold mb-2">모임 장소</div>
-          <KakaoMap address={meet.address} />
+          {meet.address && <KakaoMap address={meet.address} />}
           <div className="mt-4 text-Body2 text-gray42 font-bold break-words whitespace-pre-wrap w-full">
             {meet.address}
           </div>

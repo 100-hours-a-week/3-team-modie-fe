@@ -17,6 +17,8 @@ const KakaoMap = ({ address }: KakaoMapProps) => {
   const { toastMessage, isToastVisible, showToast } = useToast();
 
   useEffect(() => {
+    if (!address || address.trim() === "") return;
+
     if (!address) {
       showToast("설정된 주소가 없습니다.");
       return;

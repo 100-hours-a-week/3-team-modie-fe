@@ -79,10 +79,10 @@ export const useCreateMeetSubmit = () => {
       const createRes = await createMeetService(requestData, token);
 
       if (createRes.success) {
-        resetMeetInfo();
         showToast("모임이 생성되었어요!");
         setTimeout(() => {
           navigate(`/${createRes.data.meetId}`);
+          resetMeetInfo();
         }, 1000);
       } else {
         showToast("모임 생성에 실패했어요.");
