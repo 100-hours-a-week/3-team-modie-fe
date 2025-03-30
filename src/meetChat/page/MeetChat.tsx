@@ -5,16 +5,20 @@ import { useEffect, useRef, useState } from "react";
 import { formatChatDate, formatChatTime } from "../../utils/formatChatDate";
 import { getChatMessageMeta } from "../../utils/getChatMessageMeta";
 import { useChatStore } from "../hooks/useChat";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useChatSocket } from "../hooks/useChatSocket";
+import { useToast } from "../../common/hooks/useToastMsg.tsx";
 
 export default function MeetChat() {
+  const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
   const [initialLoad, setInitialLoad] = useState(true);
+
+  const { showToast } = useToast();
 
   const { messages, fetchMessages, fetchMoreMessages, hasMore, isLoading } =
     useChatStore();
@@ -28,6 +32,14 @@ export default function MeetChat() {
     userId,
     jwtToken,
   });
+
+  useEffect(() => {
+    if (!jwtToken) {
+      localStorage.setItem("afterLoginRedirect", window.location.pathname);
+      showToast("로그인이 필요합니다.");
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     if (!id || !jwtToken) return; // TODO: 여기서 리턴 말고 로그인 페이지로 이동하는 로직 필요함 !
