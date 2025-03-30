@@ -130,11 +130,14 @@ export default function MeetDetail() {
                   : formatDate(meet.meetAt)
             }
           />
-          <InfoItem
-            icon={<CostIcon className="text-primaryDark3" />}
-            title="비용이 발생해요 !"
-            content={`예상 비용 ${meet.totalCost.toLocaleString()}원`}
-          />
+          {meet.totalCost > 0 && (
+            <InfoItem
+              icon={<CostIcon className="text-primaryDark3" />}
+              title="비용이 발생해요 !"
+              content={`예상 비용 ${meet.totalCost.toLocaleString()}원`}
+            />
+          )}
+
           <InfoItem
             icon={<MemberIcon className="text-primaryDark3" />}
             title="인   원"
@@ -146,7 +149,7 @@ export default function MeetDetail() {
 
         <div className="w-full py-6">
           <div className="text-Body1 font-bold mb-2">모임 장소</div>
-          <KakaoMap address={meet.address} />
+          {meet.address && <KakaoMap address={meet.address} />}
           <div className="mt-4 text-Body2 text-gray42 font-bold break-words whitespace-pre-wrap w-full">
             {meet.address}
           </div>
@@ -198,7 +201,7 @@ export default function MeetDetail() {
                   {member.userName}
                 </span>
 
-                {meet.meetRule === "owner" && (
+                {meet.meetRule === "owner" && meet.totalCost > 0 && (
                   <Toggle
                     initial={member.isPayed}
                     onChange={async () => {

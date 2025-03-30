@@ -79,6 +79,7 @@ export default function CreateMeetPlace() {
           center={center}
           style={{ width: "100%", height: "70vh" }}
           level={3}
+          minLevel={10}
           onClick={(_, mouseEvent) => {
             const latlng = mouseEvent.latLng;
             const lat = latlng.getLat();
