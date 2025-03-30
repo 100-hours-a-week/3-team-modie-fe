@@ -44,7 +44,7 @@ export default function MeetChat() {
   const CHAT_INPUT_HEIGHT = "10rem";
   const { userId, jwtToken } = useAuth();
   const { isConnected, sendMessage } = useChatSocket({
-    chatId: id ? String(id) : null,
+    chatId: id,
     userId,
     jwtToken,
   });

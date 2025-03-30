@@ -18,31 +18,25 @@ export function useChatScroll({
 }: ChatScrollProps) {
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
   const [initialLoad, setInitialLoad] = useState(true);
-  const [isScrolling, setIsScrolling] = useState(false);
   const [prevMessagesLength, setPrevMessagesLength] = useState(0);
   const [initialScrollApplied, setInitialScrollApplied] = useState(false);
 
   // 최하단으로 스크롤하는 함수 - 애니메이션 없음
   const scrollToBottomImmediate = () => {
     if (mainRef.current) {
-      // 애니메이션 없이 즉시 스크롤
-      mainRef.current.scrollTop = mainRef.current.scrollHeight;
+      mainRef.current.scrollTo({
+        top: mainRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   };
 
   // 최하단으로 스크롤하는 함수 - 애니메이션 포함
   const scrollToBottom = () => {
-    if (isScrolling) return;
-
-    setIsScrolling(true);
-
-    if (mainRef.current) {
-      mainRef.current.scrollTop = mainRef.current.scrollHeight;
-    }
-
-    setTimeout(() => {
-      setIsScrolling(false);
-    }, 300);
+    mainRef.current.scrollTo({
+      top: mainRef.current.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   // 메시지 로드 완료 감지 및 초기 스크롤 처리
@@ -80,11 +74,7 @@ export function useChatScroll({
       return;
     }
 
-    // 새 메시지 추가 시 스크롤
-    const scrollTimer = setTimeout(scrollToBottom, 150);
-    setPrevMessagesLength(messages.length);
-
-    return () => clearTimeout(scrollTimer);
+    scrollToBottom();
   }, [messages.length, initialLoad, prevScrollHeight, prevMessagesLength]);
 
   // 이전 메시지 로드 후 스크롤 위치 유지
