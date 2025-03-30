@@ -200,7 +200,7 @@ export default function MeetDetail() {
 
                 {meet.meetRule === "owner" && (
                   <Toggle
-                    initial={member.payed}
+                    initial={member.isPayed}
                     onChange={async () => {
                       const token = localStorage.getItem("accessToken");
                       if (!token) {
@@ -224,7 +224,7 @@ export default function MeetDetail() {
                   />
                 )}
 
-                {meet.meetRule === "member" && member.payed && (
+                {meet.meetRule === "member" && member.isPayed && (
                   <span className="text-Body2 font-semibold text-primary">
                     정산 완료
                   </span>

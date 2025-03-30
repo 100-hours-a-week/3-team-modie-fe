@@ -24,5 +24,5 @@ export interface meetType {
 export interface meetMembers {
   userId: number;
   userName: string;
-  payed: boolean;
+  isPayed: boolean;
 }
