@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## <small>1.33.1 (2025-03-31)</small>
+
+* fix: 채팅방 진입 후 로그인시 다시 해당 채팅방으로 리다이렉트 ([1118cf6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1118cf6))
+
 ## 1.33.0 (2025-03-31)
 
 * feat: Merge pull request #58 from 100-hours-a-week/feat-chat-infinite-scroll ([29429a0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/29429a0)), closes [#58](https://github.com/100-hours-a-week/3-team-modie-fe/issues/58)

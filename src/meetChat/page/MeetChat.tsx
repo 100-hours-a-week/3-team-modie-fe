@@ -59,7 +59,7 @@ export default function MeetChat() {
   // 로그인 확인
   useEffect(() => {
     if (!jwtToken) {
-      localStorage.setItem("afterLoginRedirect", window.location.pathname);
+      localStorage.setItem("afterLoginRedirect", "/" + id + "/chat");
       showToast("로그인이 필요합니다.");
       navigate("/login");
     }
