@@ -12,6 +12,7 @@ export default function ToastMsg({ active, description }: ToastMsgProps) {
         className={cn(
           `px-6 h-[3.1rem] rounded-3xl flex justify-center items-center`,
           `shrink-0 bg-black text-white opacity-0 translate-y-2 transition-all duration-500 ease-in-out`,
+          `z-[999]`,
           active ? `opacity-70 translate-y-0` : `opacity-0 translate-y-2`
         )}
       >
