@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 1.33.0 (2025-03-31)
+
+* feat: Merge pull request #58 from 100-hours-a-week/feat-chat-infinite-scroll ([29429a0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/29429a0)), closes [#58](https://github.com/100-hours-a-week/3-team-modie-fe/issues/58)
+* feat: Merge pull request #60 from 100-hours-a-week/dev ([1cea20f](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1cea20f)), closes [#60](https://github.com/100-hours-a-week/3-team-modie-fe/issues/60)
+* feat: 비로그인으로 채팅방 접속시 로그인 페이지로 이동하는 기능 구현 ([0e58775](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0e58775))
+* feat: 채팅방 무한스크롤 기능 구현 ([8866479](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8866479))
+* Merge branch 'dev' into feat-chat-infinite-scroll ([807cb1e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/807cb1e))
+* fix: chat types chat id 추가 ([675d9eb](https://github.com/100-hours-a-week/3-team-modie-fe/commit/675d9eb))
+* fix: gitkeep 삭제 ([2976f3a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/2976f3a))
+* fix: gitkeep 삭제 ([6336d03](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6336d03))
+* fix: MeetChat.tsx 로직을 hook, service, component로 분할 ([af4c600](https://github.com/100-hours-a-week/3-team-modie-fe/commit/af4c600))
+* fix: TODO 주석 제거 ([e94833c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e94833c))
+* fix: 스크롤 버그 수정 ([784e4bd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/784e4bd))
+* fix: 채팅방 렌더링 후 스크롤이 중간으로 되는 문제 해결 ([02fed8b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/02fed8b))
+* fix: 채팅방 페이지 meet id 가져오는 방식 수정 ([1e6948d](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1e6948d))
+* fix: 채팅을 중복으로 가져오는 문제 수정 ([551066a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/551066a))
+
 ## 1.32.0 (2025-03-30)
 
 * feat: Merge pull request #53 from 100-hours-a-week/feature/main-infinite-scroll ([f9336a4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f9336a4)), closes [#53](https://github.com/100-hours-a-week/3-team-modie-fe/issues/53)
