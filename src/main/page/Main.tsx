@@ -5,6 +5,7 @@ import MeetTap from "../components/MeetTab.tsx";
 import MeetChip from "../components/MeetChip.tsx";
 import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
+import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore.ts";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
@@ -14,6 +15,14 @@ export default function Main() {
     activeTab,
     selectedChip
   );
+
+  /*
+   * 모임 생성 상태 초기화를 위한 코드
+   */
+  useEffect(() => {
+    const { resetMeetInfo } = useCreateMeetStore.getState();
+    resetMeetInfo();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
