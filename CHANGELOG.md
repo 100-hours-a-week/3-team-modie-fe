@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.34.0 (2025-03-31)
+
+* feat: Merge pull request #61 from 100-hours-a-week/dev ([dd3da97](https://github.com/100-hours-a-week/3-team-modie-fe/commit/dd3da97)), closes [#61](https://github.com/100-hours-a-week/3-team-modie-fe/issues/61)
+
 ## <small>1.33.1 (2025-03-31)</small>
 
 * fix: 채팅방 진입 후 로그인시 다시 해당 채팅방으로 리다이렉트 ([1118cf6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1118cf6))
