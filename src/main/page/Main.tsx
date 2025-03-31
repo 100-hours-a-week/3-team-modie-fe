@@ -5,10 +5,20 @@ import MeetTap from "../components/MeetTab.tsx";
 import MeetChip from "../components/MeetChip.tsx";
 import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
   const [selectedChip, setSelectedChip] = useState("전체");
+  const token = localStorage.getItem("accessToken") || "";
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   const { meets, fetchNextPage, hasNextPage, isFetchingNextPage } = useMeetData(
     activeTab,
