@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 export const useDebouncedToggle = (
   initial: boolean = false,
   onChange?: (checked: boolean) => boolean | Promise<boolean>,
-  delay: number = 700
+  delay: number = 300
 ) => {
   const [checked, setChecked] = useState(initial);
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
