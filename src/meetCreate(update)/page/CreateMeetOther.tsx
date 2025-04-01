@@ -59,6 +59,9 @@ export default function CreateMeetOther() {
         minute: editMeetInfo.time.minute,
       };
 
+      // meetAt 값도 함께 설정
+      const meetAt = `${dateStr} ${timeObj.hour}:${timeObj.minute}`;
+
       setMeetInfo({
         ...meetInfo,
         date: dateStr,
@@ -66,7 +69,7 @@ export default function CreateMeetOther() {
         memberCount: editMeetInfo.memberCount,
         hasCost: !!editMeetInfo.hasCost,
         cost: editMeetInfo.cost || 0,
-        meetAt: `${dateInput} ${time.hour}:${time.minute}`,
+        meetAt,
       });
     }
   }, [isEditMode, editMeetInfo]);
