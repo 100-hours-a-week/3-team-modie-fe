@@ -68,7 +68,7 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
         <>
           {content.description}
           <br />
-          {content.confirmText.replace("하기", "")}하시겠습니까?
+          <br />
         </>
       ),
       confirmText: content.confirmText,

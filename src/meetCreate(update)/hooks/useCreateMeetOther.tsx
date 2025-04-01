@@ -13,23 +13,42 @@ export const useMeetCreateOther = () => {
   const maxDate = today.add(1, "year");
 
   const navigate = useNavigate();
-  const { setMeetInfo, editMeetInfo } = useCreateMeetStore();
+  const { meetInfo, setMeetInfo, editMeetInfo } = useCreateMeetStore();
 
-  const [dateInput, setDateInput] = useState(editMeetInfo?.date || "");
+  // 저장된 데이터 또는 편집 모드 데이터를 초기값으로 사용
+  const [dateInput, setDateInput] = useState(
+    meetInfo.date || editMeetInfo?.date || ""
+  );
   const [time, setTime] = useState(
-    editMeetInfo?.time || { hour: "", minute: "" }
+    meetInfo.time?.hour && meetInfo.time?.minute
+      ? meetInfo.time
+      : editMeetInfo?.time || { hour: "", minute: "" }
   );
   const [memberCount, setMemberCount] = useState(
-    editMeetInfo?.memberCount ? editMeetInfo.memberCount.toString() : ""
+    meetInfo.memberCount
+      ? meetInfo.memberCount.toString()
+      : editMeetInfo?.memberCount
+        ? editMeetInfo.memberCount.toString()
+        : ""
   );
-  const [hasCost, setHasCost] = useState(editMeetInfo?.hasCost || false);
+  const [hasCost, setHasCost] = useState(
+    meetInfo.hasCost !== undefined
+      ? meetInfo.hasCost
+      : editMeetInfo?.hasCost || false
+  );
   const [cost, setCost] = useState(
-    editMeetInfo?.cost ? editMeetInfo.cost.toLocaleString() : ""
+    meetInfo.cost
+      ? meetInfo.cost.toLocaleString()
+      : editMeetInfo?.cost
+        ? editMeetInfo.cost.toLocaleString()
+        : ""
   );
 
   const [dateError, setDateError] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    meetInfo.date ? dayjs(meetInfo.date, "YYYY.MM.DD").toDate() : null
+  );
 
   const [memberError, setMemberError] = useState("");
   const [costError, setCostError] = useState<string | undefined>(undefined);
@@ -37,20 +56,102 @@ export const useMeetCreateOther = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
+  // 편집 모드 또는 저장된 데이터로 초기화
   useEffect(() => {
-    if (!editMeetInfo) return;
+    if (editMeetInfo) {
+      setDateInput(editMeetInfo.date || "");
+      setTime(editMeetInfo.time || { hour: "", minute: "" });
+      setMemberCount(editMeetInfo.memberCount?.toString() || "");
+      setHasCost(editMeetInfo.hasCost || false);
+      setCost(editMeetInfo.cost ? editMeetInfo.cost.toLocaleString() : "");
 
-    setDateInput(editMeetInfo.date || "");
-    setTime(editMeetInfo.time || { hour: "", minute: "" });
-    setMemberCount(editMeetInfo.memberCount?.toString() || "");
-    setHasCost(editMeetInfo.hasCost || false);
-    setCost(editMeetInfo.cost ? editMeetInfo.cost.toLocaleString() : "");
+      if (editMeetInfo.date) {
+        const parsedDate = dayjs(editMeetInfo.date, "YYYY.MM.DD").toDate();
+        setSelectedDate(parsedDate);
+      }
+    } else if (meetInfo) {
+      // 편집 모드가 아니지만 세션 스토리지에 저장된 데이터가 있는 경우
+      if (meetInfo.date) {
+        setDateInput(meetInfo.date);
+        // 날짜 유효성 검사
+        if (validateDate(meetInfo.date)) {
+          setSelectedDate(dayjs(meetInfo.date, "YYYY.MM.DD").toDate());
+          setDateError("");
+        }
+      }
 
-    const parsedDate = dayjs(editMeetInfo.date, "YYYY.MM.DD").toDate();
-    if (!selectedDate || parsedDate.getTime() !== selectedDate.getTime()) {
-      setSelectedDate(parsedDate);
+      if (meetInfo.time?.hour && meetInfo.time?.minute) {
+        setTime(meetInfo.time);
+      }
+
+      if (meetInfo.memberCount) {
+        setMemberCount(meetInfo.memberCount.toString());
+        // 회원수 유효성 검사
+        const num = meetInfo.memberCount;
+        if (num < 2) {
+          setMemberError("최소 인원은 2명입니다.");
+        } else if (num > 30) {
+          setMemberError("최대 인원은 30명입니다.");
+        } else {
+          setMemberError("");
+        }
+      }
+
+      if (meetInfo.hasCost !== undefined) {
+        setHasCost(meetInfo.hasCost);
+      }
+
+      if (meetInfo.cost) {
+        setCost(meetInfo.cost.toLocaleString());
+        // 비용 유효성 검사
+        const num = meetInfo.cost;
+        if (num < 1000) {
+          setCostError("최소 금액은 1,000원입니다.");
+        } else if (num > 10000000) {
+          setCostError("최대 금액은 10,000,000원입니다.");
+        } else {
+          setCostError("");
+        }
+      }
     }
-  }, [editMeetInfo]);
+  }, [editMeetInfo, meetInfo]);
+
+  // 값이 변경될 때마다 스토어에 저장
+  useEffect(() => {
+    if (dateInput && validateDate(dateInput)) {
+      setMeetInfo({ date: dateInput });
+    }
+  }, [dateInput, setMeetInfo]);
+
+  useEffect(() => {
+    if (time.hour && time.minute) {
+      setMeetInfo({ time });
+    }
+  }, [time, setMeetInfo]);
+
+  useEffect(() => {
+    if (memberCount) {
+      const num = parseInt(memberCount, 10);
+      if (!isNaN(num) && num >= 2 && num <= 30) {
+        setMeetInfo({ memberCount: num });
+      }
+    }
+  }, [memberCount, setMeetInfo]);
+
+  useEffect(() => {
+    setMeetInfo({ hasCost });
+  }, [hasCost, setMeetInfo]);
+
+  useEffect(() => {
+    if (hasCost && cost) {
+      const num = parseInt(cost.replace(/,/g, ""), 10);
+      if (!isNaN(num) && num >= 1000 && num <= 10000000) {
+        setMeetInfo({ cost: num });
+      }
+    } else if (!hasCost) {
+      setMeetInfo({ cost: 0 });
+    }
+  }, [cost, hasCost, setMeetInfo]);
 
   const handleTimePickerOpen = () => setShowTimePicker(true);
   const handleTimeSave = (selected: { hour: string; minute: string }) => {
@@ -182,12 +283,16 @@ export const useMeetCreateOther = () => {
       if (!memberCount) return triggerToast("모집 인원을 입력해 주세요");
       if (hasCost && !cost) return triggerToast("예상 비용을 입력해 주세요");
 
+      // meetAt 값 추가 (날짜 + 시간)
+      const meetAt = `${dateInput} ${time.hour}:${time.minute}`;
+
       setMeetInfo({
         date: dateInput,
         time,
         memberCount: Number(memberCount),
         hasCost,
         cost: hasCost ? Number(cost.replace(/,/g, "")) : 0,
+        meetAt,
       });
 
       navigate("/meet/create/last");
