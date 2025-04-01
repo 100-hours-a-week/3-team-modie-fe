@@ -29,6 +29,7 @@ export default function MeetDetail() {
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
+  const isEnded = !!meet?.completedAt;
 
   const {
     active: submitActive,
@@ -201,34 +202,36 @@ export default function MeetDetail() {
                   {member.userName}
                 </span>
 
-                {meet.meetRule === "owner" && meet.totalCost > 0 && (
-                  <Toggle
-                    initial={member.isPayed}
-                    onChange={async () => {
-                      const token = localStorage.getItem("accessToken");
-                      if (!token) {
-                        showToast("로그인이 필요합니다.");
-                        navigate("/login");
-                        return false;
-                      }
+                {meet.meetRule === "owner" &&
+                  meet.totalCost > 0 &&
+                  !isEnded && (
+                    <Toggle
+                      initial={member.isPayed}
+                      onChange={async () => {
+                        const token = localStorage.getItem("accessToken");
+                        if (!token) {
+                          showToast("로그인이 필요합니다.");
+                          navigate("/login");
+                          return false;
+                        }
 
-                      try {
-                        await updatePaymentService(
-                          meet.meetId ?? 0,
-                          token,
-                          member.userId
-                        );
-                        return true;
-                      } catch {
-                        showToast("정산 상태 변경 실패");
-                        return false;
-                      }
-                    }}
-                  />
-                )}
+                        try {
+                          await updatePaymentService(
+                            meet.meetId ?? 0,
+                            token,
+                            member.userId
+                          );
+                          return true;
+                        } catch {
+                          showToast("정산 상태 변경 실패");
+                          return false;
+                        }
+                      }}
+                    />
+                  )}
 
-                {meet.meetRule === "member" && member.isPayed && (
-                  <span className="text-Body2 font-semibold text-primary">
+                {(isEnded || meet.meetRule === "member") && member.isPayed && (
+                  <span className="text-Body3 font-semibold text-activeBlue">
                     정산 완료
                   </span>
                 )}
