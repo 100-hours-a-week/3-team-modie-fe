@@ -11,15 +11,19 @@ import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeet
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
   const [selectedChip, setSelectedChip] = useState("전체");
-  const token = localStorage.getItem("accessToken") || "";
+
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
 
   const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (!token) {
       navigate("/login");
+    } else {
+      setIsTokenChecked(true);
     }
-  }, []);
+  }, [navigate, token]);
 
   const { meets, fetchNextPage, hasNextPage, isFetchingNextPage } = useMeetData(
     activeTab,
@@ -53,6 +57,8 @@ export default function Main() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchNextPage, isFetchingNextPage, hasNextPage]);
+
+  if (!isTokenChecked) return null;
 
   return (
     <div className="flex flex-col min-h-screen">
