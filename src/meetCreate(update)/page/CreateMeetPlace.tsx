@@ -52,7 +52,7 @@ export default function CreateMeetPlace() {
         });
       });
     }
-  }, []);
+  }, [isEditMode, editMeetInfo]);
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -98,8 +98,6 @@ export default function CreateMeetPlace() {
 
                 // Update address state
                 setMeetInfo({
-                  lat,
-                  lng,
                   address,
                 });
               }
@@ -127,7 +125,6 @@ export default function CreateMeetPlace() {
               const value = e.target.value;
               if (value.length <= 20) {
                 setDescription(value);
-                setMeetInfo({ addressDescription: value });
               }
             }}
             placeholder="장소에 대한 간단한 설명을 적어주세요."
