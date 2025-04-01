@@ -11,6 +11,28 @@ self.addEventListener("install", function (e) {
 
 self.addEventListener("activate", function (e) {});
 
+self.addEventListener("notificationclick", function (event) {
+  event.notification.close();
+  const targetUrl = event.notification.data?.url;
+
+  if (!targetUrl) return;
+
+  event.waitUntil(
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientList) => {
+        for (const client of clientList) {
+          if (client.url.includes(targetUrl) && "focus" in client) {
+            return client.focus();
+          }
+        }
+        if (clients.openWindow) {
+          return clients.openWindow(targetUrl);
+        }
+      })
+  );
+});
+
 const firebaseConfig = {
   apiKey: "AIzaSyAs8oK-sYO8vRQgzZCheGfkddXeqkTAxtM",
   authDomain: "modie-8ae56.firebaseapp.com",
@@ -29,14 +51,15 @@ messaging.onBackgroundMessage((payload) => {
   console.log("백그라운드 메시지 수신:", payload);
 
   const { title, body } = payload.notification || {};
+  const url = payload.data?.url;
 
-  self.registration.showNotification(title || "알림", {
+  const options = {
     badge: "/logo.png",
     image: "/logo.png",
     body: body || "새로운 메시지가 도착했어요.",
     icon: "/logo.png",
-    // data: {
-    //   url: "/", // 사용자가 클릭 시 이동할 내부 주소
-    // },
-  });
+    data: url ? { url } : {},
+  };
+
+  self.registration.showNotification(title || "알림", options);
 });

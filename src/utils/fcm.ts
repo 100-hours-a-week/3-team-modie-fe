@@ -41,15 +41,21 @@ export const initFCM = () => {
 
     if (Notification.permission === "granted") {
       const { title, body } = payload.notification || {};
+      const url = payload.data?.url;
 
-      new Notification(title || "알림", {
+      const notification = new Notification(title || "알림", {
         badge: "/logo.png",
         body: body || "새로운 메시지가 도착했어요.",
         icon: "/logo.png",
-        // data: {
-        //   url: "/", // 사용자가 클릭 시 이동할 내부 주소
-        // },
+        data: url ? { url } : {},
       });
+
+      notification.onclick = (event) => {
+        event.preventDefault();
+        if (notification.data?.url) {
+          window.open(notification.data.url, "_blank");
+        }
+      };
     }
   });
 };
