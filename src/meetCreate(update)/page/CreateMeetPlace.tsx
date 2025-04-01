@@ -133,7 +133,7 @@ export default function CreateMeetPlace() {
           />
         </div>
 
-        <div className="fixed bottom-29 w-full flex justify-center">
+        <div className="fixed bottom-29 w-full flex justify-center z-[2000]">
           <ToastMsg active={isToastVisible} description={toastMessage} />
         </div>
 
