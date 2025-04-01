@@ -43,8 +43,12 @@ export const initFCM = () => {
       const { title, body } = payload.notification || {};
 
       new Notification(title || "알림", {
+        badge: "/logo.png",
         body: body || "새로운 메시지가 도착했어요.",
-        icon: "/icons/favicon.svg",
+        icon: "/logo.png",
+        // data: {
+        //   url: "/", // 사용자가 클릭 시 이동할 내부 주소
+        // },
       });
     }
   });
