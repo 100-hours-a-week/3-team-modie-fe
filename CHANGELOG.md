@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 1.34.0 (2025-03-31)
+
+* fix: init fcm 위치 변경 ([50c8784](https://github.com/100-hours-a-week/3-team-modie-fe/commit/50c8784))
+* chore: 1.34.0 [skip ci] ([d2770f0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d2770f0))
+* feat: FCM용 환경변수 값 추가 ([d5c0a75](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d5c0a75))
+* feat: Merge pull request #63 from 100-hours-a-week/feature/chat-alarm ([89def6e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/89def6e)), closes [#63](https://github.com/100-hours-a-week/3-team-modie-fe/issues/63)
+* feat: Prod용 이미지 생성 로직 추가 (prod) ([0fb380e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0fb380e))
+* feat: 로그인시 FCM 토큰 발급 ([09a3d22](https://github.com/100-hours-a-week/3-team-modie-fe/commit/09a3d22))
+
+## 1.34.0 (2025-03-31)
+
+* feat: FCM용 환경변수 값 추가 ([d5c0a75](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d5c0a75))
+* feat: Merge pull request #63 from 100-hours-a-week/feature/chat-alarm ([89def6e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/89def6e)), closes [#63](https://github.com/100-hours-a-week/3-team-modie-fe/issues/63)
+* feat: Prod용 이미지 생성 로직 추가 (prod) ([0fb380e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0fb380e))
+* feat: 로그인시 FCM 토큰 발급 ([09a3d22](https://github.com/100-hours-a-week/3-team-modie-fe/commit/09a3d22))
+
 ## <small>1.33.1 (2025-03-31)</small>
 
 * fix: 채팅방 진입 후 로그인시 다시 해당 채팅방으로 리다이렉트 ([1118cf6](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1118cf6))
