@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Splash from "../../common/page/Splash";
-// import { initFCM } from "../../utils/fcm";
+import { initFCM } from "../../__fcm__/fcm";
 
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
@@ -17,8 +17,7 @@ export default function KakaoCallback() {
         .then((res) => {
           localStorage.setItem("accessToken", res.data.data);
 
-          // TODO: 추후 백엔드와 연동시 여기서 initFCM 수행
-          // initFCM();
+          initFCM();
 
           const redirectPath =
             localStorage.getItem("afterLoginRedirect") || "/";
