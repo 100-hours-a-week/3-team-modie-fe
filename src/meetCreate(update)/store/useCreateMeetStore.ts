@@ -40,7 +40,7 @@ export const useCreateMeetStore = create<MeetStore>()(
   persist(
     (set) => ({
       meetInfo: {
-        meetId: 0,
+        meetId: "",
         intro: "",
         category: "",
         customType: "",
@@ -66,7 +66,7 @@ export const useCreateMeetStore = create<MeetStore>()(
       resetMeetInfo: () =>
         set(() => ({
           meetInfo: {
-            meetId: 0,
+            meetId: "",
             intro: "",
             category: "",
             customType: "",

@@ -12,7 +12,7 @@ export const convertMeetTypeToMeetInfo = (
         const lng = parseFloat(result[0].x);
 
         resolve({
-          meetId: meet.meetId || 0,
+          meetId: meet.meetId || "",
           intro: meet.meetIntro,
           category: meet.meetType,
           customType: "",

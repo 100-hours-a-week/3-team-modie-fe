@@ -76,18 +76,3 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   console.log("[Service Worker] fetched resource " + e.request.url);
 });
-
-messaging.onBackgroundMessage((payload) => {
-  const { title, body } = payload.notification || {};
-  const url = payload.data?.url;
-
-  const options = {
-    badge: "/logo.png",
-    image: "/logo.png",
-    body: body || "새로운 메시지가 도착했어요.",
-    icon: "/logo.png",
-    data: url ? { url } : {},
-  };
-
-  self.registration.showNotification(title || "알림", options);
-});
