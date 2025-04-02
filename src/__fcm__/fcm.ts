@@ -23,7 +23,9 @@ export const initFCM = () => {
           };
 
           postFcmService(requestData, loginToken);
-        } else console.log("❌ FCM 토큰을 가져올 수 없습니다.");
+        } else {
+          console.log("❌ FCM 토큰을 가져올 수 없습니다.");
+        }
       } else {
         console.log("🔕 알림 권한이 거부되었습니다.");
       }

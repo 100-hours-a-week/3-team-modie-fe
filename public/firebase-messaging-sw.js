@@ -64,7 +64,7 @@ messaging.onBackgroundMessage((payload) => {
   self.registration.showNotification(title || "알림", options);
 });
 
-// 웹소켓
+// install event
 self.addEventListener("install", (e) => {
   console.log("[Service Worker] installed");
 });
