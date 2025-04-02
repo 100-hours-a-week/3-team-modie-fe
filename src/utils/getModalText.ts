@@ -19,7 +19,7 @@ export const getModalText = (type: ModalType, name: string) => {
     },
     [MODAL_TYPES.EXIT]: {
       title: `${name} 나가기`,
-      description: `${name}을 나가면 다시 들어올 수 없습니다.`,
+      description: `${name}을 나가시겠습니까?`,
       confirmText: "나가기",
     },
   };
