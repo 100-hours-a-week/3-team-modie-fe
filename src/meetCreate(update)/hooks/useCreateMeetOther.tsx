@@ -114,7 +114,7 @@ export const useMeetCreateOther = () => {
         }
       }
     }
-  }, [editMeetInfo, meetInfo]);
+  }, []);
 
   // 값이 변경될 때마다 스토어에 저장
   useEffect(() => {

@@ -48,8 +48,6 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  console.log("백그라운드 메시지 수신:", payload);
-
   const { title, body } = payload.notification || {};
   const url = payload.data?.url;
 

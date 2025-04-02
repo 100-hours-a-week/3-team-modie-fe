@@ -14,7 +14,6 @@ export const initFCM = () => {
         const fcmToken = await getToken(messaging, {
           vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
         });
-        console.log("✨ FCM Token: ", fcmToken);
 
         if (fcmToken && loginToken) {
           const requestData = {
@@ -22,7 +21,7 @@ export const initFCM = () => {
             deviceType: "web",
           };
 
-          postFcmService(requestData, loginToken);
+          await postFcmService(requestData, loginToken);
         } else {
           console.log("❌ FCM 토큰을 가져올 수 없습니다.");
         }
@@ -49,8 +48,6 @@ export const initFCM = () => {
   }
 
   onMessage(messaging, (payload) => {
-    console.log("포그라운드 메시지 수신:", payload);
-
     if (Notification.permission === "granted") {
       const { title, body } = payload.notification || {};
       const url = payload.data?.url;
