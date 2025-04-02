@@ -9,7 +9,7 @@ import axiosInstance from "../../__api__/axiosConfig";
  */
 
 export const updateAmountService = async (
-  meetId: number,
+  meetId: string,
   token: string,
   cost: number
 ) => {

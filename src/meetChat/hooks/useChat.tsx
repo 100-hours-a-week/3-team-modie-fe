@@ -8,8 +8,8 @@ interface ChatState {
   lastChatId: number | null;
   hasMore: boolean;
   isLoading: boolean;
-  fetchMessages: (meetId: number, token: string) => void;
-  fetchMoreMessages: (meetId: number, token: string) => Promise<boolean>;
+  fetchMessages: (meetId: string, token: string) => void;
+  fetchMoreMessages: (meetId: string, token: string) => Promise<boolean>;
   addMessage: (message: chatType) => void;
   clearMessages: () => void;
 }
@@ -28,7 +28,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
    * 미팅 ID에 해당하는 이전 채팅 메시지를 가져오는 함수
    * @param meetId 미팅 ID
    */
-  fetchMessages: async (meetId: number, token: string) => {
+  fetchMessages: async (meetId: string, token: string) => {
     try {
       set({ messages: [], isLoading: true, lastChatId: null, hasMore: true }); // 기존 메시지 초기화
 
@@ -66,7 +66,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
    * @param token JWT 토큰
    * @returns 성공 여부
    */
-  fetchMoreMessages: async (meetId: number, token: string) => {
+  fetchMoreMessages: async (meetId: string, token: string) => {
     const { lastChatId, isLoading, hasMore } = get();
 
     if (isLoading || !hasMore || lastChatId === null) {

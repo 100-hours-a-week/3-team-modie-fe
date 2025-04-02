@@ -4,7 +4,7 @@
  */
 
 export interface meetType {
-  meetId?: number;
+  meetId?: string;
   ownerName?: string;
   meetIntro: string;
   meetType: string;

@@ -39,7 +39,7 @@ export default function MeetDetail() {
 
   useEffect(() => {
     if (meetId) {
-      fetchMeet(Number(meetId));
+      fetchMeet(meetId as string);
     }
   }, [meetId]);
 
@@ -65,7 +65,7 @@ export default function MeetDetail() {
     }
 
     try {
-      const res = await joinMeetService(Number(meetId), token);
+      const res = await joinMeetService(meetId as string, token);
       if (res.success) {
         showToast("모임에 참여했어요!");
         setTimeout(() => {
@@ -218,7 +218,7 @@ export default function MeetDetail() {
                         try {
                           if (meet.meetId) {
                             await updatePaymentService(
-                              meet.meetId ?? 0,
+                              meet.meetId ?? "",
                               token,
                               member.userId
                             );
