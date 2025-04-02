@@ -21,7 +21,6 @@ export const initFCM = () => {
             deviceType: "web",
           };
 
-          alert(fcmToken);
           await postFcmService(requestData, loginToken);
         } else {
           console.log("❌ FCM 토큰을 가져올 수 없습니다.");
