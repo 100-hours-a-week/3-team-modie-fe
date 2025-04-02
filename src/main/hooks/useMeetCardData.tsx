@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 interface MeetCardProps {
-  meetId: number | undefined;
+  meetId: string;
   meetAt: string;
   memberCount: number;
   memberLimit: number;
@@ -22,6 +22,8 @@ export const useMeetCardData = ({
 
   // 카드 클릭 핸들러
   const handleCardClick = () => {
+    console.log("@!#!@#@!#!@#@!#@!#@!#!@#!@#!@#!@#@!#@!");
+    console.log(`meetId : ${meetId}`);
     if (meetId) {
       navigate(`/${meetId}`);
     }

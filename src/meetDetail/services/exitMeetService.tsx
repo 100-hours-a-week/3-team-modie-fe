@@ -7,7 +7,7 @@ import axiosInstance from "../../__api__/axiosConfig";
  * @author 희진
  */
 
-export const exitMeetService = async (meetId: number, token: string) => {
+export const exitMeetService = async (meetId: string, token: string) => {
   const response = await axiosInstance.patch(
     `/api/v1/meets/${meetId}/exit`,
     {},

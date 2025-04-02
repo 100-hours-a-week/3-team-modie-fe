@@ -7,7 +7,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
  */
 
 export interface MeetInfo {
-  meetId: number;
+  meetId: string;
   intro: string;
   category: string;
   customType: string;
