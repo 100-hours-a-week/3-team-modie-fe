@@ -93,7 +93,7 @@ export const useChatSocket = ({
           content: message,
           dateTime: (() => {
             const now = new Date();
-            now.setHours(now.getHours() - 9);
+            now.setHours(now.getHours());
             return now.toISOString();
           })(),
         });
