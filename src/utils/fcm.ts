@@ -14,6 +14,7 @@ export const initFCM = () => {
         const fcmToken = await getToken(messaging, {
           vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
         });
+        console.log("✨ FCM Token: ", fcmToken);
 
         if (fcmToken && loginToken) {
           const requestData = {
