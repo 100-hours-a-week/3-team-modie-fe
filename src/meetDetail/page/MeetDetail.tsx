@@ -216,12 +216,17 @@ export default function MeetDetail() {
                         }
 
                         try {
-                          await updatePaymentService(
-                            meet.meetId ?? 0,
-                            token,
-                            member.userId
-                          );
-                          return true;
+                          if (meet.meetId) {
+                            await updatePaymentService(
+                              meet.meetId ?? 0,
+                              token,
+                              member.userId
+                            );
+                            return true;
+                          } else {
+                            showToast("올바르지 않은 요청입니다.");
+                            return false;
+                          }
                         } catch {
                           showToast("정산 상태 변경 실패");
                           return false;
