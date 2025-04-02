@@ -1,10 +1,11 @@
 import { app } from "../../firebase";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { postFcmService } from "../login/services/postFcmService";
 
 // 브라우저 알림 권한 요청 + 토큰 발급
-// fcm.ts
 export const initFCM = () => {
   const messaging = getMessaging(app);
+  const loginToken = localStorage.getItem("accessToken");
 
   const requestPermissionAndGetToken = async () => {
     try {
@@ -13,8 +14,18 @@ export const initFCM = () => {
         const fcmToken = await getToken(messaging, {
           vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
         });
-        if (fcmToken) console.log("📲 FCM 토큰:", fcmToken);
-        else console.log("❌ FCM 토큰을 가져올 수 없습니다.");
+        console.log("✨ FCM Token: ", fcmToken);
+
+        if (fcmToken && loginToken) {
+          const requestData = {
+            token: fcmToken,
+            deviceType: "web",
+          };
+
+          postFcmService(requestData, loginToken);
+        } else {
+          console.log("❌ FCM 토큰을 가져올 수 없습니다.");
+        }
       } else {
         console.log("🔕 알림 권한이 거부되었습니다.");
       }
@@ -38,7 +49,25 @@ export const initFCM = () => {
   }
 
   onMessage(messaging, (payload) => {
-    console.log("💬 Foreground 메시지 수신됨:", payload);
-    // TODO: toast 메시지 표시 등 UI 작업
+    console.log("포그라운드 메시지 수신:", payload);
+
+    if (Notification.permission === "granted") {
+      const { title, body } = payload.notification || {};
+      const url = payload.data?.url;
+
+      const notification = new Notification(title || "알림", {
+        badge: "/logo.png",
+        body: body || "새로운 메시지가 도착했어요.",
+        icon: "/logo.png",
+        data: url ? { url } : {},
+      });
+
+      notification.onclick = (event) => {
+        event.preventDefault();
+        if (notification.data?.url) {
+          window.open(notification.data.url, "_blank");
+        }
+      };
+    }
   });
 };

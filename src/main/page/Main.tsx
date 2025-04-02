@@ -98,21 +98,32 @@ export default function Main() {
         </div>
       </div>
       <div className="flex flex-col px-[2rem] py-[1rem] gap-[2rem]">
-        {meets.map((meet) => (
-          <MeetCard
-            key={meet.meetId}
-            meetId={meet.meetId}
-            meetIntro={meet.meetIntro}
-            meetType={meet.meetType}
-            meetAt={meet.meetAt}
-            address={meet.address}
-            addressDescription={meet.addressDescription}
-            cost={meet.cost}
-            memberCount={meet.memberCount}
-            memberLimit={meet.memberLimit}
-            ownerName={meet.ownerName}
-          />
-        ))}
+        {meets.length === 0 ? (
+          <div className="flex flex-col items-center justify-center mt-20 text-center animate-fade-in">
+            <p className="text-Title2 font-semibold text-grayA0">
+              참여 중인 모임이 없어요
+            </p>
+            <p className="text-Caption2 text-grayC8 mt-1">
+              새로운 모임을 만들어보세요!
+            </p>
+          </div>
+        ) : (
+          meets.map((meet) => (
+            <MeetCard
+              key={meet.meetId}
+              meetId={meet.meetId}
+              meetIntro={meet.meetIntro}
+              meetType={meet.meetType}
+              meetAt={meet.meetAt}
+              address={meet.address}
+              addressDescription={meet.addressDescription}
+              cost={meet.cost}
+              memberCount={meet.memberCount}
+              memberLimit={meet.memberLimit}
+              ownerName={meet.ownerName}
+            />
+          ))
+        )}
       </div>
       <CreateButton />
     </div>
