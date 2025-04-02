@@ -3,7 +3,7 @@ import "./global.css";
 import Routers from "./router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-calendar/dist/Calendar.css";
-import { initFCM } from "./utils/fcm";
+import { initFCM } from "./__fcm__/fcm";
 
 // React Query 클라이언트
 const queryClient = new QueryClient();
