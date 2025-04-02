@@ -25,10 +25,8 @@ export default function Main() {
     }
   }, [navigate, token]);
 
-  const { meets, fetchNextPage, hasNextPage, isFetchingNextPage } = useMeetData(
-    activeTab,
-    selectedChip
-  );
+  const { meets, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useMeetData(activeTab, selectedChip);
 
   /*
    * 모임 생성 상태 초기화를 위한 코드
@@ -98,7 +96,7 @@ export default function Main() {
         </div>
       </div>
       <div className="flex flex-col px-[2rem] py-[1rem] gap-[2rem]">
-        {meets.length === 0 ? (
+        {meets.length === 0 && !isLoading ? (
           <div className="flex flex-col items-center justify-center mt-20 text-center animate-fade-in">
             <p className="text-Title2 font-semibold text-grayA0">
               참여 중인 모임이 없어요
