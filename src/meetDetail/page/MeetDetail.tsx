@@ -29,6 +29,7 @@ export default function MeetDetail() {
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
+  const isEnded = !!meet?.completedAt;
 
   const {
     active: submitActive,
@@ -38,7 +39,7 @@ export default function MeetDetail() {
 
   useEffect(() => {
     if (meetId) {
-      fetchMeet(Number(meetId));
+      fetchMeet(meetId as string);
     }
   }, [meetId]);
 
@@ -64,7 +65,7 @@ export default function MeetDetail() {
     }
 
     try {
-      const res = await joinMeetService(Number(meetId), token);
+      const res = await joinMeetService(meetId as string, token);
       if (res.success) {
         showToast("모임에 참여했어요!");
         setTimeout(() => {
@@ -201,34 +202,41 @@ export default function MeetDetail() {
                   {member.userName}
                 </span>
 
-                {meet.meetRule === "owner" && meet.totalCost > 0 && (
-                  <Toggle
-                    initial={member.isPayed}
-                    onChange={async () => {
-                      const token = localStorage.getItem("accessToken");
-                      if (!token) {
-                        showToast("로그인이 필요합니다.");
-                        navigate("/login");
-                        return false;
-                      }
+                {meet.meetRule === "owner" &&
+                  meet.totalCost > 0 &&
+                  !isEnded && (
+                    <Toggle
+                      initial={member.isPayed}
+                      onChange={async () => {
+                        const token = localStorage.getItem("accessToken");
+                        if (!token) {
+                          showToast("로그인이 필요합니다.");
+                          navigate("/login");
+                          return false;
+                        }
 
-                      try {
-                        await updatePaymentService(
-                          meet.meetId ?? 0,
-                          token,
-                          member.userId
-                        );
-                        return true;
-                      } catch {
-                        showToast("정산 상태 변경 실패");
-                        return false;
-                      }
-                    }}
-                  />
-                )}
+                        try {
+                          if (meet.meetId) {
+                            await updatePaymentService(
+                              meet.meetId ?? "",
+                              token,
+                              member.userId
+                            );
+                            return true;
+                          } else {
+                            showToast("올바르지 않은 요청입니다.");
+                            return false;
+                          }
+                        } catch {
+                          showToast("정산 상태 변경 실패");
+                          return false;
+                        }
+                      }}
+                    />
+                  )}
 
-                {meet.meetRule === "member" && member.isPayed && (
-                  <span className="text-Body2 font-semibold text-primary">
+                {(isEnded || meet.meetRule === "member") && member.isPayed && (
+                  <span className="text-Body3 font-semibold text-activeBlue">
                     정산 완료
                   </span>
                 )}

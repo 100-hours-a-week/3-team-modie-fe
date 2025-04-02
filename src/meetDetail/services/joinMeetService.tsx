@@ -2,7 +2,7 @@ import axiosInstance from "../../__api__/axiosConfig";
 import { apiResponse } from "../../common/types/apiResponse";
 
 export const joinMeetService = async (
-  meetId: number,
+  meetId: string,
   token: string
 ): Promise<apiResponse<null>> => {
   const response = await axiosInstance.post(`/api/v1/meets/${meetId}`, null, {

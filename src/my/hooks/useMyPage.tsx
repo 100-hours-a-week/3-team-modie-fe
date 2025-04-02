@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { getUserService } from "../services/getUserService";
 import { updateAccountNumberService } from "../services/updateAccountNumber";
+import { app } from "../../../firebase";
+import { getMessaging, deleteToken } from "firebase/messaging";
 
 // 타입 정의
 export interface ConfirmContentType {
@@ -14,6 +16,7 @@ export interface ConfirmContentType {
 export const useMyPage = () => {
   const navigate = useNavigate();
   const { showToast, isToastVisible, toastMessage } = useToast();
+  const messaging = getMessaging(app);
 
   // 계좌 관련 상태
   const [isEditing, setIsEditing] = useState(false);
@@ -115,8 +118,9 @@ export const useMyPage = () => {
   };
 
   // 로그아웃 확인 처리
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     localStorage.removeItem("accessToken");
+    await deleteToken(messaging);
     navigate("/login");
     closeConfirmModal();
   };

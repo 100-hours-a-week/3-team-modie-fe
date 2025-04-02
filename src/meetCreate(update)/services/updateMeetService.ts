@@ -9,7 +9,7 @@ import { apiResponse } from "../../common/types/apiResponse";
  */
 
 export const updateMeetService = async (
-  meetId: number,
+  meetId: string,
   requestData: updateMeetRequest,
   token: string
 ): Promise<apiResponse<updateMeetResponse>> => {

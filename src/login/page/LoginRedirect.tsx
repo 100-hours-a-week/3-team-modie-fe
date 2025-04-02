@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Splash from "../../common/page/Splash";
+import { initFCM } from "../../__fcm__/fcm";
 
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
@@ -13,8 +14,10 @@ export default function KakaoCallback() {
     if (code) {
       axios
         .get(`${login_url}?code=${code}`)
-        .then((res) => {
+        .then(async (res) => {
           localStorage.setItem("accessToken", res.data.data);
+
+          await initFCM();
 
           const redirectPath =
             localStorage.getItem("afterLoginRedirect") || "/";

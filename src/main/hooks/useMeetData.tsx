@@ -1,16 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { getMeetsService } from "../services/getMeetsService";
 import { meetItem } from "../types/meetItem";
 
 export const useMeetData = (activeTab: string, selectedChip: string) => {
-  const navigate = useNavigate();
   const token = localStorage.getItem("accessToken") || "";
   const queryKey = ["meets", activeTab, selectedChip];
-
-  if (!token) {
-    navigate("/login");
-  }
 
   const {
     data,

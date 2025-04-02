@@ -11,7 +11,7 @@ import { meetType } from "../../common/types/meetType";
  */
 
 export const getMeetDetailService = async (
-  meetId: number,
+  meetId: string,
   token?: string
 ): Promise<apiResponse<meetType>> => {
   const config = token

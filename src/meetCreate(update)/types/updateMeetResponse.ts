@@ -1,3 +1,3 @@
 export interface updateMeetResponse {
-  meetId: number;
+  meetId: string;
 }

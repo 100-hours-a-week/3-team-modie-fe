@@ -11,8 +11,7 @@ export const formatChatDate = (dateTime: string): string => {
     // 서버에서 이미 KST로 보내주는 시간을 그대로 파싱
     const date = new Date(dateTime);
 
-    // 3시간 조정 (서버 시간과 클라이언트 시간 사이 차이 해결)
-    date.setHours(date.getHours() - 3);
+    date.setHours(date.getHours());
 
     // 날짜가 유효한지 확인
     if (isNaN(date.getTime())) {
@@ -44,8 +43,7 @@ export const formatChatTime = (dateTime: string): string => {
     // 서버에서 이미 KST로 보내주는 시간을 그대로 파싱
     const date = new Date(dateTime);
 
-    // 3시간 조정 (서버 시간과 클라이언트 시간 사이 차이 해결)
-    date.setHours(date.getHours() + 9);
+    date.setHours(date.getHours());
 
     // 날짜가 유효한지 확인
     if (isNaN(date.getTime())) {

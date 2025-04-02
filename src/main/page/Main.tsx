@@ -5,15 +5,36 @@ import MeetTap from "../components/MeetTab.tsx";
 import MeetChip from "../components/MeetChip.tsx";
 import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
+import { useNavigate } from "react-router-dom";
+import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore.ts";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
   const [selectedChip, setSelectedChip] = useState("전체");
 
-  const { meets, fetchNextPage, hasNextPage, isFetchingNextPage } = useMeetData(
-    activeTab,
-    selectedChip
-  );
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      setIsTokenChecked(true);
+    }
+  }, [navigate, token]);
+
+  const { meets, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useMeetData(activeTab, selectedChip);
+
+  /*
+   * 모임 생성 상태 초기화를 위한 코드
+   */
+  useEffect(() => {
+    const { resetMeetInfo } = useCreateMeetStore.getState();
+    resetMeetInfo();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +55,8 @@ export default function Main() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchNextPage, isFetchingNextPage, hasNextPage]);
+
+  if (!isTokenChecked) return null;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -73,21 +96,32 @@ export default function Main() {
         </div>
       </div>
       <div className="flex flex-col px-[2rem] py-[1rem] gap-[2rem]">
-        {meets.map((meet) => (
-          <MeetCard
-            key={meet.meetId}
-            meetId={meet.meetId}
-            meetIntro={meet.meetIntro}
-            meetType={meet.meetType}
-            meetAt={meet.meetAt}
-            address={meet.address}
-            addressDescription={meet.addressDescription}
-            cost={meet.cost}
-            memberCount={meet.memberCount}
-            memberLimit={meet.memberLimit}
-            ownerName={meet.ownerName}
-          />
-        ))}
+        {meets.length === 0 && !isLoading ? (
+          <div className="flex flex-col items-center justify-center mt-20 text-center animate-fade-in">
+            <p className="text-Title2 font-semibold text-grayA0">
+              참여 중인 모임이 없어요
+            </p>
+            <p className="text-Caption2 text-grayC8 mt-1">
+              새로운 모임을 만들어보세요!
+            </p>
+          </div>
+        ) : (
+          meets.map((meet) => (
+            <MeetCard
+              key={meet.meetId}
+              meetId={meet.meetId}
+              meetIntro={meet.meetIntro}
+              meetType={meet.meetType}
+              meetAt={meet.meetAt}
+              address={meet.address}
+              addressDescription={meet.addressDescription}
+              cost={meet.cost}
+              memberCount={meet.memberCount}
+              memberLimit={meet.memberLimit}
+              ownerName={meet.ownerName}
+            />
+          ))
+        )}
       </div>
       <CreateButton />
     </div>

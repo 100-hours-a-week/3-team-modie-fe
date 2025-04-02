@@ -8,7 +8,7 @@ import axiosInstance from "../../__api__/axiosConfig";
  */
 
 export const updatePaymentService = async (
-  meetId: number,
+  meetId: string,
   token: string,
   memberId: number
 ) => {
