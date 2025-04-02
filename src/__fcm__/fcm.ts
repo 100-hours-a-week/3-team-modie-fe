@@ -22,9 +22,7 @@ export const initFCM = () => {
           };
 
           alert(fcmToken);
-          const res = await postFcmService(requestData, loginToken);
-          console.log(`res`);
-          console.log(res);
+          await postFcmService(requestData, loginToken);
         } else {
           console.log("❌ FCM 토큰을 가져올 수 없습니다.");
         }

@@ -22,8 +22,6 @@ export const useMeetCardData = ({
 
   // 카드 클릭 핸들러
   const handleCardClick = () => {
-    console.log("@!#!@#@!#!@#@!#@!#@!#!@#!@#!@#!@#@!#@!");
-    console.log(`meetId : ${meetId}`);
     if (meetId) {
       navigate(`/${meetId}`);
     }
