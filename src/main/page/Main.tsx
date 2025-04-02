@@ -7,6 +7,7 @@ import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
 import { useNavigate } from "react-router-dom";
 import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore.ts";
+import { initFCM } from "../../__fcm__/fcm.ts";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
@@ -18,6 +19,7 @@ export default function Main() {
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
+    initFCM();
     if (!token) {
       navigate("/login");
     } else {
