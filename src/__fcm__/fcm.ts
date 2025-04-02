@@ -3,7 +3,8 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { postFcmService } from "../login/services/postFcmService";
 
 // 브라우저 알림 권한 요청 + 토큰 발급
-export const initFCM = () => {
+export const initFCM = async () => {
+  // async 추가
   const messaging = getMessaging(app);
   const loginToken = localStorage.getItem("accessToken");
 
@@ -34,17 +35,15 @@ export const initFCM = () => {
   };
 
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", async () => {
-      try {
-        const registration = await navigator.serviceWorker.register(
-          "/firebase-messaging-sw.js"
-        );
-        console.log("✅ Service Worker 등록됨", registration);
-        await requestPermissionAndGetToken();
-      } catch (error) {
-        console.error("❌ Service Worker 등록 실패:", error);
-      }
-    });
+    try {
+      const registration = await navigator.serviceWorker.register(
+        "/firebase-messaging-sw.js"
+      );
+      console.log("✅ Service Worker 등록됨", registration);
+      await requestPermissionAndGetToken();
+    } catch (error) {
+      console.error("❌ Service Worker 등록 실패:", error);
+    }
   }
 
   onMessage(messaging, (payload) => {
