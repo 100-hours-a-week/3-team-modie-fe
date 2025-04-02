@@ -14,6 +14,7 @@ export interface MeetInfo {
   meetAt?: string;
   date: string;
   time: { hour: string; minute: string };
+  currentMember?: number;
   memberCount: number;
   hasCost: boolean;
   cost: number;
@@ -47,6 +48,7 @@ export const useCreateMeetStore = create<MeetStore>()(
         meetAt: "",
         date: "",
         time: { hour: "", minute: "" },
+        currentMember: 0,
         memberCount: 0,
         hasCost: false,
         cost: 0,
@@ -73,6 +75,7 @@ export const useCreateMeetStore = create<MeetStore>()(
             meetAt: "",
             date: "",
             time: { hour: "", minute: "" },
+            currentMember: 0,
             memberCount: 0,
             hasCost: false,
             cost: 0,

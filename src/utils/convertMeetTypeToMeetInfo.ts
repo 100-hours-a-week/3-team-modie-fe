@@ -22,6 +22,7 @@ export const convertMeetTypeToMeetInfo = (
             hour: meet.meetAt.split("T")[1]?.split(":")[0] || "",
             minute: meet.meetAt.split("T")[1]?.split(":")[1] || "",
           },
+          currentMember: (meet.members ?? []).length + 1,
           memberCount: meet.memberLimit,
           hasCost: meet.totalCost > 0,
           cost: meet.totalCost,
