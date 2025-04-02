@@ -92,6 +92,14 @@ export const useMeetCreateOther = () => {
           setMemberError("최소 인원은 2명입니다.");
         } else if (num > 30) {
           setMemberError("최대 인원은 30명입니다.");
+        } else if (
+          meetInfo.currentMember &&
+          meetInfo.currentMember > 1 &&
+          num < meetInfo.currentMember
+        ) {
+          setMemberError(
+            "현재 참여 중인 인원보다 적은 인원으로 수정할 수 없습니다."
+          );
         } else {
           setMemberError("");
         }
@@ -215,6 +223,14 @@ export const useMeetCreateOther = () => {
       setMemberError("최소 인원은 2명입니다.");
     } else if (num > 30) {
       setMemberError("최대 인원은 30명입니다.");
+    } else if (
+      editMeetInfo?.currentMember &&
+      editMeetInfo.currentMember > 1 &&
+      num < editMeetInfo.currentMember
+    ) {
+      setMemberError(
+        "현재 참여 중인 인원보다 적은 인원으로 수정할 수 없습니다."
+      );
     } else {
       setMemberError("");
     }
@@ -244,7 +260,15 @@ export const useMeetCreateOther = () => {
     const memberCountNum = Number(memberCount);
     const costNum = Number(cost.replace(/,/g, ""));
 
-    const isMemberValid = memberCountNum >= 2 && memberCountNum <= 30;
+    const isMemberValid =
+      memberCountNum >= 2 &&
+      memberCountNum <= 30 &&
+      !(
+        editMeetInfo?.currentMember &&
+        editMeetInfo.currentMember > 1 &&
+        memberCountNum < editMeetInfo.currentMember
+      );
+
     const isCostValid = !hasCost || (costNum >= 1000 && costNum <= 10000000);
 
     const isDateValid = selectedDate
