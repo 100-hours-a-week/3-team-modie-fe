@@ -17,7 +17,7 @@ export default function MeetChip({
       className={cn(
         "flex items-center justify-center gap-2.5 rounded-full w-fit h-fit self-stretch px-[1.6rem] py-[0.8rem]",
         " text-center text-Body2 align-middle",
-        "min-w-[60px]",
+        "min-w-[60px] cursor-pointer",
         isSelected
           ? "bg-primaryDark2 font-bold text-white"
           : "bg-white border-1 border-gray75 font-pretendard text-gray75"

@@ -36,7 +36,7 @@ const CategoryBox = ({
         className={cn(
           hasCustomSize ? undefined : "absolute inset-0",
           "w-full h-full flex flex-col gap-2 justify-center items-center rounded-3xl border",
-          "text-Body2 text-gray42 font-bold transition-all duration-200",
+          "cursor-pointer text-Body2 text-gray42 font-bold transition-all duration-200",
           isActive ? "border-3 border-primaryDark3" : "border-1 border-gray75"
         )}
         style={{ boxShadow: "5px 5px 10px 0px rgba(0, 0, 0, 0.07)" }}

@@ -64,7 +64,7 @@ export default function ChatInput({
   }, [message]);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-grayEe pl-1 pr-4 py-6 z-10">
+    <div className="fixed flex w-full max-w-[500px] bottom-0 bg-grayEe pl-1 pr-4 py-6 z-10">
       <div className="flex flex-col w-full gap-1">
         <div className="flex gap-2 w-full">
           <div className="relative w-full flex justify-center items-center py-3 pl-3 ">
@@ -107,7 +107,9 @@ export default function ChatInput({
               onClick={handleSend}
               disabled={!message.trim()}
               className={`transition-all items-center ${
-                message.trim() ? "text-primary" : "cursor-not-allowed"
+                message.trim()
+                  ? "text-primary cursor-pointer"
+                  : "cursor-not-allowed"
               }`}
             >
               <img src={sendIcon} alt="sendIcon" />

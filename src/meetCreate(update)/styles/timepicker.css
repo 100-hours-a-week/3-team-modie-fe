@@ -4,6 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.custom-timepicker:active {
+  cursor: grabbing;
 }
 
 .custom-timepicker .picker-column {
@@ -12,22 +19,24 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
-  gap: 20px; 
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 20px;
   text-align: center;
 }
 
 .custom-timepicker .picker-item {
   font-size: 16px;
   font-weight: 600;
-  color: #c8c8c8; 
+  color: #c8c8c8;
   line-height: 44px;
   height: 44px;
   transition: all 0.3s ease;
 }
 
 .custom-timepicker .picker-item-selected {
-  color: #000000; 
+  color: #000000;
   font-size: 18px;
   font-weight: 700;
 }
