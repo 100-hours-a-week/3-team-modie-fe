@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.36.0 (2025-04-03)
+
+* fix: Merge pull request #90 from 100-hours-a-week/fix/#89 ([839df74](https://github.com/100-hours-a-week/3-team-modie-fe/commit/839df74)), closes [#90](https://github.com/100-hours-a-week/3-team-modie-fe/issues/90) [100-hours-a-week/fix/#89](https://github.com/100-hours-a-week/fix//issues/89)
+* chore: 주석 제거 ([6ba01ff](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ba01ff))
+* design: css 중앙 정렬 맞추기 ([c20038a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c20038a))
+* design: 유저의 클릭이나 드래그 액션을 유도하는 커서 스타일링 추가 ([84a9b1e](https://github.com/100-hours-a-week/3-team-modie-fe/commit/84a9b1e))
+* feat: 모임 생성시 오늘 날짜를 기본 값으로 설정 ([1fa4032](https://github.com/100-hours-a-week/3-team-modie-fe/commit/1fa4032))
+* feat: 모임의 채팅방 헤더에서 뒤로가기 아이콘 클릭시 모임 상세 페이지로 이동하도록 수정 ([a18a052](https://github.com/100-hours-a-week/3-team-modie-fe/commit/a18a052))
+
 ## <small>1.35.1 (2025-04-03)</small>
 
 * design: Merge pull request #87 from 100-hours-a-week/feature/#84 ([d8ab35a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d8ab35a)), closes [#87](https://github.com/100-hours-a-week/3-team-modie-fe/issues/87) [100-hours-a-week/feature/#84](https://github.com/100-hours-a-week/feature//issues/84)
