@@ -70,7 +70,7 @@ export default function Header({
   return (
     <>
       <header
-        className={`relative w-screen flex justify-between items-center px-[2rem] pr-4 ${isMainPage ? "py-[1.35rem]" : "py-[1.1rem]"}`}
+        className={`relative flex justify-between items-center px-[2rem] pr-4 ${isMainPage ? "py-[1.35rem]" : "py-[1.1rem]"}`}
       >
         <div className="flex items-center gap-2">
           {isMainPage ? (
