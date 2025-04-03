@@ -10,4 +10,6 @@ export interface headerType {
   meetStatus?: meetType;
   isMainPage?: boolean;
   canGoHome?: boolean;
+  canGoMeetDetail?: boolean;
+  meetId?: string;
 }
