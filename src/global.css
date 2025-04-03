@@ -37,6 +37,18 @@
 }
 
 @layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 500px;
+  }
+
   html {
     font-size: 62.5%;
     font-family: var(--font-primary);
