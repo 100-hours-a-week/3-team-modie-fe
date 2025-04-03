@@ -4,13 +4,13 @@ import { postFcmService } from "../login/services/postFcmService";
 
 // 브라우저 알림 권한 요청 + 토큰 발급
 export const initFCM = async () => {
-  // async 추가
   const messaging = getMessaging(app);
   const loginToken = localStorage.getItem("accessToken");
 
   const requestPermissionAndGetToken = async () => {
     try {
       const permission = await Notification.requestPermission();
+
       if (permission === "granted") {
         const fcmToken = await getToken(messaging, {
           vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
@@ -21,28 +21,20 @@ export const initFCM = async () => {
             token: fcmToken,
             deviceType: "web",
           };
-
           await postFcmService(requestData, loginToken);
-        } else {
-          console.log("❌ FCM 토큰을 가져올 수 없습니다.");
         }
-      } else {
-        console.log("🔕 알림 권한이 거부되었습니다.");
       }
     } catch (error) {
-      console.error("⚠️ FCM 토큰 요청 실패:", error);
+      console.error("FCM 토큰 발급 중 오류 발생:", error);
     }
   };
 
   if ("serviceWorker" in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register(
-        "/firebase-messaging-sw.js"
-      );
-      console.log("✅ Service Worker 등록됨", registration);
+      await navigator.serviceWorker.register("/firebase-messaging-sw.js");
       await requestPermissionAndGetToken();
     } catch (error) {
-      console.error("❌ Service Worker 등록 실패:", error);
+      console.error("Service Worker 등록 실패:", error);
     }
   }
 

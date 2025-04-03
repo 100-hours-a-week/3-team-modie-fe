@@ -47,7 +47,6 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
         navigate("/end");
         break;
       case MODAL_TYPES.HIDE:
-        console.log("모임 숨기기 API 실행");
         break;
       case MODAL_TYPES.EXIT:
         await exitMeetService(meetId, token);
