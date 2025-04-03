@@ -11,7 +11,7 @@ export default function CreateButton() {
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-8 ml-165 w-[5.6rem] h-[5.6rem] bg-primaryDark2 rounded-full shadow-lg flex items-center justify-center z-20 cursor-pointer"
+      className="fixed bottom-8 right-8 w-[5.6rem] h-[5.6rem] bg-primaryDark2 rounded-full shadow-lg flex items-center justify-center z-20 cursor-pointer"
       aria-label="모임 생성하기"
     >
       <img
