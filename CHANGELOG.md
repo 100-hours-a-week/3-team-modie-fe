@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## <small>1.35.1 (2025-04-03)</small>
+
+* design: Merge pull request #87 from 100-hours-a-week/feature/#84 ([d8ab35a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d8ab35a)), closes [#87](https://github.com/100-hours-a-week/3-team-modie-fe/issues/87) [100-hours-a-week/feature/#84](https://github.com/100-hours-a-week/feature//issues/84)
+* design: 화면의 max width 설정 ([6ec3552](https://github.com/100-hours-a-week/3-team-modie-fe/commit/6ec3552))
+* fix: Merge pull request #86 from 100-hours-a-week/feature/#85 ([52f01b0](https://github.com/100-hours-a-week/3-team-modie-fe/commit/52f01b0)), closes [#86](https://github.com/100-hours-a-week/3-team-modie-fe/issues/86) [100-hours-a-week/feature/#85](https://github.com/100-hours-a-week/feature//issues/85)
+* fix: 로그아웃시 FCM 토큰 비동기 삭제 처리 ([8a61549](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8a61549))
+
 ## 1.35.0 (2025-04-02)
 
 * Merge branch 'dev' into feature/fcm ([fc81ccf](https://github.com/100-hours-a-week/3-team-modie-fe/commit/fc81ccf))
