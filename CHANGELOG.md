@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## <small>1.36.1 (2025-04-03)</small>
+
+* fix: 모임 생성 버튼이 안 보이는 문제 해결 ([8ba794c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ba794c))
+* fix: 모임 생성 버튼이 안 보이는 문제 해결 (긴급!) ([f81f264](https://github.com/100-hours-a-week/3-team-modie-fe/commit/f81f264))
+
 ## 1.36.0 (2025-04-03)
 
 * fix: Merge pull request #90 from 100-hours-a-week/fix/#89 ([839df74](https://github.com/100-hours-a-week/3-team-modie-fe/commit/839df74)), closes [#90](https://github.com/100-hours-a-week/3-team-modie-fe/issues/90) [100-hours-a-week/fix/#89](https://github.com/100-hours-a-week/fix//issues/89)
