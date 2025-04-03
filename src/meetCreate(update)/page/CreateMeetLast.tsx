@@ -14,7 +14,7 @@ export default function CreateMeetLast() {
   const { handleSubmit, isToastVisible, toastMessage } = useCreateMeetSubmit();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="relative flex flex-col min-h-screen bg-white">
       <Header title="최종 확인" />
       <ProgressBar width={100} />
 
@@ -83,12 +83,12 @@ export default function CreateMeetLast() {
         </div>
       </main>
 
-      <div className="fixed bottom-29 w-full flex justify-center">
+      <div className="absolute bottom-29 w-full flex justify-center">
         <ToastMsg active={isToastVisible} description={toastMessage} />
       </div>
 
       <div
-        className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+        className="absolute bottom-0 w-full flex justify-center pb-6"
         onClick={handleSubmit}
       >
         <SubmitBtn

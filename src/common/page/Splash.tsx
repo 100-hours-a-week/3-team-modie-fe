@@ -6,7 +6,7 @@ export default function Splash() {
   return (
     <div
       className={cn(
-        "flex flex-col w-screen h-screen bg-white",
+        "flex flex-col w-full h-screen bg-white",
         "justify-center items-center px-[2rem]"
       )}
     >

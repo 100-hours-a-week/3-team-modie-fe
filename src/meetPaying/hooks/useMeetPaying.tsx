@@ -9,6 +9,7 @@ export const useMeetPaying = () => {
   const [error, setError] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(true);
 
+  const MIN_AMOUNT = 1000;
   const MAX_AMOUNT = 10000000;
 
   const { meetId } = useMeetStore();
@@ -20,11 +21,13 @@ export const useMeetPaying = () => {
     const numericAmount = parseInt(numericValue) || 0;
 
     if (numericAmount > MAX_AMOUNT) {
-      setError(
-        `정산 금액은 ${formatCurrency(MAX_AMOUNT.toString())}원을 초과할 수 없습니다.`
-      );
+      setError(`최대 금액은 ${formatCurrency(MAX_AMOUNT.toString())}원입니다.`);
       setIsValid(false);
       setCost(MAX_AMOUNT.toString());
+    } else if (numericAmount < MIN_AMOUNT && numericValue !== "") {
+      setError(`최소 금액은 ${formatCurrency(MIN_AMOUNT.toString())}원입니다.`);
+      setIsValid(false);
+      setCost(numericValue);
     } else {
       setError("");
       setIsValid(true);
