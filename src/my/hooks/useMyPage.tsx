@@ -120,7 +120,12 @@ export const useMyPage = () => {
   // 로그아웃 확인 처리
   const handleConfirm = async () => {
     localStorage.removeItem("accessToken");
-    await deleteToken(messaging);
+
+    // 비동기로 실행만 해놓고 기다리지 않음
+    deleteToken(messaging).catch((err) =>
+      console.warn("FCM 토큰 삭제 실패:", err)
+    );
+
     navigate("/login");
     closeConfirmModal();
   };
