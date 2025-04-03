@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.37.0 (2025-04-03)
+
+* fix: Merge pull request #92 from 100-hours-a-week/dev ([c4fda05](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c4fda05)), closes [#92](https://github.com/100-hours-a-week/3-team-modie-fe/issues/92)
+* feat: Merge pull request #83 from 100-hours-a-week/dev ([53ef7dc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/53ef7dc)), closes [#83](https://github.com/100-hours-a-week/3-team-modie-fe/issues/83)
+* feat: Merge pull request #88 from 100-hours-a-week/dev ([30d8f5c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30d8f5c)), closes [#88](https://github.com/100-hours-a-week/3-team-modie-fe/issues/88)
+
 ## <small>1.36.1 (2025-04-03)</small>
 
 * fix: 모임 생성 버튼이 안 보이는 문제 해결 ([8ba794c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8ba794c))
