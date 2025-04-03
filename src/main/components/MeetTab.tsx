@@ -12,7 +12,7 @@ export default function MeetTap({
   return (
     <div
       onClick={onClick}
-      className="flex items-center justify-center w-full self-stretch "
+      className="flex items-center justify-center w-full self-stretch cursor-pointer"
     >
       <div
         className={`

@@ -84,7 +84,7 @@ export default function MeetDetail() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="relative flex flex-col min-h-screen">
       <Header title={meet.meetType} meetStatus={meet} canGoHome={true} />
 
       <main className="flex-1 flex flex-col items-center px-5 pb-6 ">
@@ -101,7 +101,7 @@ export default function MeetDetail() {
 
         <div className="flex justify-center w-full py-6 px-4">
           <button
-            className="border-1 border-[#828282] w-full rounded-lg py-3 text-Body2"
+            className="border-1 border-[#828282] w-full rounded-lg py-3 text-Body2 cursor-pointer"
             onClick={() =>
               navigate(`/${meet.meetId}/chat`, {
                 state: {
@@ -246,13 +246,13 @@ export default function MeetDetail() {
         </div>
       </main>
 
-      <div className="fixed bottom-29 w-full flex justify-center">
+      <div className="absolute bottom-29 w-full flex justify-center">
         <ToastMsg active={isToastVisible} description={toastMessage} />
       </div>
 
       {isSubmitVisible && (
         <div
-          className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+          className="absolute bottom-0 w-full px-7 flex justify-center pb-6"
           onClick={
             submitDescription === "모임 참여하기" ? handleJoinMeet : undefined
           }

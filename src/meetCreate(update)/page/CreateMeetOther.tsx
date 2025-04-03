@@ -75,7 +75,7 @@ export default function CreateMeetOther() {
   }, [isEditMode, editMeetInfo]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="relative flex flex-col min-h-screen bg-white">
       <Header title="기타 정보 작성" />
       <ProgressBar width={75} />
 
@@ -83,7 +83,7 @@ export default function CreateMeetOther() {
         {/* 날짜 입력 */}
         <MeetInputField
           label="날짜를 정해주세요."
-          value={dateInput}
+          value={dateInput || dayjs().format("YYYY.MM.DD")}
           onChange={(e) => handleDateInputChange(e)}
           type="text"
           placeholder="2025.01.01"
@@ -132,7 +132,7 @@ export default function CreateMeetOther() {
           label="모집 인원"
           value={memberCount}
           onChange={(e) => handleMemberChange(e)}
-          placeholder="1~30"
+          placeholder="2~30"
           type="text" // ✅ text로 변경
           suffix="명"
           error={!!memberError}
@@ -160,13 +160,13 @@ export default function CreateMeetOther() {
       </div>
 
       {/* Toast 메시지 출력 */}
-      <div className="fixed bottom-29 w-full flex justify-center">
+      <div className="absolute bottom-29 w-full flex justify-center z-[2000]">
         <ToastMsg active={showToast} description={toastMessage} />
       </div>
 
       {/* 다음 버튼 */}
       <div
-        className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+        className="absolute bottom-0 w-full lex justify-center pb-6"
         onClick={handleSubmit}
       >
         <SubmitBtn active={isFormValid()} description="다음" />

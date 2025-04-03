@@ -17,7 +17,7 @@ export const useMeetCreateOther = () => {
 
   // 저장된 데이터 또는 편집 모드 데이터를 초기값으로 사용
   const [dateInput, setDateInput] = useState(
-    meetInfo.date || editMeetInfo?.date || ""
+    meetInfo.date || editMeetInfo?.date || today.format("YYYY.MM.DD") || ""
   );
   const [time, setTime] = useState(
     meetInfo.time?.hour && meetInfo.time?.minute
@@ -47,9 +47,12 @@ export const useMeetCreateOther = () => {
   const [dateError, setDateError] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(
-    meetInfo.date ? dayjs(meetInfo.date, "YYYY.MM.DD").toDate() : null
+    meetInfo.date
+      ? dayjs(meetInfo.date, "YYYY.MM.DD").toDate()
+      : editMeetInfo?.date
+        ? dayjs(editMeetInfo.date, "YYYY.MM.DD").toDate()
+        : today.toDate()
   );
-
   const [memberError, setMemberError] = useState("");
   const [costError, setCostError] = useState<string | undefined>(undefined);
   const [showTimePicker, setShowTimePicker] = useState(false);

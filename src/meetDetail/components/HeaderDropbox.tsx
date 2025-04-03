@@ -32,7 +32,7 @@ export default function HeaderDropbox({
     className?: string
   ) => (
     <button
-      className={cn("py-3 w-full text-center", className)}
+      className={cn("py-3 w-full text-center cursor-pointer", className)}
       onClick={onClick}
     >
       {text}

@@ -23,6 +23,8 @@ export default function Header({
   meetStatus,
   isMainPage,
   canGoHome,
+  canGoMeetDetail,
+  meetId,
 }: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
@@ -60,6 +62,8 @@ export default function Header({
   const handleBack = () => {
     if (canGoHome) {
       navigate("/");
+    } else if (canGoMeetDetail) {
+      navigate(`/${meetId}`);
     } else {
       navigate(-1);
     }
@@ -83,7 +87,7 @@ export default function Header({
             </>
           ) : (
             <>
-              <ArrowIcon onClick={handleBack} />
+              <ArrowIcon onClick={handleBack} className="cursor-pointer" />
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>
