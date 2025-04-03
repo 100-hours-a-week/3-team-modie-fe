@@ -113,43 +113,43 @@ export default function MeetChat() {
 
   return (
     <div className="flex flex-col h-screen">
-      <Header title={type || "채팅방"} />
-
+      <Header title={type || "채팅방"} canGoMeetDetail={true} meetId={id} />
       <main
         ref={mainRef}
-        className="flex-1 overflow-y-auto px-5 mt-3"
+        className="relative flex-1 overflow-y-auto mt-3"
         style={{ paddingBottom: CHAT_INPUT_HEIGHT }}
       >
         {/* 더 불러오기 위한 요소 (화면 상단) */}
-        <div
-          ref={loadMoreRef}
-          className="h-10 w-full flex items-center justify-center"
-        >
-          {isLoading && (
-            <div className="text-gray-500 text-sm">
-              이전 메시지 불러오는 중...
-            </div>
+        <div className="px-5">
+          <div
+            ref={loadMoreRef}
+            className="h-10 w-full flex items-center justify-center"
+          >
+            {isLoading && (
+              <div className="text-gray-500 text-sm">
+                이전 메시지 불러오는 중...
+              </div>
+            )}
+            {!hasMore && messages.length > 0 && (
+              <div className="text-gray-500 text-sm">
+                이전 메시지가 없습니다
+              </div>
+            )}
+          </div>
+          {/* 조건부 렌더링 최적화 - 메모이제이션된 컴포넌트 사용 */}
+          {messages.length === 0 ? (
+            <EmptyMessageIndicator />
+          ) : (
+            <MessageList messages={messages} />
           )}
-          {!hasMore && messages.length > 0 && (
-            <div className="text-gray-500 text-sm">이전 메시지가 없습니다</div>
-          )}
+          <div ref={scrollRef} />
         </div>
-
-        {/* 조건부 렌더링 최적화 - 메모이제이션된 컴포넌트 사용 */}
-        {messages.length === 0 ? (
-          <EmptyMessageIndicator />
-        ) : (
-          <MessageList messages={messages} />
-        )}
-
-        <div ref={scrollRef} />
+        <ChatInput
+          isDisabled={!!isEnd || !isConnected}
+          onSend={handleSendMessage}
+          onFocusInput={scrollToBottom}
+        />
       </main>
-
-      <ChatInput
-        isDisabled={!!isEnd || !isConnected}
-        onSend={handleSendMessage}
-        onFocusInput={scrollToBottom}
-      />
     </div>
   );
 }

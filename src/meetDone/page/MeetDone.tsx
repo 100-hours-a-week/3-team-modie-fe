@@ -9,7 +9,7 @@ export default function MeetDone() {
   return (
     <div
       className={cn(
-        "flex flex-col w-screen h-screen bg-white",
+        "relative flex flex-col min-h-screen bg-white",
         "justify-between items-center px-[2rem] gap-[6rem] pb-[5rem]"
       )}
     >
@@ -40,7 +40,7 @@ export default function MeetDone() {
 
       {/* 저장 버튼 - 이벤트 핸들러 위치 변경 */}
       <div
-        className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+        className="absolute bottom-0 w-full flex justify-center pb-6"
         onClick={() => navigate("/")}
       >
         <SubmitBtn active={true} description="목록으로 돌아가기" />

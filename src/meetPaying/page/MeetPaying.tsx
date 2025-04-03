@@ -10,10 +10,7 @@ export default function MeetPaying() {
 
   return (
     <div
-      className={cn(
-        "flex flex-col w-screen h-screen bg-white",
-        "justify-between items-center px-[2rem]"
-      )}
+      className={cn("relative flex flex-col min-h-screen", "justify-between")}
     >
       <Header title="모임 정산" />
 
@@ -73,7 +70,7 @@ export default function MeetPaying() {
 
       {/* 저장 버튼 - 유효성에 따라 활성화 상태 설정 */}
       <div
-        className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+        className="absolute bottom-0 w-full flex justify-center pb-6"
         onClick={isValid ? handleSave : undefined}
       >
         <SubmitBtn active={isValid} description="저장하기" />

@@ -63,16 +63,10 @@ messaging.onBackgroundMessage((payload) => {
 });
 
 // install event
-self.addEventListener("install", (e) => {
-  console.log("[Service Worker] installed");
-});
+self.addEventListener("install", (e) => {});
 
 // activate event
-self.addEventListener("activate", (e) => {
-  console.log("[Service Worker] actived", e);
-});
+self.addEventListener("activate", (e) => {});
 
 // fetch event
-self.addEventListener("fetch", (e) => {
-  console.log("[Service Worker] fetched resource " + e.request.url);
-});
+self.addEventListener("fetch", (e) => {});

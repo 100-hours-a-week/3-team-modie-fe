@@ -55,7 +55,7 @@ export default function CreateMeetPlace() {
   }, [isEditMode, editMeetInfo]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="relative flex flex-col min-h-screen bg-white">
       <Header title="출발 장소 선택" />
       <ProgressBar width={50} />
 
@@ -133,12 +133,12 @@ export default function CreateMeetPlace() {
           />
         </div>
 
-        <div className="fixed bottom-29 w-full flex justify-center z-[2000]">
+        <div className="absolute bottom-29 w-full flex justify-center z-[2000]">
           <ToastMsg active={isToastVisible} description={toastMessage} />
         </div>
 
         <div
-          className="fixed bottom-0 w-full px-7 flex justify-center pb-6"
+          className="absolute bottom-0 w-full flex justify-center pb-6"
           onClick={handleSubmit}
         >
           <SubmitBtn active={isFormValid} description="다음" />

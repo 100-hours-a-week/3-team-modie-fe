@@ -10,7 +10,6 @@ export const useFetchMeet = () => {
       const res = await getMeetDetailService(meetId, token);
       setMeet(res.data);
     } catch {
-      console.log("모임 상세 조회에 실패했어요.");
       resetMeet();
     }
   };

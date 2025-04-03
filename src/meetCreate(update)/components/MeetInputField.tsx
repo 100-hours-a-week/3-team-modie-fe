@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface MeetInputFieldProps {
   label: string;
   value: string;
@@ -27,6 +29,8 @@ const MeetInputField = ({
   suffix,
   centerAlign = false, // ✅ 기본 false
 }: MeetInputFieldProps) => {
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(placeholder);
+
   return (
     <div className="w-full mb-6">
       <label className="text-Body1 font-bold mb-2 block">{label}</label>
@@ -36,7 +40,9 @@ const MeetInputField = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onClick={onClick}
-          placeholder={placeholder}
+          onFocus={() => setCurrentPlaceholder("")}
+          onBlur={() => setCurrentPlaceholder(placeholder)}
+          placeholder={currentPlaceholder}
           readOnly={readOnly}
           className={`w-full border rounded-xl py-3 px-6 pr-10 text-Body2 placeholder:text-gray75 focus:outline-none ${
             error ? "border-activeRed" : "border-gray75"

@@ -23,6 +23,8 @@ export default function Header({
   meetStatus,
   isMainPage,
   canGoHome,
+  canGoMeetDetail,
+  meetId,
 }: headerType) {
   const navigate = useNavigate();
   const statusIcon = useMeetStatus(meetStatus);
@@ -60,6 +62,8 @@ export default function Header({
   const handleBack = () => {
     if (canGoHome) {
       navigate("/");
+    } else if (canGoMeetDetail) {
+      navigate(`/${meetId}`);
     } else {
       navigate(-1);
     }
@@ -70,7 +74,7 @@ export default function Header({
   return (
     <>
       <header
-        className={`relative w-screen flex justify-between items-center px-[2rem] pr-4 ${isMainPage ? "py-[1.35rem]" : "py-[1.1rem]"}`}
+        className={`relative flex justify-between items-center px-[2rem] pr-4 ${isMainPage ? "py-[1.35rem]" : "py-[1.1rem]"}`}
       >
         <div className="flex items-center gap-2">
           {isMainPage ? (
@@ -83,7 +87,7 @@ export default function Header({
             </>
           ) : (
             <>
-              <ArrowIcon onClick={handleBack} />
+              <ArrowIcon onClick={handleBack} className="cursor-pointer" />
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>
