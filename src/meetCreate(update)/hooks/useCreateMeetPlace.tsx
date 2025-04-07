@@ -17,6 +17,7 @@ export const useCreateMeetPlace = () => {
   const navigate = useNavigate();
   const [center, setCenter] = useState<position | null>(null);
   const [position, setPosition] = useState<position | undefined>();
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null); // null = 로딩 중, true = 허용, false = 거부
   const { toastMessage, isToastVisible, showToast } = useToast();
 
   const { meetInfo, setMeetInfo } = useCreateMeetStore();
@@ -82,7 +83,58 @@ export const useCreateMeetPlace = () => {
     }
   }, [position, setMeetInfo]);
 
+  useEffect(() => {
+    const askForLocation = async () => {
+      if (!("geolocation" in navigator)) {
+        setHasPermission(false);
+        showToast("이 브라우저는 위치 정보를 지원하지 않아요.");
+        return;
+      }
+
+      const updatePosition = (lat: number, lng: number) => {
+        const userPos = { lat, lng };
+        setCenter(userPos);
+        setPosition(userPos);
+        setHasPermission(true);
+      };
+
+      const onSuccess = (pos: GeolocationPosition) => {
+        const { latitude, longitude } = pos.coords;
+        updatePosition(latitude, longitude);
+      };
+
+      const onError = () => {
+        setHasPermission(false);
+        showToast("위치 정보 접근에 실패했어요.");
+      };
+
+      try {
+        const { state } = await navigator.permissions.query({
+          name: "geolocation",
+        });
+
+        if (state === "denied") {
+          setHasPermission(false);
+          showToast("위치 접근 권한이 필요해요.");
+          return;
+        }
+
+        if (meetInfo.lat && meetInfo.lng) {
+          updatePosition(meetInfo.lat, meetInfo.lng);
+        } else {
+          navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }
+      } catch {
+        setHasPermission(false);
+        showToast("위치 권한 확인 중 문제가 발생했어요.");
+      }
+    };
+
+    askForLocation();
+  }, []);
+
   const handleMapClick = (lat: number, lng: number) => {
+    console.log("lat, lng", lat, lng);
     setPosition({ lat, lng });
   };
 
@@ -109,5 +161,6 @@ export const useCreateMeetPlace = () => {
     handleSubmit,
     toastMessage,
     isToastVisible,
+    hasPermission,
   };
 };

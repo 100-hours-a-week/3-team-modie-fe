@@ -19,22 +19,28 @@ export default function MarkerInfoWindow({ lat, lng }: MarkerInfoWindowProps) {
   const { getAddressByCoords } = useGeocode();
 
   useEffect(() => {
+    let cancelled = false;
+
+    const fetchAddress = async () => {
+      if (!lat || !lng) return;
+
+      const addr = await getAddressByCoords(lat, lng);
+      if (!cancelled) {
+        setAddress(addr || "주소 정보를 찾을 수 없습니다");
+        setMeetInfo({ address: addr || "" });
+      }
+    };
+
     if (meetInfo.address) {
       setAddress(meetInfo.address);
-      return;
+    } else {
+      fetchAddress();
     }
 
-    if (!lat || !lng) return;
-
-    getAddressByCoords(lat, lng).then((addr) => {
-      if (addr) {
-        setAddress(addr);
-        setMeetInfo({ address: addr });
-      } else {
-        setAddress("주소 정보를 찾을 수 없습니다");
-      }
-    });
-  }, [lat, lng]);
+    return () => {
+      cancelled = true;
+    };
+  }, [lat, lng, meetInfo.address]);
 
   return (
     <>
