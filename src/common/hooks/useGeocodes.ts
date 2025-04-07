@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as Sentry from "@sentry/react";
 
 export const useGeocode = () => {
   const [loading, setLoading] = useState(false);
@@ -20,13 +21,18 @@ export const useGeocode = () => {
 
       geocoder.addressSearch(address, (result, status) => {
         setLoading(false);
-        if (
-          status === window.kakao.maps.services.Status.OK &&
-          result.length > 0
-        ) {
-          const { y, x } = result[0];
-          resolve({ lat: parseFloat(y), lng: parseFloat(x) });
-        } else {
+        try {
+          if (
+            status === window.kakao.maps.services.Status.OK &&
+            result.length > 0
+          ) {
+            const { y, x } = result[0];
+            resolve({ lat: parseFloat(y), lng: parseFloat(x) });
+          }
+        } catch (e) {
+          Sentry.captureException(e, {
+            tags: { feature: "geocode" },
+          });
           setError("주소로 좌표를 찾을 수 없습니다.");
           resolve(null);
         }
@@ -51,15 +57,20 @@ export const useGeocode = () => {
 
       geocoder.coord2Address(lng, lat, (result, status) => {
         setLoading(false);
-        if (
-          status === window.kakao.maps.services.Status.OK &&
-          result.length > 0
-        ) {
-          const address =
-            result[0].road_address?.address_name ||
-            result[0].address?.address_name;
-          resolve(address || null);
-        } else {
+        try {
+          if (
+            status === window.kakao.maps.services.Status.OK &&
+            result.length > 0
+          ) {
+            const address =
+              result[0].road_address?.address_name ||
+              result[0].address?.address_name;
+            resolve(address || null);
+          }
+        } catch (e) {
+          Sentry.captureException(e, {
+            tags: { feature: "geocode" },
+          });
           setError("좌표로 주소를 찾을 수 없습니다.");
           resolve(null);
         }

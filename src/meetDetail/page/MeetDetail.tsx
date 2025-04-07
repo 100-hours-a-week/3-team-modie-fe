@@ -21,11 +21,12 @@ import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
 import Splash from "../../common/page/Splash";
+import * as Sentry from "@sentry/react";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
   const { meet } = useMeetStore();
-  const { fetchMeet } = useFetchMeet();
+  const { fetchMeet, loading } = useFetchMeet();
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
@@ -43,8 +44,21 @@ export default function MeetDetail() {
     }
   }, [meetId]);
 
-  if (!meet) {
+  if (loading) {
     return <Splash />;
+  }
+
+  // 존재하지 않는 모임 접근
+  if (!meet) {
+    Sentry.captureMessage("존재하지 않는 모임 접근", {
+      level: "warning",
+      tags: { feature: "meet-detail" },
+      extra: { meetId },
+    });
+
+    navigate("/");
+
+    return;
   }
 
   const handleCopyUrl = () => {
@@ -72,12 +86,17 @@ export default function MeetDetail() {
           window.location.reload();
         }, 1000);
       }
-    } catch (error: unknown) {
+    } catch (e) {
       let message = "참여에 실패했어요";
 
-      if (axios.isAxiosError(error)) {
-        message = error.response?.data?.data?.message || "참여에 실패했어요";
+      if (axios.isAxiosError(e)) {
+        message = e.response?.data?.data?.message || "참여에 실패했어요";
       }
+
+      Sentry.captureException(e, {
+        tags: { feature: "join-meet", meetId },
+        extra: { message, meetId, token },
+      });
 
       showToast(message);
     }
@@ -227,7 +246,15 @@ export default function MeetDetail() {
                             showToast("올바르지 않은 요청입니다.");
                             return false;
                           }
-                        } catch {
+                        } catch (e) {
+                          Sentry.captureException(e, {
+                            tags: {
+                              feature: "update-payment",
+                              meetId: meet.meetId,
+                            },
+                            extra: { userId: member.userId, token },
+                          });
+
                           showToast("정산 상태 변경 실패");
                           return false;
                         }

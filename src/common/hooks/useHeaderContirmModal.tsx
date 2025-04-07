@@ -6,6 +6,7 @@ import { getModalText } from "../../utils/getModalText";
 import { deleteMeetService } from "../../meetDetail/services/deleteMeetService";
 import { completeMeetService } from "../../meetDetail/services/completeMeetService";
 import { exitMeetService } from "../../meetDetail/services/exitMeetService";
+import * as Sentry from "@sentry/react";
 
 /**
  * 옵션 클릭에 대한 모달 내부 텍스트를 조정합니다.
@@ -37,21 +38,36 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
 
     switch (confirmType) {
       case MODAL_TYPES.DELETE:
-        await deleteMeetService(meetId, token);
-        alert("모임이 삭제되었습니다.");
-        navigate("/");
+        try {
+          await deleteMeetService(meetId, token);
+          navigate("/");
+        } catch (e) {
+          Sentry.captureException(e, {
+            tags: { feature: "meet-detail", meetId },
+          });
+        }
         break;
       case MODAL_TYPES.END:
-        await completeMeetService(meetId, token);
-        alert("모임이 종료되었습니다.");
-        navigate("/end");
+        try {
+          await completeMeetService(meetId, token);
+          navigate("/end");
+        } catch (e) {
+          Sentry.captureException(e, {
+            tags: { feature: "meet-detail", meetId },
+          });
+        }
         break;
       case MODAL_TYPES.HIDE:
         break;
       case MODAL_TYPES.EXIT:
-        await exitMeetService(meetId, token);
-        alert("모임에서 나갔습니다.");
-        navigate("/");
+        try {
+          await exitMeetService(meetId, token);
+          navigate("/");
+        } catch (e) {
+          Sentry.captureException(e, {
+            tags: { feature: "meet-detail", meetId },
+          });
+        }
         break;
     }
     closeConfirmModal();
