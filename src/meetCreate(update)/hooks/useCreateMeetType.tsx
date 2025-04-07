@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useMeetCreateValidation } from "./useMeetCreateValidation";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import * as Sentry from "@sentry/react";
 
 /**
  * 모임 생성 페이지 1단계 커스텀 훅
@@ -61,16 +62,24 @@ export const useCreateMeetType = () => {
     if (invalid) {
       const [, key] = invalid;
       showToast(errorMessages[key]);
+
+      Sentry.captureMessage(
+        `Validation failed at /meet/create/type: missing ${key}`
+      );
       return;
     }
 
     // 저장 시 zustand store에 저장
-    setMeetInfo({
-      intro,
-      category: selectedCategory,
-      customType: selectedCategory === "기타" ? customType : "",
-      meetAt: "",
-    });
+    try {
+      setMeetInfo({
+        intro,
+        category: selectedCategory,
+        customType: selectedCategory === "기타" ? customType : "",
+        meetAt: "",
+      });
+    } catch (e) {
+      Sentry.captureException(e);
+    }
 
     navigate("/meet/create/place");
   };

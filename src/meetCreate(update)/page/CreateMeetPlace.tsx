@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useGeocode } from "../../common/hooks/useGeocodes";
 import logoIcon from "../../assets/logo.svg";
 import { motion } from "framer-motion";
+import * as Sentry from "@sentry/react";
 
 export default function CreateMeetPlace() {
   const {
@@ -36,21 +37,33 @@ export default function CreateMeetPlace() {
     if (isEditMode && editMeetInfo?.address) {
       setDescription(editMeetInfo.addressDescription || "");
 
-      getCoordsByAddress(editMeetInfo.address).then((coords) => {
-        if (!coords) return;
+      getCoordsByAddress(editMeetInfo.address)
+        .then((coords) => {
+          if (!coords) {
+            Sentry.captureMessage(
+              "지오코딩 실패: 주소로부터 좌표를 가져오지 못함",
+              {
+                extra: { address: editMeetInfo.address },
+              }
+            );
+            return;
+          }
 
-        const { lat, lng } = coords;
-        setCenter({ lat, lng });
-        setPosition({ lat, lng });
+          const { lat, lng } = coords;
+          setCenter({ lat, lng });
+          setPosition({ lat, lng });
 
-        setMeetInfo({
-          ...meetInfo,
-          lat,
-          lng,
-          address: editMeetInfo.address,
-          addressDescription: editMeetInfo.addressDescription,
+          setMeetInfo({
+            ...meetInfo,
+            lat,
+            lng,
+            address: editMeetInfo.address,
+            addressDescription: editMeetInfo.addressDescription,
+          });
+        })
+        .catch((e) => {
+          Sentry.captureException(e);
         });
-      });
     }
   }, [isEditMode, editMeetInfo]);
 
@@ -96,9 +109,10 @@ export default function CreateMeetPlace() {
                   ? result[0].road_address.address_name
                   : result[0].address.address_name;
 
-                // Update address state
-                setMeetInfo({
-                  address,
+                setMeetInfo({ address });
+              } else {
+                Sentry.captureMessage("카카오 주소 변환 실패", {
+                  extra: { lat, lng, status },
                 });
               }
             });

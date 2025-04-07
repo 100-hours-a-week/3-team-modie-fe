@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import * as Sentry from "@sentry/react";
 
 interface position {
   lat: number;
@@ -53,7 +54,10 @@ export const useCreateMeetPlace = () => {
             setCenter(userPos);
             setPosition(userPos);
           },
-          () => {
+          (error) => {
+            Sentry.captureMessage("geolocation 실패", {
+              extra: { error },
+            });
             const fallback = { lat: 33.450701, lng: 126.570667 };
             setCenter(fallback);
             setPosition(fallback);
