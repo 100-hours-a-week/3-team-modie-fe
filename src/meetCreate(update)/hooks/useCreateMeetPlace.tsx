@@ -134,7 +134,6 @@ export const useCreateMeetPlace = () => {
   }, []);
 
   const handleMapClick = (lat: number, lng: number) => {
-    console.log("lat, lng", lat, lng);
     setPosition({ lat, lng });
   };
 
