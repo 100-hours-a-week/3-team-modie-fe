@@ -40,10 +40,18 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
         await deleteMeetService(meetId, token);
         navigate("/");
         break;
-      case MODAL_TYPES.END:
-        await completeMeetService(meetId, token);
+      case MODAL_TYPES.END: {
+        const res = await completeMeetService(meetId, token);
+
+        if (res === "M015") {
+          alert("정산 완료 후 종료 가능합니다.");
+          closeConfirmModal();
+          return;
+        }
+
         navigate("/end");
         break;
+      }
       case MODAL_TYPES.HIDE:
         break;
       case MODAL_TYPES.EXIT:
