@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Client } from "@stomp/stompjs";
 import { useChatStore } from "./useChat";
+import * as Sentry from "@sentry/react";
 
 interface UseChatSocketProps {
   chatId: string | null;
@@ -58,8 +59,9 @@ export const useChatSocket = ({
               content: receivedMessage.content,
               dateTime: receivedMessage.dateTime,
             });
-          } catch (error) {
-            console.error("메시지 처리 중 오류 발생:", error);
+          } catch (e) {
+            console.error("메시지 처리 중 오류 발생:", e);
+            Sentry.captureException(e);
           }
         });
       },
@@ -99,8 +101,9 @@ export const useChatSocket = ({
         });
 
         return true;
-      } catch (error) {
-        console.error("메시지 전송 중 오류 발생:", error);
+      } catch (e) {
+        console.error("메시지 전송 중 오류 발생:", e);
+        Sentry.captureException(e);
         return false;
       }
     },

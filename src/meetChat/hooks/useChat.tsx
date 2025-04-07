@@ -1,7 +1,7 @@
-// hooks/useChat.ts
 import { create } from "zustand";
 import { chatType } from "../types/chatTypes";
 import axiosInstance from "../../__api__/axiosConfig.ts";
+import * as Sentry from "@sentry/react";
 
 interface ChatState {
   messages: chatType[];
@@ -54,8 +54,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
       }
 
       set({ isLoading: false });
-    } catch (error) {
-      console.error("Failed to fetch messages:", error);
+    } catch (e) {
+      Sentry.captureException(e);
       set({ isLoading: false, hasMore: false });
     }
   },
@@ -104,8 +104,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
         set({ hasMore: false, isLoading: false });
         return false;
       }
-    } catch (error) {
-      console.error("Failed to fetch more messages:", error);
+    } catch (e) {
+      Sentry.captureException(e);
       set({ isLoading: false });
       return false;
     }

@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/react";
+
 /**
  * 메시지 전송 관련 서비스 및 에러 클래스
  */
@@ -38,6 +40,8 @@ export async function sendChatMessage(
     }
     return true;
   } catch (error) {
+    Sentry.captureException(error);
+
     if (error instanceof Error) {
       if (
         error.message.includes("네트워크") ||

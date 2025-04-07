@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import * as Sentry from "@sentry/react";
 
 export const useAuth = () => {
   const extractUserId = () => {
@@ -8,7 +9,7 @@ export const useAuth = () => {
       const payload = JSON.parse(atob(token.split(".")[1]));
       return payload.userId || payload.sub;
     } catch (e) {
-      console.error(e);
+      Sentry.captureException(e);
       return null;
     }
   };
