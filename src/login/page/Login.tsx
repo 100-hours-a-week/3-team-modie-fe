@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import logoIcon from "../../assets/logo.svg";
 import kakaoLogin from "../../assets/kakao_login_large_wide.png";
+import * as Sentry from "@sentry/react";
 
 const key = import.meta.env.VITE_KAKAO_REST_API_KEY;
 const redirectUrl = import.meta.env.VITE_KAKAO_REDIRECT_URI;
@@ -8,7 +9,11 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${key}
 
 export default function Login() {
   const handleLogin = () => {
-    window.location.href = KAKAO_AUTH_URL;
+    try {
+      window.location.href = KAKAO_AUTH_URL;
+    } catch (e) {
+      Sentry.captureException(e);
+    }
   };
 
   return (
