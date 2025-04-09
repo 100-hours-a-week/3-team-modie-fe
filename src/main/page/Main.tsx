@@ -7,7 +7,7 @@ import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
 import { useNavigate } from "react-router-dom";
 import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore.ts";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler.ts";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
@@ -23,7 +23,12 @@ export default function Main() {
       try {
         navigate("/login");
       } catch (e) {
-        Sentry.captureException(e);
+        handleError(e, {
+          type: "auth",
+          page: "meet-list",
+          message: "로그인 중 페이지 이동 실패",
+          extra: { token: localStorage.getItem("accessToken") },
+        });
       }
     } else {
       setIsTokenChecked(true);
@@ -41,7 +46,12 @@ export default function Main() {
       const { resetMeetInfo } = useCreateMeetStore.getState();
       resetMeetInfo();
     } catch (e) {
-      Sentry.captureException(e);
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-list",
+        message: "모임 생성 상태 초기화 실패",
+        extra: { token: localStorage.getItem("accessToken") },
+      });
     }
   }, []);
 
@@ -60,7 +70,11 @@ export default function Main() {
           fetchNextPage();
         }
       } catch (e) {
-        Sentry.captureException(e); // Sentry 로깅
+        handleError(e, {
+          type: "meet-list",
+          page: "meet-list",
+          message: "모임 목록 추가 로딩 중 실패",
+        });
       }
     };
 

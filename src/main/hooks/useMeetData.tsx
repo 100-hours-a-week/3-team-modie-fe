@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMeetsService } from "../services/getMeetsService";
 import { meetItem } from "../types/meetItem";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export const useMeetData = (activeTab: string, selectedChip: string) => {
   const token = localStorage.getItem("accessToken") || "";
@@ -47,7 +47,17 @@ export const useMeetData = (activeTab: string, selectedChip: string) => {
           pageSize: res.data.size,
         };
       } catch (e) {
-        Sentry.captureException(e);
+        handleError(e, {
+          type: "meet-list",
+          page: "meet-list",
+          message: "카테고리에 해당하는 모임 목록 조회 실패",
+          extra: {
+            category: selectedChip,
+            completed: activeTab === "종료",
+            page: pageParam,
+            token: token,
+          },
+        });
         throw e;
       }
     },
@@ -62,7 +72,16 @@ export const useMeetData = (activeTab: string, selectedChip: string) => {
           ? lastPage.nextPage
           : undefined;
       } catch (e) {
-        Sentry.captureException(e);
+        handleError(e, {
+          type: "meet-list",
+          page: "meet-list",
+          message: "무한 스크롤 실패",
+          extra: {
+            pages: pages,
+            lastPage: lastPage,
+            totalElements: lastPage.totalElements,
+          },
+        });
         throw e;
       }
     },
