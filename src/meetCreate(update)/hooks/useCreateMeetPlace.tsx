@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 interface position {
   lat: number;
@@ -54,9 +54,15 @@ export const useCreateMeetPlace = () => {
             setCenter(userPos);
             setPosition(userPos);
           },
-          (error) => {
-            Sentry.captureMessage("geolocation 실패", {
-              extra: { error },
+          (e) => {
+            handleError(e, {
+              type: "meet-manage",
+              page: "meet-create",
+              message: "사용자 위치 정보 불러오기 실패",
+              extra: {
+                meetId: meetInfo.meetId ?? "새 모임",
+                hasGeolocation: !!navigator.geolocation,
+              },
             });
             const fallback = { lat: 33.450701, lng: 126.570667 };
             setCenter(fallback);

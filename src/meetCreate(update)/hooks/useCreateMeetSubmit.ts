@@ -3,7 +3,7 @@ import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { createMeetService } from "../services/createMeetService";
 import { updateMeetService } from "../services/updateMeetService";
 import { useToast } from "../../common/hooks/useToastMsg";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export const useCreateMeetSubmit = () => {
   const navigate = useNavigate();
@@ -72,13 +72,28 @@ export const useCreateMeetSubmit = () => {
             showToast("모임이 수정되었어요!");
             navigate(`/${meetInfo.meetId}`);
           } else {
-            Sentry.captureMessage("모임 수정 실패 (응답은 success=false)", {
-              extra: { updateRes },
+            handleError(new Error("모임 수정 실패"), {
+              type: "meet-manage",
+              page: "meet-edit",
+              message: "모임 수정 응답은 왔지만 success=false",
+              extra: {
+                updateResponse: updateRes,
+                requestData: meetInfo,
+              },
             });
+
             showToast("모임 수정에 실패했어요.");
           }
         } catch (e) {
-          Sentry.captureException(e);
+          handleError(e, {
+            type: "meet-manage",
+            page: "meet-edit",
+            message: "모임 수정 요청 중 오류 발생",
+            extra: {
+              requestData: meetInfo,
+            },
+          });
+          // Sentry.captureException(e);
           console.error("모임 수정 실패:", e);
           showToast("모임 수정 중 오류가 발생했어요.");
         }
@@ -96,13 +111,24 @@ export const useCreateMeetSubmit = () => {
           resetMeetInfo();
         }, 1000);
       } else {
-        Sentry.captureMessage("모임 수정 실패 (응답은 왔지만 success=false)", {
-          extra: { createRes },
+        handleError(new Error("모임 생성 실패"), {
+          type: "meet-manage",
+          page: "meet-create",
+          message: "모임 생성 응답은 왔지만 success=false",
+          extra: {
+            createResponse: createRes,
+            requestData,
+          },
         });
+
         showToast("모임 생성에 실패했어요.");
       }
     } catch (e) {
-      Sentry.captureException(e);
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 요청 중 오류 발생",
+      });
       console.error("모임 생성 실패:", e);
       showToast("모임 생성 중 오류가 발생했어요.");
     }

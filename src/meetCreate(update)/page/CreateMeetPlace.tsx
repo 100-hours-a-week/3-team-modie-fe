@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { useGeocode } from "../../common/hooks/useGeocodes";
 import logoIcon from "../../assets/logo.svg";
 import { motion } from "framer-motion";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export default function CreateMeetPlace() {
   const {
@@ -40,12 +40,12 @@ export default function CreateMeetPlace() {
       getCoordsByAddress(editMeetInfo.address)
         .then((coords) => {
           if (!coords) {
-            Sentry.captureMessage(
-              "지오코딩 실패: 주소로부터 좌표를 가져오지 못함",
-              {
-                extra: { address: editMeetInfo.address },
-              }
-            );
+            handleError(new Error("지오코딩 실패"), {
+              type: "meet-manage",
+              page: "meet-create",
+              message: "지오코딩 실패: 주소로부터 좌표를 가져오지 못함",
+              extra: { address: editMeetInfo.address },
+            });
             return;
           }
 
@@ -62,7 +62,12 @@ export default function CreateMeetPlace() {
           });
         })
         .catch((e) => {
-          Sentry.captureException(e);
+          handleError(e, {
+            type: "meet-manage",
+            page: "meet-create",
+            message: "지오코딩 중 예외 발생",
+            extra: { address: editMeetInfo.address },
+          });
         });
     }
   }, [isEditMode, editMeetInfo]);
@@ -111,7 +116,10 @@ export default function CreateMeetPlace() {
 
                 setMeetInfo({ address });
               } else {
-                Sentry.captureMessage("카카오 주소 변환 실패", {
+                handleError(new Error("카카오 주소 변환 실패"), {
+                  type: "meet-manage",
+                  page: "meet-create",
+                  message: "카카오 주소 변환 실패 (coord2Address)",
                   extra: { lat, lng, status },
                 });
               }

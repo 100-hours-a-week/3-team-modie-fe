@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 /**
  * 모임 생성 페이지 3단계 커스텀 훅
@@ -128,7 +128,15 @@ export const useMeetCreateOther = () => {
         }
       }
     } catch (e) {
-      Sentry.captureException(e);
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 초기값 설정 중 오류 발생",
+        extra: {
+          editMeetInfo: editMeetInfo,
+          meetInfo: meetInfo,
+        },
+      });
       triggerToast("오류가 발생했어요. 잠시 후 다시 시도해 주세요.");
     }
   }, []);
@@ -331,7 +339,18 @@ export const useMeetCreateOther = () => {
         navigate("/meet/create/last");
       }
     } catch (e) {
-      Sentry.captureException(e);
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 정보 저장 및 이동 중 오류 발생",
+        extra: {
+          dateInput: dateInput,
+          time: time,
+          mumberCount: memberCount,
+          hasCost: hasCost,
+          cost: cost,
+        },
+      });
       triggerToast("오류가 발생했어요. 잠시 후 다시 시도해 주세요.");
     }
   };
