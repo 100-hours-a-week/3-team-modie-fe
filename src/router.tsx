@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Main from "./main/page/Main";
 import MeetDetail from "./meetDetail/page/MeetDetail";
@@ -15,8 +16,16 @@ import MeetDone from "./meetDone/page/MeetDone.tsx";
 import Splash from "./common/page/Splash.tsx";
 import ProtectedRoute from "./common/components/ProtectedRoute.tsx";
 import RedirectIfAuthenticated from "./common/components/RedirectIfAuthenticated.tsx";
+import { setGlobalErrorToast } from "./__sentry__/useErrorHandler.ts";
+import { useToast } from "./common/hooks/useToastMsg.tsx";
 
 export default function Routers() {
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    setGlobalErrorToast(showToast);
+  }, [showToast]);
+
   const router = createBrowserRouter([
     { path: "/", element: <Main /> },
     {
