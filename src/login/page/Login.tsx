@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import logoIcon from "../../assets/logo.svg";
 import kakaoLogin from "../../assets/kakao_login_large_wide.png";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 const key = import.meta.env.VITE_KAKAO_REST_API_KEY;
 const redirectUrl = import.meta.env.VITE_KAKAO_REDIRECT_URI;
@@ -12,7 +12,11 @@ export default function Login() {
     try {
       window.location.href = KAKAO_AUTH_URL;
     } catch (e) {
-      Sentry.captureException(e);
+      handleError(e, {
+        type: "auth",
+        page: "login",
+        message: "카카오 로그인 실패",
+      });
     }
   };
 

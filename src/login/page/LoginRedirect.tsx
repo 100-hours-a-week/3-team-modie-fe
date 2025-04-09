@@ -5,6 +5,7 @@ import Splash from "../../common/page/Splash";
 import { initFCM } from "../../__fcm__/fcm";
 import * as Sentry from "@sentry/react";
 import { getUserService } from "../../my/services/getUserService";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
@@ -31,7 +32,12 @@ export default function KakaoCallback() {
               username: user.userName,
             });
           } catch (userError) {
-            Sentry.captureException(userError);
+            handleError(userError, {
+              type: "auth",
+              page: "login",
+              message: "카카오 로그인 후 사용자 정보 요청 실패",
+              extra: { token: localStorage.getItem("accessToken") },
+            });
           }
 
           await initFCM();
@@ -42,7 +48,12 @@ export default function KakaoCallback() {
           navigate(redirectPath);
         })
         .catch((e) => {
-          Sentry.captureException(e);
+          handleError(e, {
+            type: "auth",
+            page: "login",
+            message: "카카오 로그인 API 요청 실패",
+            extra: { code },
+          });
         });
     }
   }, [code, navigate]);
