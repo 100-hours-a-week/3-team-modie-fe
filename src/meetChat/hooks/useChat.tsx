@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { chatType } from "../types/chatTypes";
 import axiosInstance from "../../__api__/axiosConfig.ts";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler.ts";
 
 interface ChatState {
   messages: chatType[];
@@ -55,7 +55,12 @@ export const useChatStore = create<ChatState>((set, get) => ({
 
       set({ isLoading: false });
     } catch (e) {
-      Sentry.captureException(e);
+      // Sentry.captureException(e);
+      handleError(e, {
+        type: "chat",
+        page: "chat",
+        extra: { lastMeetId: meetId },
+      });
       set({ isLoading: false, hasMore: false });
     }
   },
@@ -105,7 +110,12 @@ export const useChatStore = create<ChatState>((set, get) => ({
         return false;
       }
     } catch (e) {
-      Sentry.captureException(e);
+      // Sentry.captureException(e);
+      handleError(e, {
+        type: "chat",
+        page: "chat",
+        extra: { lastMeetId: meetId },
+      });
       set({ isLoading: false });
       return false;
     }

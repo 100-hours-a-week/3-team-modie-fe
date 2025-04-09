@@ -10,12 +10,8 @@ import { useChatSocket } from "../hooks/useChatSocket";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useChatScroll } from "../hooks/useChatScroll";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import {
-  sendChatMessage,
-  NetworkError,
-  AuthorizationError,
-} from "../services/messageService";
-import * as Sentry from "@sentry/react";
+import { sendChatMessage } from "../services/messageService";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 /**
  * 미팅 채팅 컴포넌트
@@ -98,18 +94,14 @@ export default function MeetChat() {
         await sendChatMessage(sendMessage, msg, jwtToken);
         // 성공 시 스크롤은 메시지 목록 변화 감지 시 자동으로 처리됨
       } catch (e) {
-        Sentry.captureException(e);
-
-        if (e instanceof NetworkError) {
-          showToast("네트워크 연결을 확인해주세요");
-        } else if (e instanceof AuthorizationError) {
-          showToast("메시지 전송 권한이 없습니다");
-        } else {
-          showToast("메시지 전송에 실패했습니다. 다시 시도해주세요");
-        }
+        handleError(e, {
+          type: "chat",
+          page: "chat",
+          extra: { roomId: id, userId: userId },
+        });
       }
     },
-    [jwtToken, sendMessage, showToast]
+    [jwtToken, sendMessage, showToast, handleError, id, userId]
   );
 
   return (
