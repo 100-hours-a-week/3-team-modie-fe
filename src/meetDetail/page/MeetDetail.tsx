@@ -21,7 +21,7 @@ import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
 import Splash from "../../common/page/Splash";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
@@ -50,9 +50,10 @@ export default function MeetDetail() {
 
   // 존재하지 않는 모임 접근
   if (!meet) {
-    Sentry.captureMessage("존재하지 않는 모임 접근", {
-      level: "warning",
-      tags: { feature: "meet-detail" },
+    handleError(new Error("존재하지 않는 모임 접근"), {
+      type: "meet-detail",
+      page: "meet-detail",
+      message: "존재하지 않는 모임 접근",
       extra: { meetId },
     });
 
@@ -90,12 +91,14 @@ export default function MeetDetail() {
       let message = "참여에 실패했어요";
 
       if (axios.isAxiosError(e)) {
-        message = e.response?.data?.data?.message || "참여에 실패했어요";
+        message = e.response?.data?.data?.message || message;
       }
 
-      Sentry.captureException(e, {
-        tags: { feature: "join-meet", meetId },
-        extra: { message, meetId, token },
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-detail",
+        message: "모임 참여 실패",
+        extra: { meetId, token, message },
       });
 
       showToast(message);
@@ -247,12 +250,15 @@ export default function MeetDetail() {
                             return false;
                           }
                         } catch (e) {
-                          Sentry.captureException(e, {
-                            tags: {
-                              feature: "update-payment",
+                          handleError(e, {
+                            type: "meet-manage",
+                            page: "meet-detail",
+                            message: "정산 상태 변경 실패",
+                            extra: {
+                              userId: member.userId,
                               meetId: meet.meetId,
+                              token,
                             },
-                            extra: { userId: member.userId, token },
                           });
 
                           showToast("정산 상태 변경 실패");
