@@ -7,6 +7,7 @@ import CreateButton from "../components/CreateButton.tsx";
 import { useMeetData } from "../hooks/useMeetData.tsx";
 import { useNavigate } from "react-router-dom";
 import { useCreateMeetStore } from "../../meetCreate(update)/store/useCreateMeetStore.ts";
+import { handleError } from "../../__sentry__/useErrorHandler.ts";
 
 export default function Main() {
   const [activeTab, setActiveTab] = useState("참여중");
@@ -19,7 +20,16 @@ export default function Main() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login");
+      try {
+        navigate("/login");
+      } catch (e) {
+        handleError(e, {
+          type: "auth",
+          page: "meet-list",
+          message: "로그인 중 페이지 이동 실패",
+          extra: { token: localStorage.getItem("accessToken") },
+        });
+      }
     } else {
       setIsTokenChecked(true);
     }
@@ -32,23 +42,39 @@ export default function Main() {
    * 모임 생성 상태 초기화를 위한 코드
    */
   useEffect(() => {
-    const { resetMeetInfo } = useCreateMeetStore.getState();
-    resetMeetInfo();
+    try {
+      const { resetMeetInfo } = useCreateMeetStore.getState();
+      resetMeetInfo();
+    } catch (e) {
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-list",
+        message: "모임 생성 상태 초기화 실패",
+        extra: { token: localStorage.getItem("accessToken") },
+      });
+    }
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight;
+      try {
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const fullHeight = document.documentElement.scrollHeight;
 
-      // 스크롤이 바닥에 가까워지면 다음 페이지 요청
-      if (
-        scrollTop + windowHeight >= fullHeight - 50 &&
-        !isFetchingNextPage &&
-        hasNextPage
-      ) {
-        fetchNextPage();
+        if (
+          scrollTop + windowHeight >= fullHeight - 50 &&
+          !isFetchingNextPage &&
+          hasNextPage
+        ) {
+          fetchNextPage();
+        }
+      } catch (e) {
+        handleError(e, {
+          type: "meet-list",
+          page: "meet-list",
+          message: "모임 목록 추가 로딩 중 실패",
+        });
       }
     };
 

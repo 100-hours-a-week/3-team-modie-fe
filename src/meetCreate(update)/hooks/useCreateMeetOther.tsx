@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 /**
  * 모임 생성 페이지 3단계 커스텀 훅
@@ -61,69 +62,82 @@ export const useMeetCreateOther = () => {
 
   // 편집 모드 또는 저장된 데이터로 초기화
   useEffect(() => {
-    if (editMeetInfo) {
-      setDateInput(editMeetInfo.date || "");
-      setTime(editMeetInfo.time || { hour: "", minute: "" });
-      setMemberCount(editMeetInfo.memberCount?.toString() || "");
-      setHasCost(editMeetInfo.hasCost || false);
-      setCost(editMeetInfo.cost ? editMeetInfo.cost.toLocaleString() : "");
+    try {
+      if (editMeetInfo) {
+        setDateInput(editMeetInfo.date || "");
+        setTime(editMeetInfo.time || { hour: "", minute: "" });
+        setMemberCount(editMeetInfo.memberCount?.toString() || "");
+        setHasCost(editMeetInfo.hasCost || false);
+        setCost(editMeetInfo.cost ? editMeetInfo.cost.toLocaleString() : "");
 
-      if (editMeetInfo.date) {
-        const parsedDate = dayjs(editMeetInfo.date, "YYYY.MM.DD").toDate();
-        setSelectedDate(parsedDate);
-      }
-    } else if (meetInfo) {
-      // 편집 모드가 아니지만 세션 스토리지에 저장된 데이터가 있는 경우
-      if (meetInfo.date) {
-        setDateInput(meetInfo.date);
-        // 날짜 유효성 검사
-        if (validateDate(meetInfo.date)) {
-          setSelectedDate(dayjs(meetInfo.date, "YYYY.MM.DD").toDate());
-          setDateError("");
+        if (editMeetInfo.date) {
+          const parsedDate = dayjs(editMeetInfo.date, "YYYY.MM.DD").toDate();
+          setSelectedDate(parsedDate);
+        }
+      } else if (meetInfo) {
+        // 편집 모드가 아니지만 세션 스토리지에 저장된 데이터가 있는 경우
+        if (meetInfo.date) {
+          setDateInput(meetInfo.date);
+          // 날짜 유효성 검사
+          if (validateDate(meetInfo.date)) {
+            setSelectedDate(dayjs(meetInfo.date, "YYYY.MM.DD").toDate());
+            setDateError("");
+          }
+        }
+
+        if (meetInfo.time?.hour && meetInfo.time?.minute) {
+          setTime(meetInfo.time);
+        }
+
+        if (meetInfo.memberCount) {
+          setMemberCount(meetInfo.memberCount.toString());
+          // 회원수 유효성 검사
+          const num = meetInfo.memberCount;
+          if (num < 2) {
+            setMemberError("최소 인원은 2명입니다.");
+          } else if (num > 30) {
+            setMemberError("최대 인원은 30명입니다.");
+          } else if (
+            meetInfo.currentMember &&
+            meetInfo.currentMember > 1 &&
+            num < meetInfo.currentMember
+          ) {
+            setMemberError(
+              "현재 참여 중인 인원보다 적은 인원으로 수정할 수 없습니다."
+            );
+          } else {
+            setMemberError("");
+          }
+        }
+
+        if (meetInfo.hasCost !== undefined) {
+          setHasCost(meetInfo.hasCost);
+        }
+
+        if (meetInfo.cost) {
+          setCost(meetInfo.cost.toLocaleString());
+          // 비용 유효성 검사
+          const num = meetInfo.cost;
+          if (num < 1000) {
+            setCostError("최소 금액은 1,000원입니다.");
+          } else if (num > 10000000) {
+            setCostError("최대 금액은 10,000,000원입니다.");
+          } else {
+            setCostError("");
+          }
         }
       }
-
-      if (meetInfo.time?.hour && meetInfo.time?.minute) {
-        setTime(meetInfo.time);
-      }
-
-      if (meetInfo.memberCount) {
-        setMemberCount(meetInfo.memberCount.toString());
-        // 회원수 유효성 검사
-        const num = meetInfo.memberCount;
-        if (num < 2) {
-          setMemberError("최소 인원은 2명입니다.");
-        } else if (num > 30) {
-          setMemberError("최대 인원은 30명입니다.");
-        } else if (
-          meetInfo.currentMember &&
-          meetInfo.currentMember > 1 &&
-          num < meetInfo.currentMember
-        ) {
-          setMemberError(
-            "현재 참여 중인 인원보다 적은 인원으로 수정할 수 없습니다."
-          );
-        } else {
-          setMemberError("");
-        }
-      }
-
-      if (meetInfo.hasCost !== undefined) {
-        setHasCost(meetInfo.hasCost);
-      }
-
-      if (meetInfo.cost) {
-        setCost(meetInfo.cost.toLocaleString());
-        // 비용 유효성 검사
-        const num = meetInfo.cost;
-        if (num < 1000) {
-          setCostError("최소 금액은 1,000원입니다.");
-        } else if (num > 10000000) {
-          setCostError("최대 금액은 10,000,000원입니다.");
-        } else {
-          setCostError("");
-        }
-      }
+    } catch (e) {
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 초기값 설정 중 오류 발생",
+        extra: {
+          editMeetInfo: editMeetInfo,
+          meetInfo: meetInfo,
+        },
+      });
+      triggerToast("오류가 발생했어요. 잠시 후 다시 시도해 주세요.");
     }
   }, []);
 
@@ -303,26 +317,41 @@ export const useMeetCreateOther = () => {
   };
 
   const handleSubmit = () => {
-    if (isFormValid()) {
-      if (!dateInput) return triggerToast("날짜를 입력해 주세요");
-      if (!time.hour || !time.minute)
-        return triggerToast("모임 시간을 입력해 주세요");
-      if (!memberCount) return triggerToast("모집 인원을 입력해 주세요");
-      if (hasCost && !cost) return triggerToast("예상 비용을 입력해 주세요");
+    try {
+      if (isFormValid()) {
+        if (!dateInput) return triggerToast("날짜를 입력해 주세요");
+        if (!time.hour || !time.minute)
+          return triggerToast("모임 시간을 입력해 주세요");
+        if (!memberCount) return triggerToast("모집 인원을 입력해 주세요");
+        if (hasCost && !cost) return triggerToast("예상 비용을 입력해 주세요");
 
-      // meetAt 값 추가 (날짜 + 시간)
-      const meetAt = `${dateInput} ${time.hour}:${time.minute}`;
+        const meetAt = `${dateInput} ${time.hour}:${time.minute}`;
 
-      setMeetInfo({
-        date: dateInput,
-        time,
-        memberCount: Number(memberCount),
-        hasCost,
-        cost: hasCost ? Number(cost.replace(/,/g, "")) : 0,
-        meetAt,
+        setMeetInfo({
+          date: dateInput,
+          time,
+          memberCount: Number(memberCount),
+          hasCost,
+          cost: hasCost ? Number(cost.replace(/,/g, "")) : 0,
+          meetAt,
+        });
+
+        navigate("/meet/create/last");
+      }
+    } catch (e) {
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 정보 저장 및 이동 중 오류 발생",
+        extra: {
+          dateInput: dateInput,
+          time: time,
+          mumberCount: memberCount,
+          hasCost: hasCost,
+          cost: cost,
+        },
       });
-
-      navigate("/meet/create/last");
+      triggerToast("오류가 발생했어요. 잠시 후 다시 시도해 주세요.");
     }
   };
 

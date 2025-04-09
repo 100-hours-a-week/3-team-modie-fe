@@ -1,22 +1,5 @@
-/**
- * 메시지 전송 관련 서비스 및 에러 클래스
- */
-
-// 네트워크 관련 에러 클래스
-export class NetworkError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "NetworkError";
-  }
-}
-
-// 권한 관련 에러 클래스
-export class AuthorizationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "AuthorizationError";
-  }
-}
+import * as Sentry from "@sentry/react";
+import { NetworkError, AuthorizationError } from "../../__sentry__/errors";
 
 /**
  * 채팅 메시지 전송 함수
@@ -26,6 +9,7 @@ export class AuthorizationError extends Error {
  * @param token 인증 토큰
  * @returns 전송 성공 여부
  */
+
 export async function sendChatMessage(
   socketSend: (msg: string, token: string) => boolean,
   message: string,
@@ -38,6 +22,8 @@ export async function sendChatMessage(
     }
     return true;
   } catch (error) {
+    Sentry.captureException(error);
+
     if (error instanceof Error) {
       if (
         error.message.includes("네트워크") ||

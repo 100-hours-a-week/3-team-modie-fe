@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useEffect } from "react";
 import Header from "../../common/components/Header";
 import { MessageList } from "../components/MessageList";
 import { EmptyMessageIndicator } from "../components/EmptyMessageIndicator";
-import ChatInput from "../components/chatInput";
+import ChatInput from "../components/ChatInput";
 import { useChatStore } from "../hooks/useChat";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -10,11 +10,8 @@ import { useChatSocket } from "../hooks/useChatSocket";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useChatScroll } from "../hooks/useChatScroll";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import {
-  sendChatMessage,
-  NetworkError,
-  AuthorizationError,
-} from "../services/messageService";
+import { sendChatMessage } from "../services/messageService";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 /**
  * 미팅 채팅 컴포넌트
@@ -96,19 +93,15 @@ export default function MeetChat() {
       try {
         await sendChatMessage(sendMessage, msg, jwtToken);
         // 성공 시 스크롤은 메시지 목록 변화 감지 시 자동으로 처리됨
-      } catch (error) {
-        console.error("메시지 전송 오류:", error);
-
-        if (error instanceof NetworkError) {
-          showToast("네트워크 연결을 확인해주세요");
-        } else if (error instanceof AuthorizationError) {
-          showToast("메시지 전송 권한이 없습니다");
-        } else {
-          showToast("메시지 전송에 실패했습니다. 다시 시도해주세요");
-        }
+      } catch (e) {
+        handleError(e, {
+          type: "chat",
+          page: "chat",
+          extra: { roomId: id, userId: userId },
+        });
       }
     },
-    [jwtToken, sendMessage, showToast]
+    [jwtToken, sendMessage, showToast, handleError, id, userId]
   );
 
   return (

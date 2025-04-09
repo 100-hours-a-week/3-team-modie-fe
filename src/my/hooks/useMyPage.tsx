@@ -5,6 +5,7 @@ import { getUserService } from "../services/getUserService";
 import { updateAccountNumberService } from "../services/updateAccountNumber";
 import { app } from "../../../firebase";
 import { getMessaging, deleteToken } from "firebase/messaging";
+import * as Sentry from "@sentry/react";
 
 // 타입 정의
 export interface ConfirmContentType {
@@ -52,7 +53,11 @@ export const useMyPage = () => {
         setBankName(res.data.bankName);
         setAccountNumber(res.data.accountNumber);
         setProfileImg(res.data.profileImageUrl);
-      } catch {
+      } catch (e) {
+        Sentry.captureException(e, {
+          tags: { feature: "my-page" },
+          extra: { message: "유저 정보 조회 실패" },
+        });
         showToast("유저 조회 중 오류가 발생했어요.");
       } finally {
         setIsLoading(false);
@@ -90,10 +95,19 @@ export const useMyPage = () => {
         if (res.success == true) {
           showToast("계좌 정보가 수정되었어요.");
         } else {
+          Sentry.captureMessage("계좌 수정 실패", {
+            level: "error",
+            tags: { feature: "my-page" },
+            extra: { message: res.message },
+          });
           const errorMessage = res.message || "계좌 수정에 실패했어요.";
           showToast(errorMessage);
         }
-      } catch {
+      } catch (e) {
+        Sentry.captureException(e, {
+          tags: { feature: "my-page" },
+          extra: { message: "계좌 수정 실패" },
+        });
         showToast("계좌 정보 수정 중 오류가 발생했어요.");
       }
     }
@@ -119,15 +133,23 @@ export const useMyPage = () => {
 
   // 로그아웃 확인 처리
   const handleConfirm = async () => {
-    localStorage.removeItem("accessToken");
+    try {
+      localStorage.removeItem("accessToken");
 
-    // 비동기로 실행만 해놓고 기다리지 않음
-    deleteToken(messaging).catch((err) =>
-      console.warn("FCM 토큰 삭제 실패:", err)
-    );
+      // 비동기로 실행만 해놓고 기다리지 않음
+      deleteToken(messaging).catch((err) =>
+        console.warn("FCM 토큰 삭제 실패:", err)
+      );
 
-    navigate("/login");
-    closeConfirmModal();
+      navigate("/login");
+      closeConfirmModal();
+    } catch (e) {
+      Sentry.captureException(e, {
+        tags: { feature: "my-page" },
+        extra: { message: "로그아웃 실패" },
+      });
+      showToast("로그아웃 중 오류가 발생했어요.");
+    }
   };
 
   // 약관 페이지로 이동

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { updateAmountService } from "../services/updateAmountService";
 import { useMeetStore } from "../../meetDetail/store/getMeetStore";
 import { useToast } from "../../common/hooks/useToastMsg";
+import * as Sentry from "@sentry/react";
 
 export const useMeetPaying = () => {
   const [cost, setCost] = useState<string>("");
@@ -55,7 +56,11 @@ export const useMeetPaying = () => {
           navigate(`/${meetId}`);
         }
       }
-    } catch {
+    } catch (e) {
+      Sentry.captureException(e, {
+        tags: { feature: "meet-paying" },
+        extra: { message: "정산 금액 저장 실패", meetId },
+      });
       showToast("정산 등록에 실패했어요.");
     }
   };

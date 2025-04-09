@@ -3,6 +3,9 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Splash from "../../common/page/Splash";
 import { initFCM } from "../../__fcm__/fcm";
+import * as Sentry from "@sentry/react";
+import { getUserService } from "../../my/services/getUserService";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export default function KakaoCallback() {
   const [searchParams] = useSearchParams();
@@ -15,7 +18,27 @@ export default function KakaoCallback() {
       axios
         .get(`${login_url}?code=${code}`)
         .then(async (res) => {
-          localStorage.setItem("accessToken", res.data.data);
+          const accessToken = res.data.data;
+          localStorage.setItem("accessToken", accessToken);
+
+          try {
+            // 유저 정보 불러와서 Sentry 사용자 정보 설정
+            const userRes = await getUserService(accessToken);
+
+            const user = userRes.data;
+
+            Sentry.setUser({
+              id: user.userId.toString(),
+              username: user.userName,
+            });
+          } catch (userError) {
+            handleError(userError, {
+              type: "auth",
+              page: "login",
+              message: "카카오 로그인 후 사용자 정보 요청 실패",
+              extra: { token: localStorage.getItem("accessToken") },
+            });
+          }
 
           await initFCM();
 
@@ -24,7 +47,14 @@ export default function KakaoCallback() {
           localStorage.removeItem("afterLoginRedirect");
           navigate(redirectPath);
         })
-        .catch((err) => console.error("로그인 실패", err));
+        .catch((e) => {
+          handleError(e, {
+            type: "auth",
+            page: "login",
+            message: "카카오 로그인 API 요청 실패",
+            extra: { code },
+          });
+        });
     }
   }, [code, navigate]);
 

@@ -3,6 +3,7 @@ import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { createMeetService } from "../services/createMeetService";
 import { updateMeetService } from "../services/updateMeetService";
 import { useToast } from "../../common/hooks/useToastMsg";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export const useCreateMeetSubmit = () => {
   const navigate = useNavigate();
@@ -47,31 +48,56 @@ export const useCreateMeetSubmit = () => {
       };
 
       if (isEditMode && editMeetInfo) {
-        const updateRequestData = {
-          meetIntro: meetInfo.intro,
-          meetType:
-            meetInfo.category === "기타"
-              ? meetInfo.customType
-              : meetInfo.category,
-          address: meetInfo.address,
-          addressDescription: meetInfo.addressDescription,
-          meetAt: `${meetInfo.date.replace(/\./g, "-")}T${meetInfo.time.hour.padStart(2, "0")}:${meetInfo.time.minute.padStart(2, "0")}:00`,
-          memberLimit: meetInfo.memberCount,
-          totalCost: meetInfo.hasCost ? meetInfo.cost : 0,
-        };
+        try {
+          const updateRequestData = {
+            meetIntro: meetInfo.intro,
+            meetType:
+              meetInfo.category === "기타"
+                ? meetInfo.customType
+                : meetInfo.category,
+            address: meetInfo.address,
+            addressDescription: meetInfo.addressDescription,
+            meetAt: `${meetInfo.date.replace(/\./g, "-")}T${meetInfo.time.hour.padStart(2, "0")}:${meetInfo.time.minute.padStart(2, "0")}:00`,
+            memberLimit: meetInfo.memberCount,
+            totalCost: meetInfo.hasCost ? meetInfo.cost : 0,
+          };
 
-        const updateRes = await updateMeetService(
-          meetInfo.meetId,
-          updateRequestData,
-          token
-        );
+          const updateRes = await updateMeetService(
+            meetInfo.meetId,
+            updateRequestData,
+            token
+          );
 
-        if (updateRes.success) {
-          showToast("모임이 수정되었어요!");
-          navigate(`/${meetInfo.meetId}`);
-        } else {
-          showToast("모임 수정에 실패했어요.");
+          if (updateRes.success) {
+            showToast("모임이 수정되었어요!");
+            navigate(`/${meetInfo.meetId}`);
+          } else {
+            handleError(new Error("모임 수정 실패"), {
+              type: "meet-manage",
+              page: "meet-edit",
+              message: "모임 수정 응답은 왔지만 success=false",
+              extra: {
+                updateResponse: updateRes,
+                requestData: meetInfo,
+              },
+            });
+
+            showToast("모임 수정에 실패했어요.");
+          }
+        } catch (e) {
+          handleError(e, {
+            type: "meet-manage",
+            page: "meet-edit",
+            message: "모임 수정 요청 중 오류 발생",
+            extra: {
+              requestData: meetInfo,
+            },
+          });
+          // Sentry.captureException(e);
+          console.error("모임 수정 실패:", e);
+          showToast("모임 수정 중 오류가 발생했어요.");
         }
+
         return;
       }
 
@@ -85,10 +111,25 @@ export const useCreateMeetSubmit = () => {
           resetMeetInfo();
         }, 1000);
       } else {
+        handleError(new Error("모임 생성 실패"), {
+          type: "meet-manage",
+          page: "meet-create",
+          message: "모임 생성 응답은 왔지만 success=false",
+          extra: {
+            createResponse: createRes,
+            requestData,
+          },
+        });
+
         showToast("모임 생성에 실패했어요.");
       }
-    } catch (err) {
-      console.error("모임 생성 실패:", err);
+    } catch (e) {
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 요청 중 오류 발생",
+      });
+      console.error("모임 생성 실패:", e);
       showToast("모임 생성 중 오류가 발생했어요.");
     }
   };

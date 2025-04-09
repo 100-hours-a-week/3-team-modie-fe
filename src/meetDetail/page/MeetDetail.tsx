@@ -21,11 +21,12 @@ import { joinMeetService } from "../services/joinMeetService";
 import { updatePaymentService } from "../services/updatePaymentService";
 import { meetMembers } from "../../common/types/meetType";
 import Splash from "../../common/page/Splash";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 export default function MeetDetail() {
   const { meetId } = useParams();
   const { meet } = useMeetStore();
-  const { fetchMeet } = useFetchMeet();
+  const { fetchMeet, loading } = useFetchMeet();
   const navigate = useNavigate();
 
   const { toastMessage, isToastVisible, showToast } = useToast();
@@ -43,8 +44,22 @@ export default function MeetDetail() {
     }
   }, [meetId]);
 
-  if (!meet) {
+  if (loading) {
     return <Splash />;
+  }
+
+  // 존재하지 않는 모임 접근
+  if (!meet) {
+    handleError(new Error("존재하지 않는 모임 접근"), {
+      type: "meet-detail",
+      page: "meet-detail",
+      message: "존재하지 않는 모임 접근",
+      extra: { meetId },
+    });
+
+    navigate("/");
+
+    return;
   }
 
   const handleCopyUrl = () => {
@@ -72,12 +87,19 @@ export default function MeetDetail() {
           window.location.reload();
         }, 1000);
       }
-    } catch (error: unknown) {
+    } catch (e) {
       let message = "참여에 실패했어요";
 
-      if (axios.isAxiosError(error)) {
-        message = error.response?.data?.data?.message || "참여에 실패했어요";
+      if (axios.isAxiosError(e)) {
+        message = e.response?.data?.data?.message || message;
       }
+
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-detail",
+        message: "모임 참여 실패",
+        extra: { meetId, token, message },
+      });
 
       showToast(message);
     }
@@ -227,7 +249,18 @@ export default function MeetDetail() {
                             showToast("올바르지 않은 요청입니다.");
                             return false;
                           }
-                        } catch {
+                        } catch (e) {
+                          handleError(e, {
+                            type: "meet-manage",
+                            page: "meet-detail",
+                            message: "정산 상태 변경 실패",
+                            extra: {
+                              userId: member.userId,
+                              meetId: meet.meetId,
+                              token,
+                            },
+                          });
+
                           showToast("정산 상태 변경 실패");
                           return false;
                         }

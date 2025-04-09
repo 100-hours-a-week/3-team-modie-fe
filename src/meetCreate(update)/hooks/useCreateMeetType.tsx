@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useMeetCreateValidation } from "./useMeetCreateValidation";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 /**
  * 모임 생성 페이지 1단계 커스텀 훅
@@ -61,16 +62,41 @@ export const useCreateMeetType = () => {
     if (invalid) {
       const [, key] = invalid;
       showToast(errorMessages[key]);
+
+      handleError(new Error("모임 생성 1단계 입력값 검증 실패"), {
+        type: "meet-manage",
+        page: "meet-create",
+        message: `Validation failed at /meet/create/type: missing ${key}`,
+        extra: {
+          missingField: key,
+          intro: intro,
+          selectedCategory: selectedCategory,
+          customType: customType,
+        },
+      });
       return;
     }
 
     // 저장 시 zustand store에 저장
-    setMeetInfo({
-      intro,
-      category: selectedCategory,
-      customType: selectedCategory === "기타" ? customType : "",
-      meetAt: "",
-    });
+    try {
+      setMeetInfo({
+        intro,
+        category: selectedCategory,
+        customType: selectedCategory === "기타" ? customType : "",
+        meetAt: "",
+      });
+    } catch (e) {
+      handleError(e, {
+        type: "meet-manage",
+        page: "meet-create",
+        message: "모임 생성 1단계 상태 저장 실패",
+        extra: {
+          intro,
+          selectedCategory,
+          customType,
+        },
+      });
+    }
 
     navigate("/meet/create/place");
   };
