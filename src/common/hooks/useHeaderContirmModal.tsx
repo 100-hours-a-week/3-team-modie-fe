@@ -6,7 +6,7 @@ import { getModalText } from "../../utils/getModalText";
 import { deleteMeetService } from "../../meetDetail/services/deleteMeetService";
 import { completeMeetService } from "../../meetDetail/services/completeMeetService";
 import { exitMeetService } from "../../meetDetail/services/exitMeetService";
-import * as Sentry from "@sentry/react";
+import { handleError } from "../../__sentry__/useErrorHandler";
 
 /**
  * 옵션 클릭에 대한 모달 내부 텍스트를 조정합니다.
@@ -42,8 +42,11 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
           await deleteMeetService(meetId, token);
           navigate("/");
         } catch (e) {
-          Sentry.captureException(e, {
-            tags: { feature: "meet-detail", meetId },
+          handleError(e, {
+            type: "meet-manage",
+            page: "meet-detail",
+            message: "모임 삭제 실패",
+            extra: { meetId: meetId, userToken: token },
           });
         }
         break;
@@ -52,8 +55,11 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
           await completeMeetService(meetId, token);
           navigate("/end");
         } catch (e) {
-          Sentry.captureException(e, {
-            tags: { feature: "meet-detail", meetId },
+          handleError(e, {
+            type: "meet-manage",
+            page: "meet-detail",
+            message: "모임 종료 실패",
+            extra: { meetId: meetId, userToken: token },
           });
         }
         break;
@@ -64,8 +70,11 @@ export const useHeaderConfirmModal = (meetStatus?: meetType) => {
           await exitMeetService(meetId, token);
           navigate("/");
         } catch (e) {
-          Sentry.captureException(e, {
-            tags: { feature: "meet-detail", meetId },
+          handleError(e, {
+            type: "meet-manage",
+            page: "meet-detail",
+            message: "모임 나가기 실패",
+            extra: { meetId: meetId, userToken: token },
           });
         }
         break;
