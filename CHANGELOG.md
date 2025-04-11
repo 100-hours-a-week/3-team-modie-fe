@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## <small>1.38.1 (2025-04-11)</small>
+
+* fix: Merge pull request #99 from 100-hours-a-week/hotfix/#98 ([e56d4b2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e56d4b2)), closes [#99](https://github.com/100-hours-a-week/3-team-modie-fe/issues/99) [100-hours-a-week/hotfix/#98](https://github.com/100-hours-a-week/hotfix//issues/98)
+* fix: 모임 상세 페이지에서 로그인 후 메인 페이지로 리다이렉트 되는 오류 픽스 #98 ([763bf69](https://github.com/100-hours-a-week/3-team-modie-fe/commit/763bf69)), closes [#98](https://github.com/100-hours-a-week/3-team-modie-fe/issues/98)
+* fix: 주소가 마커 인포위도우를 벗어나는 오류 픽스 #98 ([8c87b53](https://github.com/100-hours-a-week/3-team-modie-fe/commit/8c87b53)), closes [#98](https://github.com/100-hours-a-week/3-team-modie-fe/issues/98)
+
 ## 1.38.0 (2025-04-11)
 
 * Merge branch 'main' into dev ([0e4e3b5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0e4e3b5))
