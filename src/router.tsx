@@ -1,4 +1,8 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
 import Main from "./main/page/Main";
 import MeetDetail from "./meetDetail/page/MeetDetail";
 import CreateMeetType from "./meetCreate(update)/page/CreateMeetType";
@@ -94,11 +98,7 @@ export default function Routers() {
     },
     {
       path: "*",
-      element: (
-        <h3>
-          <b>NOT FOUND PAGE</b>
-        </h3>
-      ),
+      element: <Navigate to="/" replace />,
     },
   ]);
 

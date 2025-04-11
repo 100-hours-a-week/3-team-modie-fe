@@ -87,7 +87,9 @@ export default function Header({
             </>
           ) : (
             <>
-              <ArrowIcon onClick={handleBack} className="cursor-pointer" />
+              {toekn && (
+                <ArrowIcon onClick={handleBack} className="cursor-pointer" />
+              )}
               <div className="text-Title font-bold truncate max-w-[calc(100vw-160px)]">
                 {title}
               </div>
