@@ -9,8 +9,7 @@ import { useCreateMeetPlace } from "../hooks/useCreateMeetPlace";
 import { useCreateMeetStore } from "../store/useCreateMeetStore";
 import { useEffect } from "react";
 import { useGeocode } from "../../common/hooks/useGeocodes";
-import logoIcon from "../../assets/logo.svg";
-import { motion } from "framer-motion";
+import LoadingMap from "../components/LoadingMap";
 
 export default function CreateMeetPlace() {
   const {
@@ -25,6 +24,7 @@ export default function CreateMeetPlace() {
     handleSubmit,
     toastMessage,
     isToastVisible,
+    hasPermission,
   } = useCreateMeetPlace();
 
   const { meetInfo, setMeetInfo, isEditMode, editMeetInfo } =
@@ -59,20 +59,13 @@ export default function CreateMeetPlace() {
       <Header title="출발 장소 선택" />
       <ProgressBar width={50} />
 
-      {!center ? (
-        <div className="flex flex-col items-center justify-center h-[552px] bg-white/60">
-          <motion.img
-            src={logoIcon}
-            alt="loading"
-            className="w-14 h-14 mb-4"
-            animate={{ y: [0, -10, 0] }}
-            transition={{
-              duration: 1.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <div className="text-gray9e text-Caption1">지도를 불러오는 중...</div>
+      {!center || hasPermission === null ? ( // null = 로딩 중
+        <LoadingMap />
+      ) : hasPermission === false ? ( // false = 거부
+        <div className="flex items-center justify-center h-[552px] bg-white/60">
+          <div className="text-gray9e text-Body1">
+            위치 권한이 없으면 지도를 사용할 수 없어요.
+          </div>
         </div>
       ) : (
         <Map
@@ -96,9 +89,10 @@ export default function CreateMeetPlace() {
                   ? result[0].road_address.address_name
                   : result[0].address.address_name;
 
-                // Update address state
                 setMeetInfo({
                   address,
+                  lat,
+                  lng,
                 });
               }
             });

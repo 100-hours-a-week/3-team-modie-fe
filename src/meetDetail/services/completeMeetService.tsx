@@ -1,4 +1,5 @@
 import axiosInstance from "../../__api__/axiosConfig";
+import { AxiosError } from "axios";
 
 /**
  * 모임 종료 API
@@ -8,14 +9,25 @@ import axiosInstance from "../../__api__/axiosConfig";
  */
 
 export const completeMeetService = async (meetId: string, token: string) => {
-  const response = await axiosInstance.patch(
-    `/api/v1/meets/${meetId}/complete`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  try {
+    const response = await axiosInstance.patch(
+      `/api/v1/meets/${meetId}/complete`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+
+    if (axiosError.response?.status === 409) {
+      return "M015";
     }
-  );
-  return response.data;
+
+    throw axiosError;
+  }
 };
