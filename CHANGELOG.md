@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## <small>1.38.2 (2025-04-11)</small>
+
+* fix: Merge pull request #100 from 100-hours-a-week/dev ([5ee7dd4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/5ee7dd4)), closes [#100](https://github.com/100-hours-a-week/3-team-modie-fe/issues/100)
+* fix: Merge pull request #97 from 100-hours-a-week/dev ([0fc9cf1](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0fc9cf1)), closes [#97](https://github.com/100-hours-a-week/3-team-modie-fe/issues/97)
+
 ## <small>1.38.1 (2025-04-11)</small>
 
 * fix: Merge pull request #99 from 100-hours-a-week/hotfix/#98 ([e56d4b2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e56d4b2)), closes [#99](https://github.com/100-hours-a-week/3-team-modie-fe/issues/99) [100-hours-a-week/hotfix/#98](https://github.com/100-hours-a-week/hotfix//issues/98)
