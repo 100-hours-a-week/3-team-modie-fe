@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 1.38.0 (2025-04-11)
+
+* Merge branch 'main' into dev ([0e4e3b5](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0e4e3b5))
+* chore: 1.37.0 [skip ci] ([7d3af33](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7d3af33))
+* chore: 주석 제거 ([e44804b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e44804b))
+* fix: Merge pull request #94 from 100-hours-a-week/fix/#93 ([ed63f9b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ed63f9b)), closes [#94](https://github.com/100-hours-a-week/3-team-modie-fe/issues/94) [100-hours-a-week/fix/#93](https://github.com/100-hours-a-week/fix//issues/93)
+* fix: 모임 삭제, 종료, 나가기 alert 제거 ([0fe1bfd](https://github.com/100-hours-a-week/3-team-modie-fe/commit/0fe1bfd))
+* fix: 모임 생성시 장소 좌표가 즉각적으로 업데이트 되지 않는 오류 픽스 #93 ([e0792f2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e0792f2)), closes [#93](https://github.com/100-hours-a-week/3-team-modie-fe/issues/93)
+* fix: 정산 완료되지 않은 모임 종료시 alert 노출 ([672f99a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/672f99a))
+* feat: 로그인 하지 않은 사용자가 모임 상세 페이지에 접근시 ArrowIcon 안 보이도록 처리 #93 ([ff7af95](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ff7af95)), closes [#93](https://github.com/100-hours-a-week/3-team-modie-fe/issues/93)
+* feat: 존재하지 않는 페이지 접근시 메인 페이지로 리다이렉트 #93 ([d98f4e2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d98f4e2)), closes [#93](https://github.com/100-hours-a-week/3-team-modie-fe/issues/93)
+
 ## 1.37.0 (2025-04-11)
 
 * fix: Merge pull request #94 from 100-hours-a-week/fix/#93 ([ed63f9b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ed63f9b)), closes [#94](https://github.com/100-hours-a-week/3-team-modie-fe/issues/94) [100-hours-a-week/fix/#93](https://github.com/100-hours-a-week/fix//issues/93)
