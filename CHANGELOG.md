@@ -9,6 +9,9 @@
 * feat: 로그인 하지 않은 사용자가 모임 상세 페이지에 접근시 ArrowIcon 안 보이도록 처리 #93 ([ff7af95](https://github.com/100-hours-a-week/3-team-modie-fe/commit/ff7af95)), closes [#93](https://github.com/100-hours-a-week/3-team-modie-fe/issues/93)
 * feat: 존재하지 않는 페이지 접근시 메인 페이지로 리다이렉트 #93 ([d98f4e2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/d98f4e2)), closes [#93](https://github.com/100-hours-a-week/3-team-modie-fe/issues/93)
 * chore: 주석 제거 ([e44804b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e44804b))
+* fix: Merge pull request #92 from 100-hours-a-week/dev ([c4fda05](https://github.com/100-hours-a-week/3-team-modie-fe/commit/c4fda05)), closes [#92](https://github.com/100-hours-a-week/3-team-modie-fe/issues/92)
+* feat: Merge pull request #83 from 100-hours-a-week/dev ([53ef7dc](https://github.com/100-hours-a-week/3-team-modie-fe/commit/53ef7dc)), closes [#83](https://github.com/100-hours-a-week/3-team-modie-fe/issues/83)
+* feat: Merge pull request #88 from 100-hours-a-week/dev ([30d8f5c](https://github.com/100-hours-a-week/3-team-modie-fe/commit/30d8f5c)), closes [#88](https://github.com/100-hours-a-week/3-team-modie-fe/issues/88)
 
 ## <small>1.36.1 (2025-04-03)</small>
 
