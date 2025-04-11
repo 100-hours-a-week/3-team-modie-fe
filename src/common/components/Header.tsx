@@ -112,7 +112,13 @@ export default function Header({
             !meetStatus?.completedAt && statusIcon
           ) : (
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => {
+                localStorage.setItem(
+                  "afterLoginRedirect",
+                  window.location.pathname
+                );
+                navigate("/login");
+              }}
               className="px-4 py-1.5 bg-primary text-white bg-primaryDark3 text-Body2 font-semibold rounded-lg shadow-sm hover:brightness-105 transition cursor-pointer"
             >
               로그인

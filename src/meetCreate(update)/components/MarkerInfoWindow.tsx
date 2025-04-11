@@ -51,7 +51,6 @@ export default function MarkerInfoWindow({ lat, lng }: MarkerInfoWindowProps) {
             style={{
               transform: "translate(-50%, -200%)",
               wordBreak: "break-word",
-              maxWidth: "220px",
               textAlign: "center",
               boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
             }}
