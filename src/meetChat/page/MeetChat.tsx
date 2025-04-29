@@ -1,91 +1,190 @@
-import React, { useRef, useCallback, useEffect } from "react";
+import React, { useRef, useCallback, useEffect, useState } from "react";
 import Header from "../../common/components/Header";
 import { MessageList } from "../components/MessageList";
 import { EmptyMessageIndicator } from "../components/EmptyMessageIndicator";
-import ChatInput from "../components/chatInput";
-import { useChatStore } from "../hooks/useChat";
+import ChatInput from "../components/ChatInput";
+import { useChatStore } from "../store/useChatStore";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useChatSocket } from "../hooks/useChatSocket";
 import { useToast } from "../../common/hooks/useToastMsg";
 import { useChatScroll } from "../hooks/useChatScroll";
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import {
   sendChatMessage,
   NetworkError,
   AuthorizationError,
 } from "../services/messageService";
+import { useInView } from "react-intersection-observer";
+import { useMessagesInfiniteScroll } from "../hooks/useMessagesInfiniteScroll";
+import { useLoadMoreMessages } from "../hooks/useLoadMoreMessages";
 
-/**
- * 미팅 채팅 컴포넌트
- * 채팅 메시지 목록과 입력 영역을 포함
- */
 export default function MeetChat() {
   const navigate = useNavigate();
   const location = useLocation();
-  const params = useParams(); // URL 파라미터 추출을 위한 hook 추가
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-  const mainRef = useRef<HTMLDivElement>(null);
-
+  const params = useParams();
   const { showToast } = useToast();
 
-  const { messages, fetchMessages, fetchMoreMessages, hasMore, isLoading } =
-    useChatStore();
+  // DOM refs
+  const mainRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { ref: loadMoreRef, inView } = useInView({
+    threshold: 0.1, // 10% 이상 보이면 감지
+    rootMargin: "100px 0px 0px 0px", // 상단에서 100px 이전에 감지
+  });
 
+  // 상태 관리
+  const [isFirstLoadFinished, setIsFirstLoadFinished] = useState(false);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
+
+  // 상태 및 유저 정보 추출
   const locationState = location.state || {};
-  const meetIdFromParams = params.meetId; // URL 파라미터에서 meetId 추출 (/:meetId/chat 형식)
-
-  // 우선순위: URL 파라미터 > location.state
+  const meetIdFromParams = params.meetId;
   const id = meetIdFromParams || locationState.id;
   const { type, isEnd } = locationState;
-
   const CHAT_INPUT_HEIGHT = "10rem";
   const { userId, jwtToken } = useAuth();
+
+  // 채팅 소켓 연결 설정
   const { isConnected, sendMessage } = useChatSocket({
     chatId: id,
     userId,
     jwtToken,
   });
 
-  // 스크롤 관리 커스텀 훅 적용
-  const { setPrevScrollHeight, scrollToBottom } = useChatScroll({
-    messages,
-    isLoading,
-    mainRef: mainRef as React.RefObject<HTMLDivElement>,
+  // Zustand 상태 관리 (메시지 저장)
+  const { addMessages, clearMessages, messages } = useChatStore();
+
+  // 무한 스크롤 기반 메시지 가져오기 (onSuccess 콜백 추가)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useMessagesInfiniteScroll(id);
+
+  // 메시지 스크롤 제어 훅
+  const { prevScrollHeight, setPrevScrollHeight, scrollToBottom } =
+    useChatScroll({
+      messages,
+      isLoading,
+      mainRef,
+    });
+
+  // 이전 스크롤 높이와 이전 메시지 개수를 저장
+  const [prevMessageCount, setPrevMessageCount] = useState(0);
+
+  // useLoadMoreMessages 훅 사용하기
+  useLoadMoreMessages({
+    inView,
+    mainRef,
+    isFirstLoadFinished,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetchingMore,
+    fetchNextPage: async () => {
+      // 데이터를 가져오기 전에 현재 스크롤 높이와 메시지 개수 저장
+      if (mainRef.current) {
+        setPrevScrollHeight(mainRef.current.scrollHeight);
+        setPrevMessageCount(messages.length);
+      }
+
+      // fetchNextPage를 호출하고 결과를 추적
+      const result = await fetchNextPage();
+
+      // 로그를 통해 데이터 확인
+      console.log("새로 불러온 데이터:", result);
+      setLastFetchedData(result);
+
+      return result;
+    },
+    setPrevScrollHeight,
+    setIsFetchingMore,
   });
 
-  // 로그인 확인
+  // 로그인 상태 확인
   useEffect(() => {
     if (!jwtToken) {
-      localStorage.setItem("afterLoginRedirect", "/" + id + "/chat");
+      localStorage.setItem("afterLoginRedirect", `/${id}/chat`);
       showToast("로그인이 필요합니다.");
       navigate("/login");
+      return;
     }
-  }, [jwtToken, showToast, navigate]);
+  }, [jwtToken, showToast, navigate, id]);
 
-  // 메시지 로드
+  // 메시지 데이터 업데이트 - 개선된 버전
   useEffect(() => {
-    if (!id || !jwtToken) return;
-    fetchMessages(id, jwtToken);
-  }, [id, fetchMessages, jwtToken]);
+    if (!data) return;
 
-  // 무한 스크롤 감지 - 커스텀 훅 사용
-  useIntersectionObserver<HTMLDivElement>(
-    loadMoreRef as React.RefObject<HTMLDivElement>,
-    () => {
-      if (hasMore && !isLoading && id && jwtToken) {
-        if (mainRef.current) {
-          setPrevScrollHeight(mainRef.current.scrollHeight);
-        }
-        fetchMoreMessages(id, jwtToken);
+    try {
+      // 모든 페이지의 메시지를 합치기
+      const allMessages = data.pages.flatMap((page) => {
+        // 페이지가 undefined거나 메시지가 없는 경우 빈 배열 반환
+        if (!page || !page.messages) return [];
+        return page.messages;
+      });
+
+      console.log("모든 메시지:", allMessages.length);
+
+      // 메시지 ID 기준으로 고유한 메시지만 유지
+      const uniqueMessages = [
+        ...new Map(allMessages.map((msg) => [msg.chatId, msg])).values(),
+      ];
+
+      // chatId 기준으로 오름차순 정렬 (작은 ID = 오래된 메시지가 먼저)
+      uniqueMessages.sort((a, b) => a.chatId - b.chatId);
+
+      // Zustand 상태 업데이트
+      clearMessages();
+      addMessages(uniqueMessages);
+
+      // 초기 로딩 완료 후 처리
+      if (!isFirstLoadFinished && !isLoading && uniqueMessages.length > 0) {
+        setTimeout(() => {
+          scrollToBottom();
+          setIsFirstLoadFinished(true);
+        }, 100);
       }
-    },
-    { threshold: 0.1 }
-  );
+    } catch (error) {
+      console.error("메시지 처리 중 오류 발생:", error);
+    }
+  }, [
+    data,
+    clearMessages,
+    addMessages,
+    isFirstLoadFinished,
+    isLoading,
+    scrollToBottom,
+  ]);
 
-  // 메시지 전송 핸들러 - useCallback으로 최적화
+  // 이전 메시지 로드 후 스크롤 위치 조정 - 개선된 버전
+  useEffect(() => {
+    // 이전 메시지를 로드했고, 메시지 개수가 증가했을 때만 실행
+    if (
+      prevScrollHeight > 0 &&
+      mainRef.current &&
+      !isLoading &&
+      !isFetchingNextPage &&
+      messages.length > prevMessageCount &&
+      prevMessageCount > 0
+    ) {
+      // 새로운 메시지가 추가되면 발생하는 스크롤 높이 차이를 계산
+      const newScrollHeight = mainRef.current.scrollHeight;
+      const heightDifference = newScrollHeight - prevScrollHeight;
+
+      // 스크롤 위치를 조정 - 사용자가 이전과 동일한 메시지를 보도록 함
+      if (heightDifference > 0) {
+        console.log(`스크롤 조정: ${heightDifference}px 만큼 조정`);
+        mainRef.current.scrollTop = heightDifference;
+      }
+
+      // 상태 초기화
+      setPrevMessageCount(0);
+    }
+  }, [
+    messages.length,
+    prevScrollHeight,
+    isLoading,
+    isFetchingNextPage,
+    prevMessageCount,
+  ]);
+
+  // 메시지 전송 핸들러
   const handleSendMessage = useCallback(
     async (msg: string) => {
       if (!jwtToken) {
@@ -95,7 +194,8 @@ export default function MeetChat() {
 
       try {
         await sendChatMessage(sendMessage, msg, jwtToken);
-        // 성공 시 스크롤은 메시지 목록 변화 감지 시 자동으로 처리됨
+        // 메시지가 전송되면 자동으로 스크롤 내리기
+        setTimeout(() => scrollToBottom(), 100);
       } catch (error) {
         console.error("메시지 전송 오류:", error);
 
@@ -108,7 +208,7 @@ export default function MeetChat() {
         }
       }
     },
-    [jwtToken, sendMessage, showToast]
+    [jwtToken, sendMessage, showToast, scrollToBottom]
   );
 
   return (
@@ -116,27 +216,30 @@ export default function MeetChat() {
       <Header title={type || "채팅방"} canGoMeetDetail={true} meetId={id} />
       <main
         ref={mainRef}
-        className="relative flex-1 overflow-y-auto mt-3"
-        style={{ paddingBottom: CHAT_INPUT_HEIGHT }}
+        className="relative flex-1 overflow-y-auto mt-3 custom-scrollbar"
+        style={{
+          marginBottom: `${CHAT_INPUT_HEIGHT}`,
+        }}
       >
-        {/* 더 불러오기 위한 요소 (화면 상단) */}
         <div className="px-5">
+          {/* 상단 감지 트리거 (이전 메시지 불러오기) */}
           <div
             ref={loadMoreRef}
             className="h-10 w-full flex items-center justify-center"
           >
-            {isLoading && (
+            {isFetchingNextPage && (
               <div className="text-gray-500 text-sm">
                 이전 메시지 불러오는 중...
               </div>
             )}
-            {!hasMore && messages.length > 0 && (
+            {!hasNextPage && messages.length > 0 && (
               <div className="text-gray-500 text-sm">
                 이전 메시지가 없습니다
               </div>
             )}
           </div>
-          {/* 조건부 렌더링 최적화 - 메모이제이션된 컴포넌트 사용 */}
+
+          {/* 메시지 목록 렌더링 */}
           {messages.length === 0 ? (
             <EmptyMessageIndicator />
           ) : (
@@ -144,6 +247,8 @@ export default function MeetChat() {
           )}
           <div ref={scrollRef} />
         </div>
+
+        {/* 채팅 입력창 */}
         <ChatInput
           isDisabled={!!isEnd || !isConnected}
           onSend={handleSendMessage}
