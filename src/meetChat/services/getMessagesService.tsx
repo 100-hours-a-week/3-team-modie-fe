@@ -12,7 +12,5 @@ export const getMessagesService = async (
     },
   });
 
-  console.log("📨 getMessagesService response:", response.data);
-
   return response.data;
 };

@@ -24,8 +24,6 @@ export const useMessagesInfiniteScroll = (meetId: string | null) => {
       if (!meetId) throw new Error("meetId is required");
       if (!token) throw new Error("token is missing");
 
-      console.log("pageParam 값:", pageParam);
-
       // 초기 요청 or 이전 메시지 불러오기
       const response =
         pageParam === null
@@ -44,7 +42,6 @@ export const useMessagesInfiniteScroll = (meetId: string | null) => {
 
       // 데이터가 있는 경우 처리
       const sortedMessages = [...data].reverse(); // 시간순 정렬
-      console.log("받은 메시지 개수:", data.length);
 
       return {
         messages: sortedMessages,
