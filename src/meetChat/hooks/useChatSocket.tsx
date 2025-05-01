@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Client } from "@stomp/stompjs";
-import { useChatStore } from "./useChat";
+import { useChatStore } from "../store/useChatStore";
 
 interface UseChatSocketProps {
   chatId: string | null;
@@ -74,7 +74,7 @@ export const useChatSocket = ({
     return () => {
       if (client.active) client.deactivate();
     };
-  }, [chatId, addMessage, userId]); // processedMsgIds 제거됨
+  }, [jwtToken, chatId, addMessage, userId]); // processedMsgIds 제거됨
 
   const sendMessage = useCallback(
     (message: string, jwtToken: string | null) => {
