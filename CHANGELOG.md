@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.39.0 (2025-05-13)
+
+* feat: Merge pull request #103 from 100-hours-a-week/feature/#102 ([948632a](https://github.com/100-hours-a-week/3-team-modie-fe/commit/948632a)), closes [#103](https://github.com/100-hours-a-week/3-team-modie-fe/issues/103) [100-hours-a-week/feature/#102](https://github.com/100-hours-a-week/feature//issues/102)
+* feat: tanstack query를 이용한 채팅 무한 스크롤 구현 #102 ([7c0477b](https://github.com/100-hours-a-week/3-team-modie-fe/commit/7c0477b)), closes [#102](https://github.com/100-hours-a-week/3-team-modie-fe/issues/102)
+* feat: 커스텀 훅 분리 및 주석 제거 #102 ([aac91d4](https://github.com/100-hours-a-week/3-team-modie-fe/commit/aac91d4)), closes [#102](https://github.com/100-hours-a-week/3-team-modie-fe/issues/102)
+* chore: react-intersection-observer 라이브러리 설치 #102 ([aed6fba](https://github.com/100-hours-a-week/3-team-modie-fe/commit/aed6fba)), closes [#102](https://github.com/100-hours-a-week/3-team-modie-fe/issues/102)
+
 ## <small>1.38.1 (2025-04-11)</small>
 
 * fix: Merge pull request #99 from 100-hours-a-week/hotfix/#98 ([e56d4b2](https://github.com/100-hours-a-week/3-team-modie-fe/commit/e56d4b2)), closes [#99](https://github.com/100-hours-a-week/3-team-modie-fe/issues/99) [100-hours-a-week/hotfix/#98](https://github.com/100-hours-a-week/hotfix//issues/98)
